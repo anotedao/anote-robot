@@ -11,6 +11,7 @@ type Config struct {
 	Dev            bool   `json:"dev"`
 	Debug          bool   `json:"debug"`
 	TelegramAPIKey string `json:"telegram_api_key"`
+	PostgreSQL     string `json:"postgre_sql"`
 }
 
 // Load method loads configuration file to Config struct
