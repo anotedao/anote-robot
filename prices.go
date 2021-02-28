@@ -62,7 +62,6 @@ func (pc *PriceClient) start() {
 				log.Printf("[PriceClient.start] Error: %s", err.Error())
 			} else {
 				pc.Prices = p
-				log.Println(pc.Prices)
 			}
 			time.Sleep(time.Minute * 15)
 		}
