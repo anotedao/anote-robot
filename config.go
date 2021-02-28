@@ -8,10 +8,12 @@ import (
 
 // Config struct holds all our configuration
 type Config struct {
-	Dev            bool   `json:"dev"`
-	Debug          bool   `json:"debug"`
-	TelegramAPIKey string `json:"telegram_api_key"`
-	PostgreSQL     string `json:"postgre_sql"`
+	Dev             bool   `json:"dev"`
+	Debug           bool   `json:"debug"`
+	TelegramAPIKey  string `json:"telegram_api_key"`
+	PostgreSQL      string `json:"postgre_sql"`
+	WavesNodeAPIKey string `json:"waves_node_api_key"`
+	WavesNodeHost   string `json:"waves_node_host"`
 }
 
 // Load method loads configuration file to Config struct
