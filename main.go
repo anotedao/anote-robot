@@ -3,13 +3,12 @@ package main
 import (
 	"github.com/anonutopia/gowaves"
 	"gopkg.in/tucnak/telebot.v2"
-	tb "gopkg.in/tucnak/telebot.v2"
 	"gorm.io/gorm"
 )
 
 var conf *Config
 
-var b *telebot.Bot
+var bot *telebot.Bot
 
 var db *gorm.DB
 
@@ -22,7 +21,7 @@ var pc *PriceClient
 func main() {
 	conf = initConfig()
 
-	b = initTelegramBot()
+	bot = initTelegramBot()
 
 	db = initDb()
 
@@ -30,9 +29,7 @@ func main() {
 
 	pc = initPriceClient()
 
-	b.Handle("/hello", func(m *tb.Message) {
-		b.Send(m.Sender, string(m.Text))
-	})
+	initCommands()
 
-	b.Start()
+	bot.Start()
 }
