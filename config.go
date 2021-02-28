@@ -17,11 +17,11 @@ type Config struct {
 }
 
 // Load method loads configuration file to Config struct
-func (sc *Config) Load(configFile string) {
+func (sc *Config) load(configFile string) {
 	file, err := os.Open(configFile)
 
 	if err != nil {
-		log.Printf("[Config.Load] Got error while opening config file: %v", err)
+		log.Printf("[Config.load] Got error while opening config file: %v", err)
 	}
 
 	decoder := json.NewDecoder(file)
@@ -29,12 +29,12 @@ func (sc *Config) Load(configFile string) {
 	err = decoder.Decode(&sc)
 
 	if err != nil {
-		log.Printf("[Config.Load] Error while decoding JSON: %v", err)
+		log.Printf("[Config.load] Error while decoding JSON: %v", err)
 	}
 }
 
 func initConfig() *Config {
 	c := &Config{}
-	c.Load("config.json")
+	c.load("config.json")
 	return c
 }
