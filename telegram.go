@@ -10,8 +10,9 @@ import (
 
 func initTelegramBot() *telebot.Bot {
 	b, err := tb.NewBot(tb.Settings{
-		Token:  conf.TelegramAPIKey,
-		Poller: &tb.LongPoller{Timeout: 10 * time.Second},
+		Token:   conf.TelegramAPIKey,
+		Poller:  &tb.LongPoller{Timeout: T_POLLER_TIMEOUT * time.Second},
+		Verbose: conf.Debug,
 	})
 
 	if err != nil {

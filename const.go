@@ -19,4 +19,7 @@ const (
 	T_ANON_OPS       = -1001213539865
 	T_ANON_SHOUT     = -1001453693349
 	T_ANON_TEAM      = -1001280228955
+
+	// Telegram poller timeout in seconds
+	T_POLLER_TIMEOUT = 30
 )
