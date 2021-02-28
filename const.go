@@ -6,4 +6,17 @@ const (
 
 	// Url for crypo prices
 	PRICES_URL = "https://min-api.cryptocompare.com/data/price?fsym=EUR&tsyms=WAVES,BTC,ETH"
+
+	// Languages
+	LANG    = "en-US"
+	LANG_HR = "hr"
+
+	// Telegram groups
+	T_ANON_BALKAN    = -1001161265502
+	T_ANON           = -1001361489843
+	T_ANON_TAXI      = -1001422544298
+	T_ANON_TAXI_PRIV = -1001271198034
+	T_ANON_OPS       = -1001213539865
+	T_ANON_SHOUT     = -1001453693349
+	T_ANON_TEAM      = -1001280228955
 )
