@@ -29,7 +29,13 @@ func statsCommand(m *tb.Message) {
 	if err != nil {
 		log.Println(err.Error())
 	}
-	balance := abr.Balance / int(SATINBTC)
+
+	abr2, err := anc.AddressesBalance(GATEWAY_ADDR)
+	if err != nil {
+		log.Println(err.Error())
+	}
+
+	balance := (abr.Balance / int(SATINBTC)) + (abr2.Balance / int(SATINBTC))
 	circulation := mined - int64(balance)
 
 	stats := fmt.Sprintf(
