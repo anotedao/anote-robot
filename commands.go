@@ -11,6 +11,6 @@ func initCommands() {
 }
 
 func helloCommand(m *tb.Message) {
-	prices := fmt.Sprintf("%#v", pc.Prices)
-	bot.Send(m.Sender, prices)
+	prices := fmt.Sprintf("Well, hello %s!", m.Sender.FirstName)
+	bot.Send(m.Chat, prices)
 }
