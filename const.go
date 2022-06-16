@@ -22,4 +22,6 @@ const (
 
 	// Telegram poller timeout in seconds
 	T_POLLER_TIMEOUT = 30
+
+	COMMUNITY_ADDR = "3AVTze8bR1SqqMKv3uLedrnqCuWpdU7GZwX"
 )
