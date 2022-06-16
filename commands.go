@@ -32,6 +32,11 @@ func statsCommand(m *tb.Message) {
 	balance := abr.Balance / int(SATINBTC)
 	circulation := mined - int64(balance)
 
-	stats := fmt.Sprintf("<u><b>🚀 Anote Basic Stats</b></u>\n\nMined: %s ANOTE\nCommunity: %s ANOTE\nIn Circulation: %s ANOTE", humanize.Comma(mined), humanize.Comma(int64(balance)), humanize.Comma(circulation))
+	stats := fmt.Sprintf(
+		"<u><b>🚀 Anote Basic Stats</b></u>\n\nMined: %s ANOTE\nCommunity: %s ANOTE\nIn Circulation: %s ANOTE",
+		humanize.Comma(mined),
+		humanize.Comma(int64(balance)),
+		humanize.Comma(circulation))
+
 	bot.Send(m.Chat, stats)
 }
