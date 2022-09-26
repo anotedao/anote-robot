@@ -3,6 +3,8 @@ package main
 import (
 	"fmt"
 	"log"
+	"strconv"
+	"strings"
 
 	"github.com/dustin/go-humanize"
 	tb "gopkg.in/tucnak/telebot.v2"
@@ -10,12 +12,32 @@ import (
 
 func initCommands() {
 	bot.Handle("/hello", helloCommand)
+	bot.Handle("/start", startCommand)
 	bot.Handle("/stats", statsCommand)
 }
 
 func helloCommand(m *tb.Message) {
 	hello := fmt.Sprintf("Well, hello %s!", m.Sender.FirstName)
 	bot.Send(m.Chat, hello)
+}
+
+func startCommand(m *tb.Message) {
+	split := strings.Split(m.Text, " ")
+	response := ""
+
+	if len(split) == 2 {
+		telId := strconv.Itoa(int(m.Chat.ID))
+		encTelegram := EncryptMessage(telId)
+		err := dataTransaction(split[1], &encTelegram, nil, nil)
+		if err != nil {
+			log.Println(err)
+		}
+		response = "You have successfully connected your anote.one wallet to the bot."
+	} else {
+		response = "Please run this bot from anote.one wallet!"
+	}
+
+	bot.Send(m.Chat, response)
 }
 
 func statsCommand(m *tb.Message) {

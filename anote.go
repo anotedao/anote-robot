@@ -6,8 +6,8 @@ import (
 
 func initAnote() *gowaves.WavesNodeClient {
 	anc := &gowaves.WavesNodeClient{
-		Host: "http://localhost",
-		Port: 6869,
+		Host: AnoteNodeURL,
+		Port: 443,
 	}
 
 	return anc

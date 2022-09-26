@@ -24,5 +24,15 @@ func main() {
 
 	anc = initAnote()
 
+	// encId, _ := getData("3ANmnLHt8mR9c36mdfQVpBtxUs8z1mMAHQW")
+	// telId := DecryptMessage(encId.(string))
+	// idNum, _ := strconv.Atoi(telId)
+	// // rec := telebot.Recipient
+	// rec := &telebot.Chat{
+	// 	ID: int64(idNum),
+	// }
+
+	// bot.Send(rec, "hello world")
+
 	bot.Start()
 }

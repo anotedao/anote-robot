@@ -26,4 +26,10 @@ const (
 	COMMUNITY_ADDR = "3AVTze8bR1SqqMKv3uLedrnqCuWpdU7GZwX"
 
 	GATEWAY_ADDR = "3AQT89sRrWHqPSwrpfJAj3Yey7BCBTAy4jT"
+
+	// AnoteNodeURL is an URL for Anote Node
+	AnoteNodeURL = "https://nodes.anote.digital"
+
+	// Fee is regular fee amount
+	Fee = 100000
 )
