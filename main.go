@@ -34,5 +34,7 @@ func main() {
 
 	// bot.Send(rec, "hello world")
 
+	// dataTransaction("3AKGP29V8Pjh5VekzXq1SnwWXjMkQm7Zf9h", nil, nil, nil)
+
 	bot.Start()
 }
