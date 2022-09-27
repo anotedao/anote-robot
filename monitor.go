@@ -69,7 +69,10 @@ func (m *Monitor) isSending(miner proto.DataEntry) bool {
 
 	// log.Println(prettyPrint(dbminer))
 
-	if (int64(height)-minerHeight.(int64)) > 1440 && (int64(height)-minerHeight.(int64)) < 2880 && time.Since(dbminer.LastNotification) > time.Hour*24 {
+	if (int64(height)-minerHeight.(int64)) > 1440 &&
+		(int64(height)-minerHeight.(int64)) < 2880 &&
+		time.Since(dbminer.LastNotification) > time.Hour*24 {
+
 		dbminer.LastNotification = time.Now()
 		db.Save(dbminer)
 
