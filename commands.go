@@ -32,7 +32,7 @@ func startCommand(m *tb.Message) {
 		if err != nil {
 			log.Println(err)
 		}
-		response = "You have successfully connected your anote.one wallet to the bot. Please restart the wallet to start mining!"
+		response = "You have successfully connected your anote.one wallet to the bot. Please restart or reload the wallet to start mining!"
 	} else {
 		response = "Please run this bot from anote.one wallet!"
 	}
