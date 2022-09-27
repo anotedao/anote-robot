@@ -147,20 +147,29 @@ func dataTransaction(key string, valueStr *string, valueInt *int64, valueBool *b
 	return nil
 }
 
-func getData(key string) (interface{}, error) {
+func getData(key string, address *string) (interface{}, error) {
+	var a proto.WavesAddress
+
 	wc, err := client.NewClient(client.Options{BaseUrl: AnoteNodeURL, Client: &http.Client{}})
 	if err != nil {
 		log.Println(err)
 	}
 
-	pk, err := crypto.NewPublicKeyFromBase58(conf.PublicKey)
-	if err != nil {
-		return nil, err
-	}
+	if address == nil {
+		pk, err := crypto.NewPublicKeyFromBase58(conf.PublicKey)
+		if err != nil {
+			return nil, err
+		}
 
-	a, err := proto.NewAddressFromPublicKey(55, pk)
-	if err != nil {
-		return nil, err
+		a, err = proto.NewAddressFromPublicKey(55, pk)
+		if err != nil {
+			return nil, err
+		}
+	} else {
+		a, err = proto.NewAddressFromString(*address)
+		if err != nil {
+			return nil, err
+		}
 	}
 
 	ad, _, err := wc.Addresses.AddressesDataKey(context.Background(), a, key)
@@ -181,4 +190,22 @@ func getData(key string) (interface{}, error) {
 	}
 
 	return "", nil
+}
+
+func getHeight() uint64 {
+	height := uint64(0)
+
+	cl, err := client.NewClient(client.Options{BaseUrl: AnoteNodeURL, Client: &http.Client{}})
+	if err != nil {
+		log.Println(err)
+	}
+
+	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
+	defer cancel()
+
+	bh, _, err := cl.Blocks.Height(ctx)
+
+	height = bh.Height
+
+	return height
 }

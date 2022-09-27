@@ -32,4 +32,9 @@ const (
 
 	// Fee is regular fee amount
 	Fee = 100000
+
+	// MonitorTick interval in seconds
+	MonitorTick = 10
+
+	MobileAddress = "3ANzidsKXn9a1s9FEbWA19hnMgV9zZ2RB9a"
 )
