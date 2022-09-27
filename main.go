@@ -33,5 +33,7 @@ func main() {
 
 	// dataTransaction("3A9Rb3t91eHg1ypsmBiRth4Ld9ZytGwZe9p", nil, nil, nil)
 
+	log.Println("AnoteRobot started.")
+
 	bot.Start()
 }

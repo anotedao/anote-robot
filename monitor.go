@@ -65,7 +65,7 @@ func (m *Monitor) isSending(miner proto.DataEntry) bool {
 	dbminer := &Miner{}
 	db.FirstOrCreate(dbminer, Miner{Address: key})
 
-	// log.Printf("%s %d %d", key, minerHeight.(int64), height)
+	// log.Printf("%s %d %d", key, minerHeight.(int64), int64(height)-minerHeight.(int64))
 
 	// log.Println(prettyPrint(dbminer))
 
