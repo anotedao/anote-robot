@@ -46,8 +46,8 @@ func (m *Monitor) loadMiners() {
 func (m *Monitor) sendNotifications() {
 	for _, miner := range m.Miners {
 		if m.isSending(miner) {
-			// m.sendNotification(miner)
-			log.Println(miner)
+			m.sendNotification(miner)
+			log.Println(miner.GetKey())
 		}
 	}
 }
@@ -56,12 +56,23 @@ func (m *Monitor) isSending(miner proto.DataEntry) bool {
 	key := miner.GetKey()
 	height := getHeight()
 	mobile := MobileAddress
+
 	minerHeight, err := getData(key, &mobile)
 	if err != nil {
 		log.Println(err)
 	}
 
-	if (int64(height) - minerHeight.(int64)) > 1440 {
+	dbminer := &Miner{}
+	db.FirstOrCreate(dbminer, Miner{Address: key})
+
+	// log.Printf("%s %d %d", key, minerHeight.(int64), height)
+
+	// log.Println(prettyPrint(dbminer))
+
+	if (int64(height)-minerHeight.(int64)) > 1440 && dbminer.NotificationDay != uint64(time.Now().Day()) {
+		dbminer.NotificationDay = uint64(time.Now().Day())
+		db.Save(dbminer)
+
 		return true
 	}
 
@@ -83,7 +94,10 @@ func (m *Monitor) sendNotification(miner proto.DataEntry) {
 		ID: int64(idNum),
 	}
 
-	bot.Send(rec, notification)
+	_, err = bot.Send(rec, notification)
+	if err != nil {
+		log.Println(err)
+	}
 }
 
 func (m *Monitor) start() {

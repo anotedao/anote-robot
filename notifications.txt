@@ -1,0 +1,5 @@
+- regular mining cycle notification
+- first notification if mining not started
+- notification after 24 hours if mining not (re)started
+- notification after a week if mining not (re)started
+- notification after a month if mining not (re)started
