@@ -6,7 +6,7 @@ require (
 	github.com/anonutopia/gowaves v1.0.27
 	github.com/dustin/go-humanize v1.0.0
 	github.com/wavesplatform/gowaves v0.10.1
-	gopkg.in/tucnak/telebot.v2 v2.5.0
+	gopkg.in/telebot.v3 v3.0.0
 	gorm.io/driver/sqlite v1.3.6
 	gorm.io/gorm v1.23.10
 )

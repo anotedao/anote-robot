@@ -4,14 +4,13 @@ import (
 	"log"
 	"time"
 
-	"gopkg.in/tucnak/telebot.v2"
-	tb "gopkg.in/tucnak/telebot.v2"
+	"gopkg.in/telebot.v3"
 )
 
 func initTelegramBot() *telebot.Bot {
-	b, err := tb.NewBot(tb.Settings{
+	b, err := telebot.NewBot(telebot.Settings{
 		Token:     conf.TelegramAPIKey,
-		Poller:    &tb.LongPoller{Timeout: T_POLLER_TIMEOUT * time.Second},
+		Poller:    &telebot.LongPoller{Timeout: T_POLLER_TIMEOUT * time.Second},
 		Verbose:   false,
 		ParseMode: "html",
 	})

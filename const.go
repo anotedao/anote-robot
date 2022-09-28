@@ -4,13 +4,6 @@ const (
 	// Number of satoshis in 1 bitcoin
 	SATINBTC = uint64(100000000)
 
-	// Url for crypo prices
-	PRICES_URL = "https://min-api.cryptocompare.com/data/price?fsym=EUR&tsyms=WAVES,BTC,ETH"
-
-	// Languages
-	LANG    = "en-US"
-	LANG_HR = "hr"
-
 	// Telegram groups
 	T_ANON_BALKAN    = -1001161265502
 	T_ANON           = -1001361489843
@@ -37,4 +30,8 @@ const (
 	MonitorTick = 10
 
 	MobileAddress = "3ANzidsKXn9a1s9FEbWA19hnMgV9zZ2RB9a"
+
+	TelAnoteToday = -1001453693349
+
+	TelDevAnoteToday = -1001631518083
 )

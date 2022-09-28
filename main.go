@@ -4,7 +4,7 @@ import (
 	"log"
 
 	"github.com/anonutopia/gowaves"
-	"gopkg.in/tucnak/telebot.v2"
+	"gopkg.in/telebot.v3"
 	"gorm.io/gorm"
 )
 
@@ -31,7 +31,7 @@ func main() {
 
 	initMonitor()
 
-	// dataTransaction("3A9Rb3t91eHg1ypsmBiRth4Ld9ZytGwZe9p", nil, nil, nil)
+	initAnoteToday()
 
 	log.Println("AnoteRobot started.")
 

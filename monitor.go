@@ -11,7 +11,7 @@ import (
 	"github.com/wavesplatform/gowaves/pkg/client"
 	"github.com/wavesplatform/gowaves/pkg/crypto"
 	"github.com/wavesplatform/gowaves/pkg/proto"
-	"gopkg.in/tucnak/telebot.v2"
+	"gopkg.in/telebot.v3"
 )
 
 type Monitor struct {

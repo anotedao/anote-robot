@@ -7,7 +7,7 @@ import (
 	"strings"
 
 	"github.com/dustin/go-humanize"
-	tb "gopkg.in/tucnak/telebot.v2"
+	"gopkg.in/telebot.v3"
 )
 
 func initCommands() {
@@ -16,12 +16,15 @@ func initCommands() {
 	bot.Handle("/stats", statsCommand)
 }
 
-func helloCommand(m *tb.Message) {
+func helloCommand(c telebot.Context) error {
+	m := c.Message()
 	hello := fmt.Sprintf("Well, hello %s!", m.Sender.FirstName)
 	bot.Send(m.Chat, hello)
+	return nil
 }
 
-func startCommand(m *tb.Message) {
+func startCommand(c telebot.Context) error {
+	m := c.Message()
 	split := strings.Split(m.Text, " ")
 	response := ""
 
@@ -38,9 +41,12 @@ func startCommand(m *tb.Message) {
 	}
 
 	bot.Send(m.Chat, response)
+
+	return nil
 }
 
-func statsCommand(m *tb.Message) {
+func statsCommand(c telebot.Context) error {
+	m := c.Message()
 	bh, err := anc.BlocksHeight()
 	if err != nil {
 		log.Println(err.Error())
@@ -67,4 +73,6 @@ func statsCommand(m *tb.Message) {
 		humanize.Comma(circulation))
 
 	bot.Send(m.Chat, stats)
+
+	return nil
 }

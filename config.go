@@ -12,6 +12,7 @@ type Config struct {
 	Password       []byte `json:"password"`
 	PublicKey      string `json:"public_key"`
 	PrivateKey     string `json:"private_key"`
+	Dev            bool   `json:"dev"`
 }
 
 // Load method loads configuration file to Config struct
