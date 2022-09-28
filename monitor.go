@@ -57,10 +57,10 @@ func (m *Monitor) isSending(miner proto.DataEntry) bool {
 	height := getHeight()
 	mobile := MobileAddress
 
-	minerHeight, err := getData(key, &mobile)
-	if err != nil {
-		log.Println(err)
-	}
+	minerHeight, _ := getData(key, &mobile)
+	// if err != nil {
+	// 	log.Println(err)
+	// }
 
 	dbminer := &Miner{}
 	db.FirstOrCreate(dbminer, Miner{Address: key})
@@ -69,7 +69,8 @@ func (m *Monitor) isSending(miner proto.DataEntry) bool {
 
 	// log.Println(prettyPrint(dbminer))
 
-	if (int64(height)-minerHeight.(int64)) > 1440 &&
+	if minerHeight != nil &&
+		(int64(height)-minerHeight.(int64)) > 1440 &&
 		(int64(height)-minerHeight.(int64)) < 2880 &&
 		time.Since(dbminer.LastNotification) > time.Hour*24 {
 
