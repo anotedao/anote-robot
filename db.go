@@ -21,7 +21,7 @@ func initDb() *gorm.DB {
 		log.Println(err)
 	}
 
-	if err := db.AutoMigrate(&Miner{}); err != nil {
+	if err := db.AutoMigrate(&Miner{}, &KeyValue{}); err != nil {
 		panic(err.Error())
 	}
 

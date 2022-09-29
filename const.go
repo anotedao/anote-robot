@@ -34,4 +34,6 @@ const (
 	TelAnoteToday = -1001453693349
 
 	TelDevAnoteToday = -1001631518083
+
+	SendAdHour = 8
 )
