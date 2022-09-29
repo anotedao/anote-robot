@@ -36,4 +36,6 @@ const (
 	TelDevAnoteToday = -1001631518083
 
 	SendAdHour = 8
+
+	Port = 5002
 )
