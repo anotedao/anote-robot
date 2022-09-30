@@ -11,16 +11,29 @@ import (
 )
 
 func initCommands() {
-	bot.Handle("/hello", helloCommand)
+	bot.Handle("/help", helpCommand)
 	bot.Handle("/start", startCommand)
 	bot.Handle("/stats", statsCommand)
 }
 
-func helloCommand(c telebot.Context) error {
+func helpCommand(c telebot.Context) error {
 	m := c.Message()
-	hello := fmt.Sprintf("Well, hello %s!", m.Sender.FirstName)
-	bot.Send(m.Chat, hello)
-	return nil
+
+	help := `⭕️ <b><u>Anote Mining Tutorial</u></b>
+	
+	To start mining Anote, follow these simple steps:
+
+	  - read daily mining code on @AnoteToday Telegram channel
+	  - open anote.one wallet
+	  - click blue briefcase icon
+	  - enter daily mining code and captcha
+	  - click mine button
+	  
+	And that's it, you are now mining Anote. 🚀`
+
+	_, err := bot.Send(m.Chat, help)
+
+	return err
 }
 
 func startCommand(c telebot.Context) error {
@@ -67,7 +80,7 @@ func statsCommand(c telebot.Context) error {
 	circulation := mined - int64(balance)
 
 	stats := fmt.Sprintf(
-		"<u><b>🚀 Anote Basic Stats</b></u>\n\nMined: %s ANOTE\nCommunity: %s ANOTE\nIn Circulation: %s ANOTE",
+		"⭕️ <u><b>Anote Basic Stats</b></u>\n\nMined: %s ANOTE\nCommunity: %s ANOTE\nIn Circulation: %s ANOTE",
 		humanize.Comma(mined),
 		humanize.Comma(int64(balance)),
 		humanize.Comma(circulation))

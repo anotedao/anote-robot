@@ -1,2 +1,2 @@
-hello - Greets user
+help - Learn how to mine Anote.
 stats - Get Basic Anote statistics.
