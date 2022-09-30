@@ -28,6 +28,7 @@ func helpCommand(c telebot.Context) error {
 	  - click blue briefcase icon
 	  - enter daily mining code and captcha
 	  - click mine button
+	  - join @AnoteDigital group for help and support
 	  
 	And that's it, you are now mining Anote. 🚀`
 
