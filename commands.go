@@ -76,7 +76,17 @@ func statsCommand(c telebot.Context) error {
 		log.Println(err.Error())
 	}
 
-	balance := (abr.Balance / int(SATINBTC)) + (abr2.Balance / int(SATINBTC))
+	abr3, err := anc.AddressesBalance(MobileAddress)
+	if err != nil {
+		log.Println(err.Error())
+	}
+
+	abr4, err := anc.AddressesBalance(TelegramAddress)
+	if err != nil {
+		log.Println(err.Error())
+	}
+
+	balance := (abr.Balance / int(SATINBTC)) + (abr2.Balance / int(SATINBTC)) + (abr3.Balance / int(SATINBTC)) + (abr4.Balance / int(SATINBTC))
 	circulation := mined - int64(balance)
 
 	stats := fmt.Sprintf(
