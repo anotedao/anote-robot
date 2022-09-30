@@ -51,10 +51,10 @@ func startCommand(c telebot.Context) error {
 			if err != nil {
 				log.Println(err)
 			}
-			response = "You have successfully connected your anote.one wallet to the bot. 🚀 Please restart or reload the wallet to start mining!\n\nYou can find daily mining code in @AnoteToday channel."
+			response = "You have successfully connected your anote.one wallet to the bot. 🚀 Please restart or reload the wallet to start mining!\n\nYou can find daily mining code in @AnoteToday channel.\n\nJoin @AnoteDigital group for help and support."
 		}
 	} else {
-		response = "Please run this bot from anote.one wallet (click the blue briefcase icon and then connect Telegram)!"
+		response = "Please run this bot from anote.one wallet (click the blue briefcase icon and then connect Telegram)!\n\nJoin @AnoteDigital group for help and support."
 	}
 
 	bot.Send(m.Chat, response)
