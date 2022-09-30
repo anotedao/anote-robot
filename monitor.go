@@ -104,6 +104,17 @@ func (m *Monitor) sendNotification(miner proto.DataEntry) {
 	}
 }
 
+func (m *Monitor) minerExists(telId string) bool {
+	for _, mnr := range m.Miners {
+		mnrTelId := DecryptMessage(mnr.ToProtobuf().GetStringValue())
+		if mnrTelId == telId {
+			return true
+		}
+	}
+
+	return false
+}
+
 func (m *Monitor) start() {
 	m.loadMiners()
 
@@ -121,7 +132,8 @@ func (m *Monitor) start() {
 	}
 }
 
-func initMonitor() {
+func initMonitor() *Monitor {
 	m := &Monitor{}
 	go m.start()
+	return m
 }

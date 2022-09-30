@@ -19,6 +19,8 @@ var db *gorm.DB
 
 var m *macaron.Macaron
 
+var monitor *Monitor
+
 func main() {
 	log.SetFlags(log.LstdFlags | log.Lshortfile)
 
@@ -34,7 +36,7 @@ func main() {
 
 	db = initDb()
 
-	initMonitor()
+	monitor = initMonitor()
 
 	initAnoteToday()
 
