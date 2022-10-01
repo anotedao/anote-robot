@@ -2,6 +2,7 @@ package main
 
 import (
 	"log"
+	"net/url"
 	"time"
 
 	"gopkg.in/telebot.v3"
@@ -31,6 +32,9 @@ func logTelegram(message string) {
 }
 
 func logTelegramService(message string) error {
+	m, _ := url.QueryUnescape(message)
+	message, _ = url.PathUnescape(m)
+
 	rec := &telebot.Chat{
 		ID: int64(TelAnonOps),
 	}
