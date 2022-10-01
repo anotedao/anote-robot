@@ -12,14 +12,14 @@ type AnoteToday struct {
 }
 
 func (at *AnoteToday) sendAd(ad string) {
-	var channeId int64
+	var channelId int64
 	if conf.Dev {
-		channeId = TelDevAnoteToday
+		channelId = TelDevAnoteToday
 	} else {
-		channeId = TelAnoteToday
+		channelId = TelAnoteToday
 	}
 	r := &telebot.Chat{
-		ID: channeId,
+		ID: channelId,
 	}
 
 	bot.Send(r, ad)
