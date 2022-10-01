@@ -19,6 +19,7 @@ func initDb() *gorm.DB {
 
 	if err != nil {
 		log.Println(err)
+		logTelegram(err.Error())
 	}
 
 	if err := db.AutoMigrate(&Miner{}, &KeyValue{}); err != nil {

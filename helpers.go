@@ -7,9 +7,12 @@ import (
 	"crypto/rand"
 	"encoding/base64"
 	"encoding/json"
+	"fmt"
 	"io"
 	"log"
 	"net/http"
+	"path"
+	"runtime"
 	"time"
 
 	"github.com/wavesplatform/gowaves/pkg/client"
@@ -22,12 +25,14 @@ func EncryptMessage(message string) string {
 	block, err := aes.NewCipher(conf.Password)
 	if err != nil {
 		log.Println(err)
+		logTelegram(err.Error())
 	}
 
 	cipherText := make([]byte, aes.BlockSize+len(byteMsg))
 	iv := cipherText[:aes.BlockSize]
 	if _, err = io.ReadFull(rand.Reader, iv); err != nil {
 		log.Println(err)
+		logTelegram(err.Error())
 	}
 
 	stream := cipher.NewCFBEncrypter(block, iv)
@@ -40,15 +45,18 @@ func DecryptMessage(message string) string {
 	cipherText, err := base64.StdEncoding.DecodeString(message)
 	if err != nil {
 		log.Println(err)
+		logTelegram(err.Error())
 	}
 
 	block, err := aes.NewCipher(conf.Password)
 	if err != nil {
 		log.Println(err)
+		logTelegram(err.Error())
 	}
 
 	if len(cipherText) < aes.BlockSize {
 		log.Println(err)
+		logTelegram(err.Error())
 	}
 
 	iv := cipherText[:aes.BlockSize]
@@ -70,6 +78,7 @@ func dataTransaction(key string, valueStr *string, valueInt *int64, valueBool *b
 	sender, err := crypto.NewPublicKeyFromBase58(conf.PublicKey)
 	if err != nil {
 		log.Println(err)
+		logTelegram(err.Error())
 		return err
 	}
 
@@ -77,6 +86,7 @@ func dataTransaction(key string, valueStr *string, valueInt *int64, valueBool *b
 	sk, err := crypto.NewSecretKeyFromBase58(conf.PrivateKey)
 	if err != nil {
 		log.Println(err)
+		logTelegram(err.Error())
 		return err
 	}
 
@@ -123,6 +133,7 @@ func dataTransaction(key string, valueStr *string, valueInt *int64, valueBool *b
 	err = tr.Sign(55, sk)
 	if err != nil {
 		log.Println(err)
+		logTelegram(err.Error())
 		return err
 	}
 
@@ -130,6 +141,7 @@ func dataTransaction(key string, valueStr *string, valueInt *int64, valueBool *b
 	cl, err := client.NewClient(client.Options{BaseUrl: AnoteNodeURL, Client: &http.Client{}})
 	if err != nil {
 		log.Println(err)
+		logTelegram(err.Error())
 		return err
 	}
 
@@ -141,6 +153,7 @@ func dataTransaction(key string, valueStr *string, valueInt *int64, valueBool *b
 	_, err = cl.Transactions.Broadcast(ctx, tr)
 	if err != nil {
 		log.Println(err)
+		logTelegram(err.Error())
 		return err
 	}
 
@@ -153,6 +166,7 @@ func getData(key string, address *string) (interface{}, error) {
 	wc, err := client.NewClient(client.Options{BaseUrl: AnoteNodeURL, Client: &http.Client{}})
 	if err != nil {
 		log.Println(err)
+		logTelegram(err.Error())
 	}
 
 	if address == nil {
@@ -198,6 +212,7 @@ func getHeight() uint64 {
 	cl, err := client.NewClient(client.Options{BaseUrl: AnoteNodeURL, Client: &http.Client{}})
 	if err != nil {
 		log.Println(err)
+		logTelegram(err.Error())
 	}
 
 	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
@@ -206,9 +221,23 @@ func getHeight() uint64 {
 	bh, _, err := cl.Blocks.Height(ctx)
 	if err != nil {
 		log.Println(err)
+		logTelegram(err.Error())
 	} else {
 		height = bh.Height
 	}
 
 	return height
+}
+
+func getCallerInfo() (info string) {
+
+	// pc, file, lineNo, ok := runtime.Caller(2)
+	_, file, lineNo, ok := runtime.Caller(2)
+	if !ok {
+		info = "runtime.Caller() failed"
+		return
+	}
+	// funcName := runtime.FuncForPC(pc).Name()
+	fileName := path.Base(file) // The Base function returns the last element of the path
+	return fmt.Sprintf("%s:%d: ", fileName, lineNo)
 }

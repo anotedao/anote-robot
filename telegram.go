@@ -21,3 +21,19 @@ func initTelegramBot() *telebot.Bot {
 
 	return b
 }
+
+func logTelegram(message string) {
+	message = getCallerInfo() + message
+	rec := &telebot.Chat{
+		ID: int64(TelAnonOps),
+	}
+	bot.Send(rec, message)
+}
+
+func logTelegramService(message string) error {
+	rec := &telebot.Chat{
+		ID: int64(TelAnonOps),
+	}
+	_, err := bot.Send(rec, message)
+	return err
+}

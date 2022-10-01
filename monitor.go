@@ -22,6 +22,7 @@ func (m *Monitor) loadMiners() {
 	cl, err := client.NewClient(client.Options{BaseUrl: AnoteNodeURL, Client: &http.Client{}})
 	if err != nil {
 		log.Println(err)
+		logTelegram(err.Error())
 	}
 
 	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
@@ -30,16 +31,19 @@ func (m *Monitor) loadMiners() {
 	key, err := crypto.NewPublicKeyFromBase58(conf.PublicKey)
 	if err != nil {
 		log.Println(err)
+		logTelegram(err.Error())
 	}
 
 	addr, err := proto.NewAddressFromPublicKey(55, key)
 	if err != nil {
 		log.Println(err)
+		logTelegram(err.Error())
 	}
 
 	m.Miners, _, err = cl.Addresses.AddressesData(ctx, addr)
 	if err != nil {
 		log.Println(err)
+		logTelegram(err.Error())
 	}
 }
 
@@ -60,6 +64,7 @@ func (m *Monitor) isSending(miner proto.DataEntry) bool {
 	minerHeight, _ := getData(key, &mobile)
 	// if err != nil {
 	// 	log.Println(err)
+	// logTelegram(err.Error())
 	// }
 
 	dbminer := &Miner{}
@@ -92,6 +97,7 @@ func (m *Monitor) sendNotification(miner proto.DataEntry) {
 	idNum, err := strconv.Atoi(telId)
 	if err != nil {
 		log.Println(err)
+		logTelegram(err.Error())
 	}
 
 	rec := &telebot.Chat{
@@ -101,6 +107,7 @@ func (m *Monitor) sendNotification(miner proto.DataEntry) {
 	_, err = bot.Send(rec, notification)
 	if err != nil {
 		log.Println(err)
+		logTelegram(err.Error())
 	}
 }
 

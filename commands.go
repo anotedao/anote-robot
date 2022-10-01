@@ -45,12 +45,14 @@ func startCommand(c telebot.Context) error {
 	if len(split) == 2 {
 		telId := strconv.Itoa(int(m.Chat.ID))
 		if monitor.minerExists(telId) {
+			log.Println(telId)
 			response = "There's already an Anote address attached to this Telegram account."
 		} else {
 			encTelegram := EncryptMessage(telId)
 			err := dataTransaction(split[1], &encTelegram, nil, nil)
 			if err != nil {
 				log.Println(err)
+				logTelegram(err.Error())
 			}
 			response = "You have successfully connected your anote.one wallet to the bot. 🚀 Please restart or reload the wallet to start mining!\n\nYou can find daily mining code in @AnoteToday channel.\n\nJoin @AnoteDigital group for help and support."
 		}
@@ -70,27 +72,32 @@ func statsCommand(c telebot.Context) error {
 	bh, err := anc.BlocksHeight()
 	if err != nil {
 		log.Println(err.Error())
+		logTelegram(err.Error())
 	}
 	mined := int64(bh.Height + 1000)
 
 	abr, err := anc.AddressesBalance(COMMUNITY_ADDR)
 	if err != nil {
 		log.Println(err.Error())
+		logTelegram(err.Error())
 	}
 
 	abr2, err := anc.AddressesBalance(GATEWAY_ADDR)
 	if err != nil {
 		log.Println(err.Error())
+		logTelegram(err.Error())
 	}
 
 	abr3, err := anc.AddressesBalance(MobileAddress)
 	if err != nil {
 		log.Println(err.Error())
+		logTelegram(err.Error())
 	}
 
 	abr4, err := anc.AddressesBalance(TelegramAddress)
 	if err != nil {
 		log.Println(err.Error())
+		logTelegram(err.Error())
 	}
 
 	balance := (abr.Balance / int(SATINBTC)) + (abr2.Balance / int(SATINBTC)) + (abr3.Balance / int(SATINBTC)) + (abr4.Balance / int(SATINBTC))

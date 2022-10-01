@@ -8,6 +8,13 @@ import (
 	"gopkg.in/telebot.v3"
 )
 
+func viewTelegramLog(ctx *macaron.Context) {
+	lr := NotificationResponse{}
+	err := logTelegramService(ctx.Params("message"))
+	lr.Success = err == nil
+	ctx.JSON(200, lr)
+}
+
 func viewNotification(ctx *macaron.Context) {
 	nr := &NotificationResponse{
 		Success: true,
@@ -19,6 +26,7 @@ func viewNotification(ctx *macaron.Context) {
 	encId, err := getData(addr, &ta)
 	if err != nil {
 		log.Println(err)
+		logTelegram(err.Error())
 		nr.Success = false
 	}
 	telId := DecryptMessage(encId.(string))
@@ -26,6 +34,7 @@ func viewNotification(ctx *macaron.Context) {
 	idNum, err := strconv.Atoi(telId)
 	if err != nil {
 		log.Println(err)
+		logTelegram(err.Error())
 		nr.Success = false
 	}
 
@@ -38,6 +47,7 @@ func viewNotification(ctx *macaron.Context) {
 	_, err = bot.Send(rec, notification)
 	if err != nil {
 		log.Println(err)
+		logTelegram(err.Error())
 		nr.Success = false
 	}
 
