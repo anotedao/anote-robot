@@ -44,7 +44,7 @@ func startCommand(c telebot.Context) error {
 
 	if len(split) == 2 {
 		telId := strconv.Itoa(int(m.Chat.ID))
-		if monitor.minerExists(telId) {
+		if monitor.minerExists(m.Chat.ID) {
 			log.Println(telId)
 			response = "There's already an Anote address attached to this Telegram account."
 		} else {

@@ -1,82 +1,52 @@
 package main
 
 import (
-	"context"
+	"encoding/json"
 	"fmt"
+	"io/ioutil"
 	"log"
 	"net/http"
-	"strconv"
 	"time"
 
-	"github.com/wavesplatform/gowaves/pkg/client"
-	"github.com/wavesplatform/gowaves/pkg/crypto"
-	"github.com/wavesplatform/gowaves/pkg/proto"
 	"gopkg.in/telebot.v3"
 )
 
 type Monitor struct {
-	Miners proto.DataEntries
+	Miners *MinersResponse
 }
 
 func (m *Monitor) loadMiners() {
-	cl, err := client.NewClient(client.Options{BaseUrl: AnoteNodeURL, Client: &http.Client{}})
+	resp, err := http.Get(fmt.Sprintf("http://localhost:5003/miners"))
 	if err != nil {
 		log.Println(err)
 		logTelegram(err.Error())
 	}
+	defer resp.Body.Close()
+	body, err := ioutil.ReadAll(resp.Body)
 
-	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
-	defer cancel()
-
-	key, err := crypto.NewPublicKeyFromBase58(conf.PublicKey)
-	if err != nil {
-		log.Println(err)
-		logTelegram(err.Error())
-	}
-
-	addr, err := proto.NewAddressFromPublicKey(55, key)
-	if err != nil {
-		log.Println(err)
-		logTelegram(err.Error())
-	}
-
-	m.Miners, _, err = cl.Addresses.AddressesData(ctx, addr)
-	if err != nil {
+	if err := json.Unmarshal(body, m.Miners); err != nil {
 		log.Println(err)
 		logTelegram(err.Error())
 	}
 }
 
 func (m *Monitor) sendNotifications() {
-	for _, miner := range m.Miners {
+	for _, miner := range *m.Miners {
 		if m.isSending(miner) {
 			m.sendNotification(miner)
-			log.Println(miner.GetKey())
+			log.Printf("Notification: %s", miner.Address)
 		}
 	}
 }
 
-func (m *Monitor) isSending(miner proto.DataEntry) bool {
-	key := miner.GetKey()
+func (m *Monitor) isSending(miner *MinerResponse) bool {
 	height := getHeight()
-	mobile := MobileAddress
-
-	minerHeight, _ := getData(key, &mobile)
-	// if err != nil {
-	// 	log.Println(err)
-	// logTelegram(err.Error())
-	// }
 
 	dbminer := &Miner{}
-	db.FirstOrCreate(dbminer, Miner{Address: key})
+	db.FirstOrCreate(dbminer, Miner{Address: miner.Address})
 
-	// log.Printf("%s %d %d", key, minerHeight.(int64), int64(height)-minerHeight.(int64))
-
-	// log.Println(prettyPrint(dbminer))
-
-	if minerHeight != nil &&
-		(int64(height)-minerHeight.(int64)) > 1440 &&
-		(int64(height)-minerHeight.(int64)) < 2880 &&
+	if (int(height)-miner.MiningHeight) > 1440 &&
+		(int(height)-miner.MiningHeight) < 2880 &&
 		time.Since(dbminer.LastNotification) > time.Hour*24 {
 
 		dbminer.LastNotification = time.Now()
@@ -88,33 +58,25 @@ func (m *Monitor) isSending(miner proto.DataEntry) bool {
 	return false
 }
 
-func (m *Monitor) sendNotification(miner proto.DataEntry) {
+func (m *Monitor) sendNotification(miner *MinerResponse) {
 	notification := fmt.Sprint("Your mining period has ended. Please run it again to reactivate and withdraw already mined anotes. 🚀\n\nYou can find daily mining code in @AnoteToday channel.")
 
-	encId := miner.ToProtobuf().GetStringValue()
-	telId := DecryptMessage(encId)
-
-	idNum, err := strconv.Atoi(telId)
-	if err != nil {
-		log.Println(err)
-		logTelegram(err.Error())
-	}
+	telId := miner.TelegramID
 
 	rec := &telebot.Chat{
-		ID: int64(idNum),
+		ID: int64(telId),
 	}
 
-	_, err = bot.Send(rec, notification)
+	_, err := bot.Send(rec, notification)
 	if err != nil {
 		log.Println(err)
 		logTelegram(err.Error())
 	}
 }
 
-func (m *Monitor) minerExists(telId string) bool {
-	for _, mnr := range m.Miners {
-		mnrTelId := DecryptMessage(mnr.ToProtobuf().GetStringValue())
-		if mnrTelId == telId {
+func (m *Monitor) minerExists(telId int64) bool {
+	for _, mnr := range *m.Miners {
+		if int64(mnr.TelegramID) == telId {
 			return true
 		}
 	}
@@ -128,7 +90,7 @@ func (m *Monitor) start() {
 	go func() {
 		for {
 			m.loadMiners()
-			time.Sleep(time.Hour)
+			time.Sleep(time.Second * 30)
 		}
 	}()
 
@@ -140,7 +102,18 @@ func (m *Monitor) start() {
 }
 
 func initMonitor() *Monitor {
-	m := &Monitor{}
+	m := &Monitor{
+		Miners: &MinersResponse{},
+	}
 	go m.start()
 	return m
+}
+
+type MinersResponse []*MinerResponse
+
+type MinerResponse struct {
+	Address          string    `json:"Address"`
+	LastNotification time.Time `json:"LastNotification"`
+	TelegramID       int       `json:"TelegramId"`
+	MiningHeight     int       `json:"MiningHeight"`
 }
