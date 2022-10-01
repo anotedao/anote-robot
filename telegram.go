@@ -23,7 +23,7 @@ func initTelegramBot() *telebot.Bot {
 }
 
 func logTelegram(message string) {
-	message = getCallerInfo() + message
+	message = "anote-robot:" + getCallerInfo() + message
 	rec := &telebot.Chat{
 		ID: int64(TelAnonOps),
 	}
