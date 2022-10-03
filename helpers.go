@@ -9,6 +9,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"io"
+	"io/ioutil"
 	"log"
 	"net/http"
 	"path"
@@ -240,4 +241,34 @@ func getCallerInfo() (info string) {
 	// funcName := runtime.FuncForPC(pc).Name()
 	fileName := path.Base(file) // The Base function returns the last element of the path
 	return fmt.Sprintf("%s:%d: ", fileName, lineNo)
+}
+
+func getMiner(addr string) *SingleMinerResponse {
+	resp, err := http.Get(fmt.Sprintf("http://localhost:5003/miner/%s", addr))
+	if err != nil {
+		log.Println(err)
+		logTelegram(err.Error())
+		return nil
+	}
+	defer resp.Body.Close()
+	body, err := ioutil.ReadAll(resp.Body)
+
+	var result SingleMinerResponse
+	if err := json.Unmarshal(body, &result); err != nil {
+		log.Println(err)
+		logTelegram(err.Error())
+		return nil
+	}
+
+	return &result
+}
+
+type SingleMinerResponse struct {
+	Address          string
+	LastNotification time.Time
+	TelegramId       int64
+	MiningHeight     int64
+	ReferredCount    int
+	MinRefCount      int
+	ActiveMiners     int
 }
