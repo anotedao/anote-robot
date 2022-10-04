@@ -14,6 +14,7 @@ func initCommands() {
 	bot.Handle("/help", helpCommand)
 	bot.Handle("/start", startCommand)
 	bot.Handle("/stats", statsCommand)
+	bot.Handle(telebot.OnUserJoined, userJoined)
 }
 
 func helpCommand(c telebot.Context) error {
@@ -109,6 +110,16 @@ func statsCommand(c telebot.Context) error {
 		miner.MinRefCount-miner.ActiveMiners)
 
 	bot.Send(m.Chat, stats)
+
+	return nil
+}
+
+func userJoined(c telebot.Context) error {
+	m := c.Message()
+
+	msg := fmt.Sprintf("Hello %s, welcome to Anote community! 🚀\n\nHere are some resources to get you started:\n\nAnote Wallet: anote.one\nBlockchain Explorer: anote.live\nWebsite: anote.digital\nMining Tutorial: anote.digital/mine\nRun a Node: anote.digital/node\n\nIf you are from the Balkans, you can also join our local @AnoteBalkan group.", m.Sender.FirstName)
+
+	bot.Send(m.Chat, msg, telebot.NoPreview)
 
 	return nil
 }

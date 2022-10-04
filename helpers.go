@@ -93,6 +93,9 @@ func dataTransaction(key string, valueStr *string, valueInt *int64, valueBool *b
 		return err
 	}
 
+	a, _ := proto.NewAddressFromPublicKey(55, sender)
+	log.Println(a)
+
 	// Current time in milliseconds
 	ts := time.Now().Unix() * 1000
 

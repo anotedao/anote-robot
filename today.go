@@ -79,7 +79,7 @@ func initAnoteToday() {
 	go at.start()
 }
 
-var defaultAd = `<b><u>⭕️  ANOTE 2.0 IS NOW LIVE</u></b>    🚀
+var defaultAd = `<b><u>⭕️  ANOTE 2.0 IS NOW LIVE!</u></b>    🚀
 
 We are proud to announce that Anote 2.0 is now available for mining.
 
