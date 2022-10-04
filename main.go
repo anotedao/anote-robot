@@ -40,8 +40,6 @@ func main() {
 
 	initAnoteToday()
 
-	// dataTransaction("3ASTzMMBPV6GXWxQkGtYdsXciaTGG92Yixo", nil, nil, nil)
-
 	log.Println("AnoteRobot started.")
 
 	bot.Start()
