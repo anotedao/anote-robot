@@ -27,6 +27,7 @@ func helpCommand(c telebot.Context) error {
 	  - read daily mining code on @AnoteToday Telegram channel
 	  - open anote.one wallet
 	  - click blue briefcase icon
+	  - connect Telegram bot by clicking the button
 	  - enter daily mining code and captcha
 	  - click mine button
 	  - join @AnoteDigital group for help and support
