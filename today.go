@@ -79,11 +79,13 @@ func initAnoteToday() {
 	go at.start()
 }
 
-var defaultAd = `<b><u>🔴  ANOTE 2.0 IS NOW LIVE</u></b>    🚀
+var defaultAd = `<b><u>⭕️  ANOTE 2.0 IS NOW LIVE</u></b>    🚀
 
 We are proud to announce that Anote 2.0 is now available for mining.
 
 We now have our own wallet (anote.one) which is used both as a wallet and a tool for mining. Stay tuned for more exciting news, information and tutorials!
+
+Join @AnoteDigital group for help and support!
 
 ________________________
 Daily Mining Code: %d
