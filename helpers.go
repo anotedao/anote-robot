@@ -221,7 +221,7 @@ func getHeight() uint64 {
 		logTelegram(err.Error())
 	}
 
-	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
+	ctx, cancel := context.WithTimeout(context.Background(), 30*time.Second)
 	defer cancel()
 
 	bh, _, err := cl.Blocks.Height(ctx)
