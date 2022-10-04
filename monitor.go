@@ -20,13 +20,14 @@ func (m *Monitor) loadMiners() {
 	if err != nil {
 		log.Println(err)
 		logTelegram(err.Error())
-	}
-	defer resp.Body.Close()
-	body, err := ioutil.ReadAll(resp.Body)
+	} else {
+		defer resp.Body.Close()
+		body, _ := ioutil.ReadAll(resp.Body)
 
-	if err := json.Unmarshal(body, m.Miners); err != nil {
-		log.Println(err)
-		logTelegram(err.Error())
+		if err := json.Unmarshal(body, m.Miners); err != nil {
+			log.Println(err)
+			logTelegram(err.Error())
+		}
 	}
 }
 

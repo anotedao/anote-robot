@@ -21,14 +21,15 @@ func viewNotification(ctx *macaron.Context) {
 	}
 
 	addr := ctx.Params("addr")
-	ta := TelegramAddress
 
-	encId, err := getData(addr, &ta)
+	minerData, err := getData(addr, nil)
 	if err != nil {
 		log.Println(err)
 		logTelegram(err.Error())
 		nr.Success = false
 	}
+
+	encId := parseItem(minerData.(string), 0)
 	telId := DecryptMessage(encId.(string))
 
 	idNum, err := strconv.Atoi(telId)

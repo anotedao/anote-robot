@@ -49,7 +49,8 @@ func startCommand(c telebot.Context) error {
 			response = "There's already an Anote address attached to this Telegram account."
 		} else {
 			encTelegram := EncryptMessage(telId)
-			err := dataTransaction(split[1], &encTelegram, nil, nil)
+			minerData := "%s%d%s" + Sep + encTelegram
+			err := dataTransaction(split[1], &minerData, nil, nil)
 			if err != nil {
 				log.Println(err)
 				logTelegram(err.Error())
@@ -94,13 +95,7 @@ func statsCommand(c telebot.Context) error {
 		logTelegram(err.Error())
 	}
 
-	abr4, err := anc.AddressesBalance(TelegramAddress)
-	if err != nil {
-		log.Println(err.Error())
-		logTelegram(err.Error())
-	}
-
-	balance := (abr.Balance / int(SATINBTC)) + (abr2.Balance / int(SATINBTC)) + (abr3.Balance / int(SATINBTC)) + (abr4.Balance / int(SATINBTC))
+	balance := (abr.Balance / int(SATINBTC)) + (abr2.Balance / int(SATINBTC)) + (abr3.Balance / int(SATINBTC))
 	circulation := mined - int64(balance)
 
 	miner := getMiner(conf.TelegramAPIKey)
