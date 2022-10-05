@@ -102,8 +102,6 @@ func (at *AnoteToday) getAd() string {
 	var winner *string
 	var amountWinner int64
 
-	log.Println(prettyPrint(entries))
-
 	for _, e := range entries {
 		if winner == nil {
 			address := parseItem(e.GetKey(), 0).(string)
@@ -123,7 +121,7 @@ func (at *AnoteToday) getAd() string {
 	if err != nil {
 		ad = defaultAd
 		log.Println(err)
-		logTelegram(err.Error())
+		// logTelegram(err.Error())
 	} else {
 		adText := parseItem(adData.(string), 0)
 		adLink := parseItem(adData.(string), 1)
