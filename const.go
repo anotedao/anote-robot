@@ -31,13 +31,17 @@ const (
 
 	MobileAddress = "3ANzidsKXn9a1s9FEbWA19hnMgV9zZ2RB9a"
 
+	TodayAddress = "3ANmnLHt8mR9c36mdfQVpBtxUs8z1mMAHQW"
+
+	AdKey = "%s__anoteTodayAd"
+
 	TelAnoteToday = -1001453693349
 
 	TelDevAnoteToday = -1001631518083
 
 	TelAnonOps = -1001213539865
 
-	SendAdHour = 16
+	SendAdHour = 13
 
 	Port = 5002
 

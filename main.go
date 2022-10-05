@@ -41,7 +41,7 @@ func main() {
 	initAnoteToday()
 
 	// val := "dasfsdafa"
-	// dataTransaction("bla", &val, nil, nil)
+	// dataTransaction("bla", nil, nil, nil)
 
 	log.Println("AnoteRobot started.")
 

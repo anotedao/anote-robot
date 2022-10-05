@@ -118,7 +118,7 @@ func statsCommand(c telebot.Context) error {
 func userJoined(c telebot.Context) error {
 	m := c.Message()
 
-	msg := fmt.Sprintf("Hello %s, welcome to Anote community! 🚀\n\nHere are some resources to get you started:\n\nAnote Wallet: anote.one\nBlockchain Explorer: anote.live\nWebsite: anote.digital\nMining Tutorial: anote.digital/mine\nRun a Node: anote.digital/node\n\nIf you are from the Balkans (and you know the language), you can also join our local @AnoteBalkan group.", m.Sender.FirstName)
+	msg := fmt.Sprintf("Hello, %s! Welcome to Anote community! 🚀\n\nHere are some resources to get you started:\n\nAnote Wallet: anote.one\nBlockchain Explorer: anote.live\nWebsite: anote.digital\nMining Tutorial: anote.digital/mine\nRun a Node: anote.digital/node\n\nIf you are from the Balkans (and you know the language), you can also join our local @AnoteBalkan group.", m.Sender.FirstName)
 
 	bot.Send(m.Chat, msg, telebot.NoPreview)
 

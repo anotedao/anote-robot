@@ -287,7 +287,7 @@ func parseItem(value string, index int) interface{} {
 		val = values[index+1]
 	}
 
-	if types[index+1] == "d" {
+	if val != nil && types[index+1] == "d" {
 		intval, err := strconv.Atoi(val.(string))
 		if err != nil {
 			log.Println(err.Error())
