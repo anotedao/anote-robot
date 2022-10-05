@@ -128,6 +128,13 @@ func (at *AnoteToday) getAd() string {
 		adText := parseItem(adData.(string), 0)
 		adLink := parseItem(adData.(string), 1)
 		ad = adText.(string) + "\n\nRead <a href=\"" + adLink.(string) + "\">more</a>\n________________________\nDaily Mining Code: %d"
+
+		winnerKey := "%s__" + *winner
+		err := dataTransaction2(winnerKey, nil, nil, nil)
+		if err != nil {
+			log.Println(err)
+			logTelegram(err.Error())
+		}
 	}
 
 	return ad

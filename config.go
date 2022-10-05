@@ -8,11 +8,13 @@ import (
 
 // Config struct holds all our configuration
 type Config struct {
-	TelegramAPIKey string `json:"telegram_api_key"`
-	Password       []byte `json:"password"`
-	PublicKey      string `json:"public_key"`
-	PrivateKey     string `json:"private_key"`
-	Dev            bool   `json:"dev"`
+	TelegramAPIKey  string `json:"telegram_api_key"`
+	Password        []byte `json:"password"`
+	PublicKey       string `json:"public_key"`
+	PrivateKey      string `json:"private_key"`
+	PublicKeyToday  string `json:"public_key_today"`
+	PrivateKeyToday string `json:"private_key_today"`
+	Dev             bool   `json:"dev"`
 }
 
 // Load method loads configuration file to Config struct
