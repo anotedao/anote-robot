@@ -1,12 +1,17 @@
 package main
 
 import (
+	"context"
 	"fmt"
 	"log"
+	"net/http"
 	"strconv"
 	"strings"
+	"time"
 
 	"github.com/dustin/go-humanize"
+	"github.com/wavesplatform/gowaves/pkg/client"
+	"github.com/wavesplatform/gowaves/pkg/proto"
 	"gopkg.in/telebot.v3"
 )
 
@@ -14,6 +19,7 @@ func initCommands() {
 	bot.Handle("/help", helpCommand)
 	bot.Handle("/start", startCommand)
 	bot.Handle("/stats", statsCommand)
+	bot.Handle("/delete", deleteCommand)
 	bot.Handle(telebot.OnUserJoined, userJoined)
 }
 
@@ -121,6 +127,58 @@ func userJoined(c telebot.Context) error {
 	msg := fmt.Sprintf("Hello, %s! Welcome to Anote community! 🚀\n\nHere are some resources to get you started:\n\nAnote Wallet: anote.one\nBlockchain Explorer: anote.live\nWebsite: anote.digital\nMining Tutorial: anote.digital/mine\nRun a Node: anote.digital/node\n\nIf you are from the Balkans (and you know the language), you can also join our local @AnoteBalkan group.", m.Sender.FirstName)
 
 	bot.Send(m.Chat, msg, telebot.NoPreview)
+
+	return nil
+}
+
+func deleteCommand(c telebot.Context) error {
+	msg := c.Message()
+
+	cl, err := client.NewClient(client.Options{BaseUrl: AnoteNodeURL, Client: &http.Client{}})
+	if err != nil {
+		log.Println(err)
+		logTelegram(err.Error())
+		return err
+	}
+
+	ctx, cancel := context.WithTimeout(context.Background(), 30*time.Second)
+	defer cancel()
+
+	addr, err := proto.NewAddressFromString(MobileAddress)
+	if err != nil {
+		log.Println(err)
+		logTelegram(err.Error())
+		return err
+	}
+
+	entries, _, err := cl.Addresses.AddressesData(ctx, addr)
+	if err != nil {
+		log.Println(err)
+		logTelegram(err.Error())
+		return err
+	}
+
+	for _, m := range entries {
+		encTel := parseItem(m.ToProtobuf().GetStringValue(), 0)
+		telIdStr := DecryptMessage(encTel.(string))
+		telId, err := strconv.Atoi(telIdStr)
+		if err != nil {
+			log.Println(err)
+			logTelegram(err.Error())
+			return err
+		}
+
+		if telId == int(msg.Chat.ID) {
+			err := dataTransaction(m.GetKey(), nil, nil, nil)
+			if err != nil {
+				log.Println(err)
+				logTelegram(err.Error())
+				return err
+			}
+		}
+	}
+
+	bot.Send(msg.Chat, "Your account has been successfully disconnected.")
 
 	return nil
 }
