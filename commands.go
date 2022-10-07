@@ -134,51 +134,55 @@ func userJoined(c telebot.Context) error {
 func deleteCommand(c telebot.Context) error {
 	msg := c.Message()
 
-	cl, err := client.NewClient(client.Options{BaseUrl: AnoteNodeURL, Client: &http.Client{}})
-	if err != nil {
-		log.Println(err)
-		logTelegram(err.Error())
-		return err
-	}
-
-	ctx, cancel := context.WithTimeout(context.Background(), 30*time.Second)
-	defer cancel()
-
-	addr, err := proto.NewAddressFromString(MobileAddress)
-	if err != nil {
-		log.Println(err)
-		logTelegram(err.Error())
-		return err
-	}
-
-	entries, _, err := cl.Addresses.AddressesData(ctx, addr)
-	if err != nil {
-		log.Println(err)
-		logTelegram(err.Error())
-		return err
-	}
-
-	for _, m := range entries {
-		encTel := parseItem(m.ToProtobuf().GetStringValue(), 0)
-		telIdStr := DecryptMessage(encTel.(string))
-		telId, err := strconv.Atoi(telIdStr)
+	if msg.Private() {
+		cl, err := client.NewClient(client.Options{BaseUrl: AnoteNodeURL, Client: &http.Client{}})
 		if err != nil {
 			log.Println(err)
 			logTelegram(err.Error())
 			return err
 		}
 
-		if telId == int(msg.Chat.ID) {
-			err := dataTransaction(m.GetKey(), nil, nil, nil)
+		ctx, cancel := context.WithTimeout(context.Background(), 30*time.Second)
+		defer cancel()
+
+		addr, err := proto.NewAddressFromString(MobileAddress)
+		if err != nil {
+			log.Println(err)
+			logTelegram(err.Error())
+			return err
+		}
+
+		entries, _, err := cl.Addresses.AddressesData(ctx, addr)
+		if err != nil {
+			log.Println(err)
+			logTelegram(err.Error())
+			return err
+		}
+
+		for _, m := range entries {
+			encTel := parseItem(m.ToProtobuf().GetStringValue(), 0)
+			telIdStr := DecryptMessage(encTel.(string))
+			telId, err := strconv.Atoi(telIdStr)
 			if err != nil {
 				log.Println(err)
 				logTelegram(err.Error())
 				return err
 			}
-		}
-	}
 
-	bot.Send(msg.Chat, "Your account has been successfully disconnected.")
+			if telId == int(msg.Chat.ID) {
+				err := dataTransaction(m.GetKey(), nil, nil, nil)
+				if err != nil {
+					log.Println(err)
+					logTelegram(err.Error())
+					return err
+				}
+			}
+		}
+
+		bot.Send(msg.Chat, "Your account has been successfully disconnected.")
+	} else {
+		bot.Send(msg.Chat, "Please send this command as a private message to bot.")
+	}
 
 	return nil
 }
