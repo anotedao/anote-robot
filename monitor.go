@@ -13,6 +13,7 @@ import (
 
 type Monitor struct {
 	Miners *MinersResponse
+	Height uint64
 }
 
 func (m *Monitor) loadMiners() {
@@ -41,13 +42,11 @@ func (m *Monitor) sendNotifications() {
 }
 
 func (m *Monitor) isSending(miner *MinerResponse) bool {
-	height := getHeight()
-
 	dbminer := &Miner{}
 	db.FirstOrCreate(dbminer, Miner{Address: miner.Address})
 
-	if (int(height)-miner.MiningHeight) > 1440 &&
-		(int(height)-miner.MiningHeight) < 2880 &&
+	if (int(m.Height)-miner.MiningHeight) > 1440 &&
+		(int(m.Height)-miner.MiningHeight) < 2880 &&
 		time.Since(dbminer.LastNotification) > time.Hour*24 {
 
 		dbminer.LastNotification = time.Now()
@@ -90,6 +89,7 @@ func (m *Monitor) start() {
 
 	go func() {
 		for {
+			m.Height = getHeight()
 			m.loadMiners()
 			time.Sleep(time.Second * 30)
 		}
