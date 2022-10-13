@@ -12,6 +12,7 @@ func viewTelegramLog(ctx *macaron.Context) {
 	lr := NotificationResponse{}
 	err := logTelegramService(ctx.Params("message"))
 	lr.Success = err == nil
+	log.Println(err)
 	ctx.JSON(200, lr)
 }
 
