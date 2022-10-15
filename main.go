@@ -21,6 +21,8 @@ var m *macaron.Macaron
 
 var monitor *Monitor
 
+var pc *PriceClient
+
 func main() {
 	log.SetFlags(log.LstdFlags | log.Lshortfile)
 
@@ -37,6 +39,8 @@ func main() {
 	db = initDb()
 
 	monitor = initMonitor()
+
+	pc = initPriceClient()
 
 	initAnoteToday()
 

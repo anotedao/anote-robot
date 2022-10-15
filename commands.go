@@ -109,12 +109,13 @@ func statsCommand(c telebot.Context) error {
 	miner := getMiner(conf.TelegramAPIKey)
 
 	stats := fmt.Sprintf(
-		"⭕️ <u><b>Anote Basic Stats</b></u>\n\nMined: %s ANOTE\nCommunity: %s ANOTE\nIn Circulation: %s ANOTE\nActive Miners: %d\nReferred Miners: %d",
+		"⭕️ <u><b>Anote Basic Stats</b></u>\n\nMined: %s ANOTE\nCommunity: %s ANOTE\nIn Circulation: %s ANOTE\nActive Miners: %d\nReferred Miners: %d\nPrice: $%.2f",
 		humanize.Comma(mined),
 		humanize.Comma(int64(balance)),
 		humanize.Comma(circulation),
 		miner.ActiveMiners,
-		miner.MinRefCount-miner.ActiveMiners)
+		miner.MinRefCount-miner.ActiveMiners,
+		pc.AnotePrice)
 
 	bot.Send(m.Chat, stats)
 

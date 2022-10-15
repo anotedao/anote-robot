@@ -46,4 +46,10 @@ const (
 	Port = 5002
 
 	Sep = "__"
+
+	PricesURL = "https://min-api.cryptocompare.com/data/price?fsym=WAVES&tsyms=BTC,ETH,USD,EUR"
+
+	OrderbookURL = "https://matcher.waves.exchange/matcher/orderbook/7AcLk4rV8yZ3rEUyzYHutgVyKR5GYjPFz2MGKCrHnN25/WAVES#getOrderBook"
+
+	MULTI8 = 100000000
 )
