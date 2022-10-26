@@ -34,6 +34,7 @@ func helpCommand(c telebot.Context) error {
 	  - open anote.one wallet
 	  - click blue briefcase icon
 	  - connect Telegram bot by clicking the button
+	  - refresh anote.one and click blue icon again
 	  - enter daily mining code and captcha
 	  - click mine button
 	  - join @AnoteDigital group for help and support
