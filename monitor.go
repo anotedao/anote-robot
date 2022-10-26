@@ -71,8 +71,8 @@ func (m *Monitor) sendNotification(miner *MinerResponse) {
 
 	_, err := bot.Send(rec, notification)
 	if err != nil {
-		log.Println(err)
-		logTelegram(err.Error())
+		log.Println(err.Error() + " " + miner.Address)
+		logTelegram(err.Error() + " " + miner.Address)
 	}
 }
 

@@ -48,8 +48,8 @@ func viewNotification(ctx *macaron.Context) {
 
 	_, err = bot.Send(rec, notification)
 	if err != nil {
-		log.Println(err)
-		logTelegram(err.Error())
+		log.Println(err.Error() + " " + addr)
+		logTelegram(err.Error() + " " + addr)
 		nr.Success = false
 	}
 
