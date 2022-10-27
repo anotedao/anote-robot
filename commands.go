@@ -58,7 +58,7 @@ func startCommand(c telebot.Context) error {
 			response = "There's already an Anote address attached to this Telegram account."
 		} else {
 			encTelegram := EncryptMessage(telId)
-			minerData := "%s%d%s" + Sep + encTelegram
+			minerData := "%s%d%s%s" + Sep + encTelegram
 			err := dataTransaction(split[1], &minerData, nil, nil)
 			if err != nil {
 				log.Println(err)
