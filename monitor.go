@@ -47,7 +47,7 @@ func (m *Monitor) isSending(miner *MinerResponse) bool {
 
 	if dbminer.ID != 0 &&
 		tx.Error == nil &&
-		(int(m.Height)-miner.MiningHeight) > 1440 &&
+		(int(m.Height)-miner.MiningHeight) > 1410 &&
 		(int(m.Height)-miner.MiningHeight) < 2880 &&
 		time.Since(dbminer.LastNotification) > time.Hour*24 {
 
