@@ -21,7 +21,7 @@ const (
 	GATEWAY_ADDR = "3AQT89sRrWHqPSwrpfJAj3Yey7BCBTAy4jT"
 
 	// AnoteNodeURL is an URL for Anote Node
-	AnoteNodeURL = "https://nodes.anote.digital"
+	AnoteNodeURL = "http://localhost:6869"
 
 	// Fee is regular fee amount
 	Fee = 100000
