@@ -41,7 +41,7 @@ const (
 
 	TelAnonOps = -1001213539865
 
-	SendAdHour = 16
+	SendAdHour = 14
 
 	Port = 5002
 
