@@ -115,7 +115,7 @@ func statsCommand(c telebot.Context) error {
 		humanize.Comma(int64(balance)),
 		humanize.Comma(circulation),
 		miner.ActiveMiners,
-		miner.MinRefCount-miner.ActiveMiners,
+		(miner.MinRefCount-miner.ActiveMiners)*4,
 		pc.AnotePrice)
 
 	bot.Send(m.Chat, stats)
