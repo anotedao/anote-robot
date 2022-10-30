@@ -27,7 +27,7 @@ func (at *AnoteToday) sendAd(ad string) {
 		ID: channelId,
 	}
 
-	bot.Send(r, ad, telebot.NoPreview)
+	bot.Send(r, ad, telebot.NoPreview, telebot.Silent)
 }
 
 func (at *AnoteToday) start() {
