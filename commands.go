@@ -20,6 +20,7 @@ func initCommands() {
 	bot.Handle("/start", startCommand)
 	bot.Handle("/stats", statsCommand)
 	bot.Handle("/delete", deleteCommand)
+	bot.Handle("/code", codeCommand)
 	bot.Handle(telebot.OnUserJoined, userJoined)
 }
 
@@ -209,4 +210,14 @@ func deleteCommand(c telebot.Context) error {
 	}
 
 	return nil
+}
+
+func codeCommand(c telebot.Context) error {
+	m := c.Message()
+
+	help := "Click here, daily code is at the bottom!\n\n=> @AnoteToday"
+
+	_, err := bot.Send(m.Chat, help)
+
+	return err
 }
