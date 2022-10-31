@@ -110,11 +110,11 @@ func statsCommand(c telebot.Context) error {
 	stats := getStats()
 
 	s := fmt.Sprintf(
-		"⭕️ <u><b>Anote Basic Stats</b></u>\n\nMined: %s ANOTE\nCommunity: %s ANOTE\nIn Circulation: %s ANOTE\nActive Miners: %d\nReferred Miners: %d\nPayout Miners: %d\nInactive Miners: %d\nPrice: $%.2f",
+		"⭕️ <u><b>Anote Basic Stats</b></u>\n\nActive Miners: %d\nMined: %s ANOTE\nCommunity: %s ANOTE\nIn Circulation: %s ANOTE\nReferred Miners: %d\nPayout Miners: %d\nInactive Miners: %d\nPrice: $%.2f",
+		stats.ActiveMiners,
 		humanize.Comma(mined),
 		humanize.Comma(int64(balance)),
 		humanize.Comma(circulation),
-		stats.ActiveMiners,
 		stats.ActiveReferred,
 		stats.PayoutMiners,
 		stats.InactiveMiners,
