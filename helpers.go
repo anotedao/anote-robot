@@ -338,8 +338,8 @@ func getCallerInfo() (info string) {
 	return fmt.Sprintf("%s:%d: ", fileName, lineNo)
 }
 
-func getMiner(addr string) *SingleMinerResponse {
-	resp, err := http.Get(fmt.Sprintf("http://localhost:5003/miner/%s", addr))
+func getStats() *StatsResponse {
+	resp, err := http.Get("http://localhost:5003/stats")
 	if err != nil {
 		log.Println(err)
 		logTelegram(err.Error())
@@ -348,7 +348,7 @@ func getMiner(addr string) *SingleMinerResponse {
 	defer resp.Body.Close()
 	body, err := ioutil.ReadAll(resp.Body)
 
-	var result SingleMinerResponse
+	var result StatsResponse
 	if err := json.Unmarshal(body, &result); err != nil {
 		log.Println(err)
 		logTelegram(err.Error())
@@ -358,16 +358,11 @@ func getMiner(addr string) *SingleMinerResponse {
 	return &result
 }
 
-type SingleMinerResponse struct {
-	Address          string    `json:"address"`
-	LastNotification time.Time `json:"last_notification"`
-	TelegramId       int64     `json:"telegram_id"`
-	MiningHeight     int64     `json:"mining_height"`
-	ReferredCount    int       `json:"referred_count"`
-	MinRefCount      int       `json:"min_ref_count"`
-	ActiveMiners     int       `json:"active_miners"`
-	ActiveReferred   int       `json:"active_referred"`
-	Confirmed        bool      `json:"confirmed"`
+type StatsResponse struct {
+	ActiveMiners   int `json:"active_miners"`
+	ActiveReferred int `json:"active_referred"`
+	PayoutMiners   int `json:"payout_miners"`
+	InactiveMiners int `json:"inactive_miners"`
 }
 
 func parseItem(value string, index int) interface{} {

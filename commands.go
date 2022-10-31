@@ -107,18 +107,20 @@ func statsCommand(c telebot.Context) error {
 	balance := (abr.Balance / int(SATINBTC)) + (abr2.Balance / int(SATINBTC)) + (abr3.Balance / int(SATINBTC))
 	circulation := mined - int64(balance)
 
-	miner := getMiner(conf.TelegramAPIKey)
+	stats := getStats()
 
-	stats := fmt.Sprintf(
-		"⭕️ <u><b>Anote Basic Stats</b></u>\n\nMined: %s ANOTE\nCommunity: %s ANOTE\nIn Circulation: %s ANOTE\nActive Miners: %d\nReferred Miners: %d\nPrice: $%.2f",
+	s := fmt.Sprintf(
+		"⭕️ <u><b>Anote Basic Stats</b></u>\n\nMined: %s ANOTE\nCommunity: %s ANOTE\nIn Circulation: %s ANOTE\nActive Miners: %d\nReferred Miners: %d\nPayout Miners: %d\nInactive Miners: %d\nPrice: $%.2f",
 		humanize.Comma(mined),
 		humanize.Comma(int64(balance)),
 		humanize.Comma(circulation),
-		miner.ActiveMiners,
-		miner.ActiveReferred,
+		stats.ActiveMiners,
+		stats.ActiveReferred,
+		stats.PayoutMiners,
+		stats.InactiveMiners,
 		pc.AnotePrice)
 
-	bot.Send(m.Chat, stats)
+	bot.Send(m.Chat, s)
 
 	return nil
 }
