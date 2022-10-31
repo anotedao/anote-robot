@@ -109,16 +109,36 @@ func statsCommand(c telebot.Context) error {
 
 	stats := getStats()
 
+	cl, err := client.NewClient(client.Options{BaseUrl: AnoteNodeURL, Client: &http.Client{}})
+	if err != nil {
+		log.Println(err)
+		logTelegram(err.Error())
+	}
+
+	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
+	defer cancel()
+
+	addr := proto.MustAddressFromString(MobileAddress)
+
+	total, _, err := cl.Addresses.Balance(ctx, addr)
+	if err != nil {
+		log.Println(err)
+		logTelegram(err.Error())
+	}
+
+	basicAmount := float64((total.Balance/(uint64(stats.PayoutMiners)+uint64(stats.ActiveReferred/4)))-Fee) / MULTI8
+
 	s := fmt.Sprintf(
-		"⭕️ <u><b>Anote Basic Stats</b></u>\n\nActive Miners: %d\nMined: %s ANOTE\nCommunity: %s ANOTE\nIn Circulation: %s ANOTE\nReferred Miners: %d\nPayout Miners: %d\nInactive Miners: %d\nPrice: $%.2f",
+		"⭕️ <u><b>Anote Basic Stats</b></u>\n\nActive Miners: %d\nPrice: $%.2f\nBasic Amount: %.8f\n\nMined: %s ANOTE\nCommunity: %s ANOTE\nIn Circulation: %s ANOTE\n\nReferred Miners: %d\nPayout Miners: %d\nInactive Miners: %d",
 		stats.ActiveMiners,
+		pc.AnotePrice,
+		basicAmount,
 		humanize.Comma(mined),
 		humanize.Comma(int64(balance)),
 		humanize.Comma(circulation),
 		stats.ActiveReferred,
 		stats.PayoutMiners,
-		stats.InactiveMiners,
-		pc.AnotePrice)
+		stats.InactiveMiners)
 
 	bot.Send(m.Chat, s)
 
