@@ -359,13 +359,15 @@ func getMiner(addr string) *SingleMinerResponse {
 }
 
 type SingleMinerResponse struct {
-	Address          string
-	LastNotification time.Time
-	TelegramId       int64
-	MiningHeight     int64
-	ReferredCount    int
-	MinRefCount      int
-	ActiveMiners     int
+	Address          string    `json:"address"`
+	LastNotification time.Time `json:"last_notification"`
+	TelegramId       int64     `json:"telegram_id"`
+	MiningHeight     int64     `json:"mining_height"`
+	ReferredCount    int       `json:"referred_count"`
+	MinRefCount      int       `json:"min_ref_count"`
+	ActiveMiners     int       `json:"active_miners"`
+	ActiveReferred   int       `json:"active_referred"`
+	Confirmed        bool      `json:"confirmed"`
 }
 
 func parseItem(value string, index int) interface{} {

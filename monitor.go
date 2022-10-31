@@ -115,8 +115,8 @@ func initMonitor() *Monitor {
 type MinersResponse []*MinerResponse
 
 type MinerResponse struct {
-	Address          string    `json:"Address"`
-	LastNotification time.Time `json:"LastNotification"`
-	TelegramID       int       `json:"TelegramId"`
-	MiningHeight     int       `json:"MiningHeight"`
+	Address          string    `json:"address"`
+	LastNotification time.Time `json:"last_notification"`
+	TelegramID       int       `json:"telegram_id"`
+	MiningHeight     int       `json:"mining_height"`
 }
