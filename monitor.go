@@ -48,8 +48,8 @@ func (m *Monitor) isSending(miner *MinerResponse) bool {
 	if dbminer.ID != 0 &&
 		tx.Error == nil &&
 		(int(m.Height)-miner.MiningHeight) > 1410 &&
-		(int(m.Height)-miner.MiningHeight) < 2880 &&
-		time.Since(dbminer.LastNotification) > time.Hour*24 {
+		(int(m.Height)-miner.MiningHeight) < 2000 &&
+		dbminer.LastNotification.Day() != time.Now().Day() {
 
 		dbminer.LastNotification = time.Now()
 		db.Save(dbminer)

@@ -27,7 +27,10 @@ func (at *AnoteToday) sendAd(ad string) {
 		ID: channelId,
 	}
 
-	bot.Send(r, ad, telebot.NoPreview, telebot.Silent)
+	m, _ := bot.Send(r, ad, telebot.NoPreview, telebot.Silent)
+
+	num := int64(m.ID)
+	dataTransaction2("%s__adnum", nil, &num, nil)
 }
 
 func (at *AnoteToday) start() {
