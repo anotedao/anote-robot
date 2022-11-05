@@ -355,6 +355,24 @@ func getStats() *StatsResponse {
 		return nil
 	}
 
+	resp, err = http.Get("http://localhost:5005/distribution")
+	if err != nil {
+		log.Println(err)
+		logTelegram(err.Error())
+		return nil
+	}
+	defer resp.Body.Close()
+	body, err = ioutil.ReadAll(resp.Body)
+
+	var ds DistributionResponse
+	if err := json.Unmarshal(body, &ds); err != nil {
+		log.Println(err)
+		logTelegram(err.Error())
+		return nil
+	}
+
+	result.Holders = len(ds)
+
 	return &result
 }
 
@@ -363,6 +381,7 @@ type StatsResponse struct {
 	ActiveReferred int `json:"active_referred"`
 	PayoutMiners   int `json:"payout_miners"`
 	InactiveMiners int `json:"inactive_miners"`
+	Holders        int `json:"holders"`
 }
 
 func parseItem(value string, index int) interface{} {
@@ -407,4 +426,15 @@ func updateItem(value string, newval interface{}, index int) string {
 	}
 
 	return strings.Join(values, Sep)
+}
+
+func getHoldersCount() uint64 {
+	count := 0
+	return uint64(count)
+}
+
+type DistributionResponse []struct {
+	Address      string  `json:"address"`
+	Balance      int64   `json:"balance"`
+	BalanceFloat float64 `json:"balance_float"`
 }

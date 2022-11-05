@@ -130,8 +130,9 @@ func statsCommand(c telebot.Context) error {
 	basicAmount := float64((total.Balance/(uint64(stats.PayoutMiners)+uint64(stats.ActiveReferred/4)))-Fee) / MULTI8
 
 	s := fmt.Sprintf(
-		"⭕️ <u><b>Anote Basic Stats</b></u>\n\nActive Miners: %d\nPrice: $%.2f\nBasic Amount: %.8f\n\nMined: %s ANOTE\nCommunity: %s ANOTE\nIn Circulation: %s ANOTE\n\nReferred Miners: %d\nPayout Miners: %d\nInactive Miners: %d",
+		"⭕️ <u><b>Anote Basic Stats</b></u>\n\nActive Miners: %d\nHolders: %d\nPrice: $%.2f\nBasic Amount: %.8f\n\nMined: %s ANOTE\nCommunity: %s ANOTE\nIn Circulation: %s ANOTE\n\nReferred Miners: %d\nPayout Miners: %d\nInactive Miners: %d",
 		stats.ActiveMiners,
+		stats.Holders,
 		pc.AnotePrice,
 		basicAmount,
 		humanize.Comma(mined),
