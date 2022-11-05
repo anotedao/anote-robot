@@ -22,6 +22,22 @@ func viewNotification(ctx *macaron.Context) {
 	}
 
 	addr := ctx.Params("addr")
+	h := ctx.Params("height")
+	sh := ctx.Params("sheight")
+
+	hi, err := strconv.Atoi(h)
+	if err != nil {
+		log.Println(err)
+		logTelegram(err.Error())
+		nr.Success = false
+	}
+
+	shi, err := strconv.Atoi(sh)
+	if err != nil {
+		log.Println(err)
+		logTelegram(err.Error())
+		nr.Success = false
+	}
 
 	minerData, err := getData(addr, nil)
 	if err != nil {
@@ -45,6 +61,10 @@ func viewNotification(ctx *macaron.Context) {
 	}
 
 	notification := "You have successfully started Anote mining cycle."
+
+	if shi > 0 && hi-shi > 2880 {
+		notification += "\n\n<u>Please notice that if you have continuity and mine on a daily basis, you receive a much bigger reward.</u>"
+	}
 
 	_, err = bot.Send(rec, notification)
 	if err != nil {
