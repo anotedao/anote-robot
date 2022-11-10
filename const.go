@@ -23,6 +23,9 @@ const (
 	// AnoteNodeURL is an URL for Anote Node
 	AnoteNodeURL = "http://localhost:6869"
 
+	// WavesNodeURL is an URL for Waves Node
+	WavesNodeURL = "https://nodes.wavesnodes.com"
+
 	// Fee is regular fee amount
 	Fee = 100000
 

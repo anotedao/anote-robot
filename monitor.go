@@ -1,6 +1,7 @@
 package main
 
 import (
+	"context"
 	"encoding/json"
 	"fmt"
 	"io/ioutil"
@@ -8,12 +9,15 @@ import (
 	"net/http"
 	"time"
 
+	"github.com/wavesplatform/gowaves/pkg/client"
+	"github.com/wavesplatform/gowaves/pkg/proto"
 	"gopkg.in/telebot.v3"
 )
 
 type Monitor struct {
-	Miners *MinersResponse
-	Height uint64
+	Miners             *MinersResponse
+	Height             uint64
+	BeneficiaryBalance uint64
 }
 
 func (m *Monitor) loadMiners() {
@@ -104,11 +108,42 @@ func (m *Monitor) start() {
 	}
 }
 
+func (m *Monitor) monitorAintBuys() {
+	for {
+		cl, err := client.NewClient(client.Options{BaseUrl: WavesNodeURL, Client: &http.Client{}})
+		if err != nil {
+			log.Println(err)
+			logTelegram(err.Error())
+		}
+
+		ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
+		defer cancel()
+
+		addr := proto.MustAddressFromString(conf.Beneficiary)
+
+		total, _, err := cl.Addresses.Balance(ctx, addr)
+		if err != nil {
+			log.Println(err)
+			logTelegram(err.Error())
+		}
+
+		if total.Balance > m.BeneficiaryBalance {
+			nb := float64(total.Balance-m.BeneficiaryBalance) / MULTI8
+			notificationTelegram(fmt.Sprintf("<u><strong>New AINT purchase: %.8f WAVES</strong></u> 🚀", nb))
+		}
+
+		m.BeneficiaryBalance = total.Balance
+
+		time.Sleep(time.Second * 10)
+	}
+}
+
 func initMonitor() *Monitor {
 	m := &Monitor{
 		Miners: &MinersResponse{},
 	}
 	go m.start()
+	go m.monitorAintBuys()
 	return m
 }
 

@@ -31,6 +31,13 @@ func logTelegram(message string) {
 	bot.Send(rec, message)
 }
 
+func notificationTelegram(message string) {
+	rec := &telebot.Chat{
+		ID: int64(TelAnonOps),
+	}
+	bot.Send(rec, message)
+}
+
 func logTelegramService(message string) error {
 	m, _ := url.QueryUnescape(message)
 	message, _ = url.PathUnescape(m)

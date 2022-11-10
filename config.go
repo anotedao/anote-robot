@@ -15,6 +15,7 @@ type Config struct {
 	PublicKeyToday  string `json:"public_key_today"`
 	PrivateKeyToday string `json:"private_key_today"`
 	Dev             bool   `json:"dev"`
+	Beneficiary     string `json:"beneficiary"`
 }
 
 // Load method loads configuration file to Config struct
