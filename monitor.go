@@ -7,6 +7,7 @@ import (
 	"io/ioutil"
 	"log"
 	"net/http"
+	"strings"
 	"time"
 
 	"github.com/wavesplatform/gowaves/pkg/client"
@@ -77,6 +78,13 @@ func (m *Monitor) sendNotification(miner *MinerResponse) {
 	if err != nil {
 		log.Println(err.Error() + " " + miner.Address)
 		logTelegram(err.Error() + " " + miner.Address)
+		if strings.Contains(err.Error(), "blocked") || strings.Contains(err.Error(), "deactivated") {
+			err := dataTransaction(miner.Address, nil, nil, nil)
+			if err != nil {
+				log.Println(err)
+				logTelegram(err.Error())
+			}
+		}
 	}
 }
 

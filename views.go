@@ -71,6 +71,12 @@ func viewNotification(ctx *macaron.Context) {
 		log.Println(err.Error() + " " + addr)
 		logTelegram(err.Error() + " " + addr)
 		nr.Success = false
+
+		err := dataTransaction(addr, nil, nil, nil)
+		if err != nil {
+			log.Println(err)
+			logTelegram(err.Error())
+		}
 	}
 
 	ctx.JSON(200, nr)
