@@ -10,8 +10,14 @@ type Miner struct {
 	gorm.Model
 	Address          string `gorm:"size:255;uniqueIndex"`
 	LastNotification time.Time
-	TelUsername      string `gorm:"size:255"`
-	TelName          string `gorm:"size:255"`
+}
+
+type User struct {
+	gorm.Model
+	TelegramId  int64
+	TelUsername string `gorm:"size:255"`
+	TelName     string `gorm:"size:255"`
+	TelDump     string `gorm:"size:512"`
 }
 
 type KeyValue struct {

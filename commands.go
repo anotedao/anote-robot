@@ -25,6 +25,7 @@ func initCommands() {
 }
 
 func helpCommand(c telebot.Context) error {
+	saveUser(c)
 	m := c.Message()
 
 	help := `⭕️ <b><u>Anote Mining Tutorial</u></b>
@@ -48,6 +49,7 @@ func helpCommand(c telebot.Context) error {
 }
 
 func startCommand(c telebot.Context) error {
+	saveUser(c)
 	m := c.Message()
 	split := strings.Split(m.Text, " ")
 	response := ""
@@ -79,6 +81,7 @@ func startCommand(c telebot.Context) error {
 }
 
 func statsCommand(c telebot.Context) error {
+	saveUser(c)
 	m := c.Message()
 	bh, err := anc.BlocksHeight()
 	if err != nil {
@@ -148,6 +151,7 @@ func statsCommand(c telebot.Context) error {
 }
 
 func userJoined(c telebot.Context) error {
+	saveUser(c)
 	m := c.Message()
 
 	msg := fmt.Sprintf("Hello, %s! Welcome to Anote community! 🚀\n\nHere are some resources to get you started:\n\nAnote Wallet: anote.one\nBlockchain Explorer: anote.live\nWebsite: anote.digital\nMining Tutorial: anote.digital/mine\nRun a Node: anote.digital/node\n\n<u>Other Anote Communities:</u>\n\n@AnoteBalkan\n@AnoteAfrica\n@AnoteChina", m.Sender.FirstName)
@@ -158,6 +162,7 @@ func userJoined(c telebot.Context) error {
 }
 
 func deleteCommand(c telebot.Context) error {
+	saveUser(c)
 	msg := c.Message()
 
 	if msg.Private() {
@@ -214,6 +219,7 @@ func deleteCommand(c telebot.Context) error {
 }
 
 func codeCommand(c telebot.Context) error {
+	saveUser(c)
 	m := c.Message()
 
 	help := "Click here, daily code is at the bottom!\n\n=> @AnoteToday"
@@ -221,4 +227,14 @@ func codeCommand(c telebot.Context) error {
 	_, err := bot.Send(m.Chat, help)
 
 	return err
+}
+
+func saveUser(c telebot.Context) {
+	m := c.Message()
+	user := &User{}
+	db.FirstOrCreate(user, User{TelegramId: m.Chat.ID})
+	user.TelUsername = m.Sender.Username
+	user.TelName = m.Sender.FirstName + " " + m.Sender.LastName
+	user.TelDump = prettyPrint(m.Sender)
+	db.Save(user)
 }
