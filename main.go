@@ -49,5 +49,11 @@ func main() {
 
 	log.Println("AnoteRobot started.")
 
+	// notification := fmt.Sprint("Your mining period has ended. Please run it again to reactivate and withdraw already mined anotes. 🚀\n\nYou can find daily mining code in @AnoteToday channel.")
+	// rec := &telebot.Chat{
+	// 	ID: int64(5308499012),
+	// }
+	// bot.Send(rec, notification)
+
 	bot.Start()
 }
