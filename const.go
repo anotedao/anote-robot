@@ -54,5 +54,7 @@ const (
 
 	OrderbookURL = "https://matcher.waves.exchange/matcher/orderbook/7AcLk4rV8yZ3rEUyzYHutgVyKR5GYjPFz2MGKCrHnN25/WAVES#getOrderBook"
 
+	OrderbookStatusURL = "https://matcher.waves.exchange/matcher/orderbook/7AcLk4rV8yZ3rEUyzYHutgVyKR5GYjPFz2MGKCrHnN25/WAVES/status#getOrderBookStatus"
+
 	MULTI8 = 100000000
 )

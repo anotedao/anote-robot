@@ -62,13 +62,13 @@ func (pc *PriceClient) doRequest() (*Prices, error) {
 }
 
 func (pc *PriceClient) doRequestOrderbook() {
-	or := &OrderbookResponse{}
+	or := &OrderbookStatusResponse{}
 	cl := http.Client{}
 
 	var req *http.Request
 	var err error
 
-	req, err = http.NewRequest(http.MethodGet, OrderbookURL, nil)
+	req, err = http.NewRequest(http.MethodGet, OrderbookStatusURL, nil)
 
 	req.Header.Set("Content-Type", "application/json")
 
@@ -100,7 +100,7 @@ func (pc *PriceClient) doRequestOrderbook() {
 		return
 	}
 
-	pc.AnotePrice = float64(or.Asks[0].Price) / MULTI8 * pc.Prices.USD
+	pc.AnotePrice = float64(or.LastPrice) / MULTI8 * pc.Prices.USD
 }
 
 func (pc *PriceClient) start() {
@@ -144,4 +144,16 @@ type OrderbookResponse struct {
 		Amount int64 `json:"amount"`
 		Price  int   `json:"price"`
 	} `json:"asks"`
+}
+
+type OrderbookStatusResponse struct {
+	Success    bool   `json:"success"`
+	Ask        int    `json:"ask"`
+	BidAmount  int64  `json:"bidAmount"`
+	Bid        int    `json:"bid"`
+	LastAmount int    `json:"lastAmount"`
+	AskAmount  int64  `json:"askAmount"`
+	LastSide   string `json:"lastSide"`
+	Status     string `json:"status"`
+	LastPrice  int    `json:"lastPrice"`
 }
