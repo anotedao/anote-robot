@@ -49,7 +49,7 @@ func logTelegramService(message string) error {
 	}
 
 	if strings.Contains(message, "no data for this key") {
-		_, err = bot.Send(rec, message, telebot.Silent)
+		_, err = bot.Send(rec, message, telebot.NoPreview, telebot.Silent)
 	} else {
 		_, err = bot.Send(rec, message)
 	}
