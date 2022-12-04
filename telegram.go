@@ -3,6 +3,7 @@ package main
 import (
 	"log"
 	"net/url"
+	"strings"
 	"time"
 
 	"gopkg.in/telebot.v3"
@@ -41,10 +42,16 @@ func notificationTelegram(message string) {
 func logTelegramService(message string) error {
 	m, _ := url.QueryUnescape(message)
 	message, _ = url.PathUnescape(m)
+	var err error
 
 	rec := &telebot.Chat{
 		ID: int64(TelAnonOps),
 	}
-	_, err := bot.Send(rec, message)
+
+	if strings.Contains(message, "no data for this key") {
+		_, err = bot.Send(rec, message, telebot.Silent)
+	} else {
+		_, err = bot.Send(rec, message)
+	}
 	return err
 }
