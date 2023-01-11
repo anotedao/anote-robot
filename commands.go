@@ -75,7 +75,7 @@ func startCommand(c telebot.Context) error {
 
 	bot.Send(m.Chat, response)
 
-	go monitor.loadMiners()
+	// go monitor.loadMiners()
 
 	return nil
 }

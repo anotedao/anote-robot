@@ -38,11 +38,11 @@ func main() {
 
 	db = initDb()
 
-	monitor = initMonitor()
+	// monitor = initMonitor()
 
 	pc = initPriceClient()
 
-	initAnoteToday()
+	// initAnoteToday()
 
 	log.Println("AnoteRobot started.")
 
