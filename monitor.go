@@ -22,7 +22,7 @@ type Monitor struct {
 }
 
 func (m *Monitor) loadMiners() {
-	resp, err := http.Get(fmt.Sprintf("http://localhost:5003/miners"))
+	resp, err := http.Get(fmt.Sprintf("http://localhost:5001/miners"))
 	if err != nil {
 		log.Println(err)
 		logTelegram(err.Error())
