@@ -150,7 +150,7 @@ func initMonitor() *Monitor {
 	m := &Monitor{
 		Miners: &MinersResponse{},
 	}
-	go m.start()
+	// go m.start()
 	go m.monitorAintBuys()
 	return m
 }
