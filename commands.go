@@ -17,9 +17,9 @@ import (
 
 func initCommands() {
 	bot.Handle("/help", helpCommand)
-	bot.Handle("/start", startCommand)
+	// bot.Handle("/start", startCommand)
 	bot.Handle("/stats", statsCommand)
-	bot.Handle("/delete", deleteCommand)
+	// bot.Handle("/delete", deleteCommand)
 	bot.Handle("/code", codeCommand)
 	bot.Handle(telebot.OnUserJoined, userJoined)
 }
