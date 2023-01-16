@@ -124,7 +124,7 @@ func (m *Monitor) monitorAintBuys() {
 			logTelegram(err.Error())
 		}
 
-		ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
+		ctx, cancel := context.WithTimeout(context.Background(), 600*time.Second)
 		defer cancel()
 
 		addr := proto.MustAddressFromString(conf.Beneficiary)
