@@ -142,8 +142,8 @@ func (at *AnoteToday) getAd() string {
 }
 
 func initAnoteToday() {
-	// at := &AnoteToday{}
-	// go at.start()
+	at := &AnoteToday{}
+	go at.start()
 }
 
 var defaultAd = `<b><u>⭕️  ANOTE 2.0 IS NOW LIVE!</u></b>    🚀
