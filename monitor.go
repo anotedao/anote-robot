@@ -22,7 +22,7 @@ type Monitor struct {
 }
 
 func (m *Monitor) loadMiners() {
-	resp, err := http.Get(fmt.Sprintf("http://localhost:5003/miners"))
+	resp, err := http.Get(fmt.Sprintf("http://localhost:5001/miners"))
 	if err != nil {
 		log.Println(err)
 		logTelegram(err.Error())
@@ -124,7 +124,7 @@ func (m *Monitor) monitorAintBuys() {
 			logTelegram(err.Error())
 		}
 
-		ctx, cancel := context.WithTimeout(context.Background(), 60*time.Second)
+		ctx, cancel := context.WithTimeout(context.Background(), 600*time.Second)
 		defer cancel()
 
 		addr := proto.MustAddressFromString(conf.Beneficiary)
@@ -150,7 +150,7 @@ func initMonitor() *Monitor {
 	m := &Monitor{
 		Miners: &MinersResponse{},
 	}
-	go m.start()
+	// go m.start()
 	go m.monitorAintBuys()
 	return m
 }

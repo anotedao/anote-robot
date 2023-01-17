@@ -339,7 +339,7 @@ func getCallerInfo() (info string) {
 }
 
 func getStats() *StatsResponse {
-	resp, err := http.Get("http://localhost:5003/stats")
+	resp, err := http.Get("http://localhost:5001/stats")
 	if err != nil {
 		log.Println(err)
 		logTelegram(err.Error())
