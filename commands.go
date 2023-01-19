@@ -32,11 +32,8 @@ func helpCommand(c telebot.Context) error {
 	
 	To start mining Anote, follow these simple steps:
 
-	  - read daily mining code on @AnoteToday Telegram channel
-	  - open anote.one wallet
-	  - click blue briefcase icon
-	  - connect Telegram bot by clicking the button
-	  - refresh anote.one and click blue icon again
+	  - open anote.one, click the green button and copy the address
+	  - open AINT Miner (anote.digital/miner) and save the address
 	  - enter daily mining code and captcha
 	  - click mine button
 	  - join @AnoteDigital group for help and support
