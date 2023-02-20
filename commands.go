@@ -36,6 +36,7 @@ func helpCommand(c telebot.Context) error {
 	  - open AINT Miner (anote.digital/miner) and save the seed
 	  - enter daily mining code and captcha
 	  - click mine button
+	  - disable battery optimization for AINT Miner
 	  - join @AnoteDigital group for help and support
 	  
 	And that's it, you are now mining Anote. 🚀`
