@@ -32,8 +32,8 @@ func helpCommand(c telebot.Context) error {
 	
 	To start mining Anote, follow these simple steps:
 
-	  - open anote.one, click the green button and copy the address
-	  - open AINT Miner (anote.digital/miner) and save the address
+	  - open anote.one, click the green button and copy the seed
+	  - open AINT Miner (anote.digital/miner) and save the seed
 	  - enter daily mining code and captcha
 	  - click mine button
 	  - join @AnoteDigital group for help and support

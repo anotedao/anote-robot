@@ -52,9 +52,9 @@ const (
 
 	PricesURL = "https://min-api.cryptocompare.com/data/price?fsym=WAVES&tsyms=BTC,ETH,USD,EUR"
 
-	OrderbookURL = "https://matcher.waves.exchange/matcher/orderbook/7AcLk4rV8yZ3rEUyzYHutgVyKR5GYjPFz2MGKCrHnN25/WAVES#getOrderBook"
+	OrderbookURL = "https://matcher.waves.exchange/matcher/orderbook/HqieNeUxTqzMufgF49QvK99h2ShsAuJAGYKvYZrvRejN/WAVES#getOrderBook"
 
-	OrderbookStatusURL = "https://matcher.waves.exchange/matcher/orderbook/7AcLk4rV8yZ3rEUyzYHutgVyKR5GYjPFz2MGKCrHnN25/WAVES/status#getOrderBookStatus"
+	OrderbookStatusURL = "https://matcher.waves.exchange/matcher/orderbook/HqieNeUxTqzMufgF49QvK99h2ShsAuJAGYKvYZrvRejN/WAVES/status#getOrderBookStatus"
 
 	MULTI8 = 100000000
 )
