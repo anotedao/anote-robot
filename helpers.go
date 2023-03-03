@@ -438,3 +438,28 @@ type DistributionResponse []struct {
 	Balance      int64   `json:"balance"`
 	BalanceFloat float64 `json:"balance_float"`
 }
+
+func saveTelegram(addr string, tid string) int {
+	resp, err := http.Get("http://localhost:5001/save-telegram/" + addr + "/" + tid)
+	if err != nil {
+		log.Println(err)
+		logTelegram(err.Error())
+		return 5
+	}
+	defer resp.Body.Close()
+	body, err := ioutil.ReadAll(resp.Body)
+
+	var result SaveTelegramResponse
+	if err := json.Unmarshal(body, &result); err != nil {
+		log.Println(err)
+		logTelegram(err.Error())
+		return 6
+	}
+
+	return result.Error
+}
+
+type SaveTelegramResponse struct {
+	Success bool `json:"success"`
+	Error   int  `json:"error"`
+}

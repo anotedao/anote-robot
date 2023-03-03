@@ -6,6 +6,7 @@ import (
 	"log"
 	"net/http"
 	"strconv"
+	"strings"
 	"time"
 
 	"github.com/dustin/go-humanize"
@@ -16,7 +17,7 @@ import (
 
 func initCommands() {
 	bot.Handle("/help", helpCommand)
-	// bot.Handle("/start", startCommand)
+	bot.Handle("/start", startCommand)
 	bot.Handle("/stats", statsCommand)
 	// bot.Handle("/delete", deleteCommand)
 	bot.Handle("/code", codeCommand)
@@ -46,33 +47,23 @@ func helpCommand(c telebot.Context) error {
 }
 
 func startCommand(c telebot.Context) error {
-	// saveUser(c)
-	// m := c.Message()
-	// split := strings.Split(m.Text, " ")
-	// response := ""
+	saveUser(c)
+	m := c.Message()
+	split := strings.Split(m.Text, " ")
+	response := ""
 
-	// if len(split) == 2 {
-	// 	telId := strconv.Itoa(int(m.Chat.ID))
-	// 	if monitor.minerExists(m.Chat.ID) {
-	// 		log.Println(telId)
-	// 		response = "There's already an Anote address attached to this Telegram account."
-	// 	} else {
-	// 		encTelegram := EncryptMessage(telId)
-	// 		minerData := "%s%d%s%s" + Sep + encTelegram
-	// 		err := dataTransaction(split[1], &minerData, nil, nil)
-	// 		if err != nil {
-	// 			log.Println(err)
-	// 			logTelegram(err.Error())
-	// 		}
-	// 		response = "You have successfully connected your anote.one wallet to the bot. 🚀 Please restart or reload the wallet to start mining!\n\nYou can find daily mining code in @AnoteToday channel.\n\nJoin @AnoteDigital group for help and support."
-	// 	}
-	// } else {
-	// 	response = "Please run this bot from anote.one wallet (click the blue briefcase icon and then connect Telegram)!\n\nJoin @AnoteDigital group for help and support."
-	// }
+	if len(split) == 2 {
+		tid := strconv.Itoa(int(m.Chat.ID))
+		if saveTelegram(split[1], tid) != 0 {
+			response = "There's already an Anote address attached to this Telegram account."
+		} else {
+			response = "You have successfully connected your AINT Miner to the bot. 🚀 Return to AINT Miner app to start mining!\n\nJoin @AnoteDigital group for help and support."
+		}
+	} else {
+		response = "Please run this bot from AINT Miner app (click the blue briefcase icon and then connect Telegram)!\n\nJoin @AnoteDigital group for help and support."
+	}
 
-	// bot.Send(m.Chat, response)
-
-	// // go monitor.loadMiners()
+	bot.Send(m.Chat, response)
 
 	return nil
 }
