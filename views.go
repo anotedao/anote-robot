@@ -84,3 +84,21 @@ func viewNotification(ctx *macaron.Context) {
 type NotificationResponse struct {
 	Success bool `json:"success"`
 }
+
+func inviteView(ctx *macaron.Context) {
+	nr := &NotificationResponse{Success: true}
+	tids := ctx.Params("telegramid")
+	tid, err := strconv.Atoi(tids)
+	if err != nil {
+		log.Println(err)
+		nr.Success = false
+	} else {
+		message := "Mining reminder."
+		rec := &telebot.Chat{
+			ID: int64(tid),
+		}
+		bot.Send(rec, message)
+	}
+
+	ctx.JSON(200, nr)
+}

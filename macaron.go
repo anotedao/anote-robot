@@ -13,6 +13,7 @@ func initMacaron() *macaron.Macaron {
 
 	m.Get("/notification/:addr/:height/:sheight", viewNotification)
 	m.Get("/log/:message", viewTelegramLog)
+	m.Get("/invite/:telegramid", inviteView)
 
 	go m.Run("127.0.0.1", Port)
 
