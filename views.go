@@ -87,6 +87,24 @@ func viewNotification(ctx *macaron.Context) {
 	ctx.JSON(200, nr)
 }
 
+func viewNotificationEnd(ctx *macaron.Context) {
+	nr := &NotificationResponse{Success: true}
+	tids := ctx.Params("telegramid")
+	tid, err := strconv.Atoi(tids)
+	if err != nil {
+		log.Println(err)
+		nr.Success = false
+	} else {
+		message := fmt.Sprint("Your mining cycle has ended. Please run it again in AINT Miner to reactivate and withdraw already mined anotes. 🚀")
+		rec := &telebot.Chat{
+			ID: int64(tid),
+		}
+		bot.Send(rec, message)
+	}
+
+	ctx.JSON(200, nr)
+}
+
 type NotificationResponse struct {
 	Success bool `json:"success"`
 }
