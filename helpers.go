@@ -382,6 +382,7 @@ type StatsResponse struct {
 	PayoutMiners   int `json:"payout_miners"`
 	InactiveMiners int `json:"inactive_miners"`
 	Holders        int `json:"holders"`
+	ActiveUnits    int `json:"active_units"`
 }
 
 func parseItem(value string, index int) interface{} {
