@@ -21,6 +21,7 @@ func initCommands() {
 	bot.Handle("/stats", statsCommand)
 	// bot.Handle("/delete", deleteCommand)
 	bot.Handle("/code", codeCommand)
+	bot.Handle("/bo", batteryCommand)
 	bot.Handle(telebot.OnUserJoined, userJoined)
 }
 
@@ -231,4 +232,15 @@ func saveUser(c telebot.Context) {
 	user.TelName = m.Sender.FirstName + " " + m.Sender.LastName
 	user.TelDump = prettyPrint(m.Sender)
 	db.Save(user)
+}
+
+func batteryCommand(c telebot.Context) error {
+	saveUser(c)
+	m := c.Message()
+
+	help := "To achieve 100% AINT Miner health and receive full amount of anotes, disable battery optimization on AINT Miner. You can learn how to do that here:\n\nanote.digital/battery"
+
+	_, err := bot.Send(m.Chat, help, telebot.NoPreview)
+
+	return err
 }
