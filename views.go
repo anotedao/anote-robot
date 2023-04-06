@@ -113,7 +113,7 @@ func viewNotificationBattery(ctx *macaron.Context) {
 		log.Println(err)
 		nr.Success = false
 	} else {
-		message := fmt.Sprint("<u><strong>Your AINT Miner health has dropped!</strong></u>❗️❗️❗️\n\nTo achieve 100% AINT Miner health and receive full amount of anotes, disable battery optimization on AINT Miner. You can learn how to do that here:\n\nanote.digital/battery")
+		message := fmt.Sprint("<u><strong>Your AINT Miner health has dropped!</strong></u>❗️\n\nTo achieve 100% AINT Miner health and receive full amount of anotes, disable battery optimization on AINT Miner. You can learn how to do that here:\n\nanote.digital/battery")
 		rec := &telebot.Chat{
 			ID: int64(tid),
 		}
