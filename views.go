@@ -123,6 +123,24 @@ func viewNotificationBattery(ctx *macaron.Context) {
 	ctx.JSON(200, nr)
 }
 
+func viewNotificationFirst(ctx *macaron.Context) {
+	nr := &NotificationResponse{Success: true}
+	tids := ctx.Params("telegramid")
+	tid, err := strconv.Atoi(tids)
+	if err != nil {
+		log.Println(err)
+		nr.Success = false
+	} else {
+		message := fmt.Sprint("<u><strong>You have successfully started Anote mining cycle!</strong></u>\n\nCheck your Anote balance by clicking the wallet button in the bottom left corner of your miner.\n\nYou will receive your first mining amount when you repeat the mining cycle after 24 hours. 🚀")
+		rec := &telebot.Chat{
+			ID: int64(tid),
+		}
+		bot.Send(rec, message)
+	}
+
+	ctx.JSON(200, nr)
+}
+
 type NotificationResponse struct {
 	Success bool `json:"success"`
 }
