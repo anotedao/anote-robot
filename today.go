@@ -128,7 +128,7 @@ func (at *AnoteToday) getAd() string {
 	} else {
 		adText := parseItem(adData.(string), 0)
 		adLink := parseItem(adData.(string), 1)
-		ad = adText.(string) + "\n\nRead <a href=\"" + adLink.(string) + "\">more</a>\n________________________\nDaily Mining Code: %d"
+		ad = adText.(string) + "\n\nRead <a href=\"" + adLink.(string) + "\">more</a>\n\n<a href=\"https://anote.digital/advertise\"><strong><u>Advertise here!</u></strong></a>\n________________________\nDaily Mining Code: %d"
 
 		winnerKey := "%s__" + *winner
 		err := dataTransaction2(winnerKey, nil, nil, nil)
@@ -166,6 +166,7 @@ You can find tutorial how to mine here: anote.one/mine
 
 Join @AnoteDigital group for help and support!
 
+<a href="https://anote.digital/advertise"><strong><u>Advertise here!</u></strong></a>
 ________________________
 Daily Mining Code: %d
 `
