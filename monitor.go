@@ -142,12 +142,19 @@ func (m *Monitor) monitorAintBuys() {
 	}
 }
 
+func (m *Monitor) monitorDiskSpace() {
+	for {
+		time.Sleep(time.Second * 30)
+	}
+}
+
 func initMonitor() *Monitor {
 	m := &Monitor{
 		Miners: &MinersResponse{},
 	}
 	// go m.start()
 	go m.monitorAintBuys()
+	go m.monitorDiskSpace()
 	return m
 }
 
