@@ -46,7 +46,7 @@ const (
 
 	SendAdHour = 14
 
-	Port = 5002
+	Port = 5006
 
 	Sep = "__"
 
