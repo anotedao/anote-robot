@@ -23,6 +23,7 @@ func initCommands() {
 	bot.Handle("/code", codeCommand)
 	bot.Handle("/bo", batteryCommand)
 	bot.Handle(telebot.OnUserJoined, userJoined)
+	bot.Handle(telebot.OnText, mineCommand)
 }
 
 func helpCommand(c telebot.Context) error {
@@ -243,4 +244,9 @@ func batteryCommand(c telebot.Context) error {
 	_, err := bot.Send(m.Chat, help, telebot.NoPreview)
 
 	return err
+}
+
+func mineCommand(c telebot.Context) error {
+	log.Println(c.Message().Text)
+	return nil
 }
