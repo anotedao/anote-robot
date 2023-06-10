@@ -466,15 +466,17 @@ type SaveTelegramResponse struct {
 }
 
 func telegramMine(code string, tid int64) string {
-	addr := "aaaaaa"
-	log.Println(tid)
-	resp, err := http.Get("http://localhost:5001/telegram-mine/" + addr + "/" + code)
+	resp, err := http.Get("http://localhost:5001/telegram-mine/" + strconv.Itoa(int(tid)) + "/" + code)
 	if err != nil {
 		log.Println(err)
 		logTelegram(err.Error())
 	}
 	defer resp.Body.Close()
 	body, err := ioutil.ReadAll(resp.Body)
+	if err != nil {
+		log.Println(err)
+		logTelegram(err.Error())
+	}
 
 	var result MineResponse
 	if err := json.Unmarshal(body, &result); err != nil {
