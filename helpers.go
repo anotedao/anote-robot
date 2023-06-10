@@ -466,6 +466,17 @@ type SaveTelegramResponse struct {
 }
 
 func telegramMine(code string, tid int64) string {
+	mNotCode := "This code is not valid, it should be 3 numbers.\n\nYou can see the daily mining code in @AnoteToday channel."
+
+	if len(code) != 3 {
+		return mNotCode
+	}
+
+	codeInt, err := strconv.Atoi(code)
+	if err != nil || codeInt > 999 {
+		return mNotCode
+	}
+
 	resp, err := http.Get("http://localhost:5001/telegram-mine/" + strconv.Itoa(int(tid)) + "/" + code)
 	if err != nil {
 		log.Println(err)
