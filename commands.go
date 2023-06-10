@@ -247,9 +247,11 @@ func batteryCommand(c telebot.Context) error {
 }
 
 func mineCommand(c telebot.Context) error {
-	message := telegramMine(c.Message().Text, c.Chat().ID)
-
-	_, err := bot.Send(c.Chat(), message, telebot.NoPreview)
+	var err error
+	if c.Chat().Private {
+		message := telegramMine(c.Message().Text, c.Chat().ID)
+		_, err = bot.Send(c.Chat(), message, telebot.NoPreview)
+	}
 
 	return err
 }
