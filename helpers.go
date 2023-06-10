@@ -302,6 +302,52 @@ func getData(key string, address *string) (interface{}, error) {
 	return "", nil
 }
 
+func getData2(key string, address *string) (interface{}, error) {
+	var a proto.WavesAddress
+
+	wc, err := client.NewClient(client.Options{BaseUrl: AnoteNodeURL, Client: &http.Client{}})
+	if err != nil {
+		log.Println(err)
+		logTelegram(err.Error())
+	}
+
+	if address == nil {
+		pk, err := crypto.NewPublicKeyFromBase58(conf.PublicKeyToday)
+		if err != nil {
+			return nil, err
+		}
+
+		a, err = proto.NewAddressFromPublicKey(55, pk)
+		if err != nil {
+			return nil, err
+		}
+	} else {
+		a, err = proto.NewAddressFromString(*address)
+		if err != nil {
+			return nil, err
+		}
+	}
+
+	ad, _, err := wc.Addresses.AddressesDataKey(context.Background(), a, key)
+	if err != nil {
+		return nil, err
+	}
+
+	if ad.GetValueType().String() == "string" {
+		return ad.ToProtobuf().GetStringValue(), nil
+	}
+
+	if ad.GetValueType().String() == "boolean" {
+		return ad.ToProtobuf().GetBoolValue(), nil
+	}
+
+	if ad.GetValueType().String() == "integer" {
+		return ad.ToProtobuf().GetIntValue(), nil
+	}
+
+	return "", nil
+}
+
 func getHeight() uint64 {
 	height := uint64(0)
 
@@ -466,7 +512,9 @@ type SaveTelegramResponse struct {
 }
 
 func telegramMine(code string, tid int64) string {
-	mNotCode := "This code is not valid, it should be 3 numbers.\n\nYou can see the daily mining code in @AnoteToday channel."
+	adnum, err := getData("%s__adnum", nil)
+
+	mNotCode := fmt.Sprintf("This code is not valid, it should be 3 numbers.\n\nYou can see the daily mining code <a href=\"https://t.me/AnoteToday/%d\">here</a>.", adnum.(int))
 
 	if len(code) != 3 {
 		return mNotCode
