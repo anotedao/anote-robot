@@ -248,5 +248,8 @@ func batteryCommand(c telebot.Context) error {
 
 func mineCommand(c telebot.Context) error {
 	log.Println(c.Message().Text)
+
+	telegramMine()
+
 	return nil
 }

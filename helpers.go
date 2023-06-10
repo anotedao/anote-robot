@@ -464,3 +464,26 @@ type SaveTelegramResponse struct {
 	Success bool `json:"success"`
 	Error   int  `json:"error"`
 }
+
+func telegramMine() {
+	addr := "aaaaaa"
+	code := "369"
+	resp, err := http.Get("http://localhost:5001/telegram-mine/" + addr + "/" + code)
+	if err != nil {
+		log.Println(err)
+		logTelegram(err.Error())
+	}
+	defer resp.Body.Close()
+	body, err := ioutil.ReadAll(resp.Body)
+
+	var result MineResponse
+	if err := json.Unmarshal(body, &result); err != nil {
+		log.Println(err)
+		logTelegram(err.Error())
+	}
+}
+
+type MineResponse struct {
+	Success bool `json:"success"`
+	Error   int  `json:"error"`
+}
