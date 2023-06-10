@@ -465,9 +465,8 @@ type SaveTelegramResponse struct {
 	Error   int  `json:"error"`
 }
 
-func telegramMine() {
+func telegramMine(code string) string {
 	addr := "aaaaaa"
-	code := "369"
 	resp, err := http.Get("http://localhost:5001/telegram-mine/" + addr + "/" + code)
 	if err != nil {
 		log.Println(err)
@@ -481,6 +480,8 @@ func telegramMine() {
 		log.Println(err)
 		logTelegram(err.Error())
 	}
+
+	return "test"
 }
 
 type MineResponse struct {
