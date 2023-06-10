@@ -512,7 +512,11 @@ type SaveTelegramResponse struct {
 }
 
 func telegramMine(code string, tid int64) string {
-	adnum, err := getData("%s__adnum", nil)
+	adnum, err := getData2("%s__adnum", nil)
+	if err != nil {
+		log.Println(err)
+		logTelegram(err.Error())
+	}
 
 	mNotCode := fmt.Sprintf("This code is not valid, it should be 3 numbers.\n\nYou can see the daily mining code <a href=\"https://t.me/AnoteToday/%d\">here</a>.", adnum.(int))
 
