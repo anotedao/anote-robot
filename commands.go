@@ -229,7 +229,7 @@ func codeCommand(c telebot.Context) error {
 
 	help := fmt.Sprintf("<a href=\"https://t.me/AnoteToday/%d\"><strong><u>Click here</u></strong></a>, daily mining code is at the bottom of the last announcement.", adnum.(int64))
 
-	_, err = bot.Send(m.Chat, help)
+	_, err = bot.Send(m.Chat, help, telebot.NoPreview)
 
 	return err
 }
