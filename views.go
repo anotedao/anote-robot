@@ -95,7 +95,7 @@ func viewNotificationEnd(ctx *macaron.Context) {
 		log.Println(err)
 		nr.Success = false
 	} else {
-		message := fmt.Sprint("Your mining cycle has ended. Please run it again in AINT Miner to reactivate and withdraw already mined anotes. 🚀")
+		message := fmt.Sprint("Your mining cycle has ended.\n\nPlease run it again by getting the daily mining code in AnoteToday channel and sending it back here to reactivate mining cycle and withdraw already mined anotes. 🚀")
 		rec := &telebot.Chat{
 			ID: int64(tid),
 		}
