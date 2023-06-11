@@ -40,7 +40,7 @@ func helpCommand(c telebot.Context) error {
 	
 	To start mining Anote, follow these simple steps:
 
-	  - read the daily mining code from <a href="https://t.me/AnoteToday/%d">AnoteToday channel</a>
+	  - read the daily mining code from <a href="https://t.me/AnoteToday/%d">AnoteToday</a> channel
 	  - open @AnoteRobot and click start if you already haven't
 	  - send the daily mining code to AnoteRobot as a message
 	  
@@ -221,9 +221,15 @@ func codeCommand(c telebot.Context) error {
 	saveUser(c)
 	m := c.Message()
 
-	help := "Click here, daily code is at the bottom!\n\n=> @AnoteToday"
+	adnum, err := getData2("%s__adnum", nil)
+	if err != nil {
+		log.Println(err)
+		logTelegram(err.Error())
+	}
 
-	_, err := bot.Send(m.Chat, help)
+	help := fmt.Sprintf("<a href=\"https://t.me/AnoteToday/%d\"><strong><u>Click here</u></strong></a>, daily mining code is at the bottom of the last announcement.", adnum.(int64))
+
+	_, err = bot.Send(m.Chat, help)
 
 	return err
 }
