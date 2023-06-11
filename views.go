@@ -110,7 +110,7 @@ func viewNotificationEnd(ctx *macaron.Context) {
 		rec := &telebot.Chat{
 			ID: int64(tid),
 		}
-		bot.Send(rec, message)
+		bot.Send(rec, message, telebot.NoPreview)
 	}
 
 	ctx.JSON(200, nr)
