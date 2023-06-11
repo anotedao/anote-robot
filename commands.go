@@ -27,23 +27,26 @@ func initCommands() {
 }
 
 func helpCommand(c telebot.Context) error {
+	adnum, err := getData2("%s__adnum", nil)
+	if err != nil {
+		log.Println(err)
+		logTelegram(err.Error())
+	}
+
 	saveUser(c)
 	m := c.Message()
 
-	help := `⭕️ <b><u>Anote Mining Tutorial</u></b>
+	help := fmt.Sprintf(`⭕️ <b><u>Anote Mining Tutorial</u></b>
 	
 	To start mining Anote, follow these simple steps:
 
-	  - open anote.one, click the green button and copy the seed phrase (you can find it in settings)
-	  - open AINT Miner (anotedao.com/miner) and save the seed
-	  - enter daily mining code and captcha
-	  - click mine button
-	  - disable battery optimization for AINT Miner
-	  - join @AnoteDigital group for help and support
+	  - read the daily mining code from <a href="https://t.me/AnoteToday">AnoteToday channel</a>
+	  - open @AnoteRobot and click start if you already haven't
+	  - send it the daily mining code
 	  
-	And that's it, you are now mining Anote. 🚀`
+	And that's it, you are now mining Anote. 🚀`, adnum.(int64))
 
-	_, err := bot.Send(m.Chat, help)
+	_, err = bot.Send(m.Chat, help)
 
 	return err
 }
