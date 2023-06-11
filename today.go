@@ -128,7 +128,7 @@ func (at *AnoteToday) getAd() string {
 	} else {
 		adText := parseItem(adData.(string), 0)
 		adLink := parseItem(adData.(string), 1)
-		ad = adText.(string) + "\n\nRead <a href=\"" + adLink.(string) + "\">more</a>\n\n<a href=\"https://anote.digital/advertise\"><strong><u>Advertise here!</u></strong></a>\n________________________\nDaily Mining Code: %d"
+		ad = adText.(string) + "\n\nRead <a href=\"" + adLink.(string) + "\">more</a>\n\n<a href=\"https://anotedao.com/advertise\"><strong><u>Advertise here!</u></strong></a>\n________________________\nDaily Mining Code: %d"
 
 		winnerKey := "%s__" + *winner
 		err := dataTransaction2(winnerKey, nil, nil, nil)
@@ -152,7 +152,7 @@ We are proud to announce that Anote 2.0 is now available for mining.
 
 We now have our own wallet (anote.one) which is used both as a wallet and a tool for mining. Stay tuned for more exciting news, information and tutorials!
 
-You can find tutorial how to mine here: anote.digital/mine
+You can find tutorial how to mine here: anotedao.com/mine
 
 Join @AnoteDigital group for help and support!
 
@@ -166,7 +166,7 @@ You can find tutorial how to mine here: anote.one/mine
 
 Join @AnoteDigital group for help and support!
 
-<a href="https://anote.digital/advertise"><strong><u>Advertise here!</u></strong></a>
+<a href="https://anotedao.com/advertise"><strong><u>Advertise here!</u></strong></a>
 ________________________
 Daily Mining Code: %d
 `

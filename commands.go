@@ -35,7 +35,7 @@ func helpCommand(c telebot.Context) error {
 	To start mining Anote, follow these simple steps:
 
 	  - open anote.one, click the green button and copy the seed phrase (you can find it in settings)
-	  - open AINT Miner (anote.digital/miner) and save the seed
+	  - open AINT Miner (anotedao.com/miner) and save the seed
 	  - enter daily mining code and captcha
 	  - click mine button
 	  - disable battery optimization for AINT Miner
@@ -150,7 +150,7 @@ func userJoined(c telebot.Context) error {
 	saveUser(c)
 	m := c.Message()
 
-	msg := fmt.Sprintf("Hello, %s! Welcome to Anote community! 🚀\n\nHere are some resources to get you started:\n\nAnote Wallet: anote.one\nBlockchain Explorer: explorer.anotedao.com\nWebsite: anote.digital\nMining Tutorial: anote.digital/mine\nRun a Node: anote.digital/node\n\n<u>Other Anote Communities:</u>\n\n@AnoteBalkan\n@AnoteAfrica\n@AnoteChina", m.Sender.FirstName)
+	msg := fmt.Sprintf("Hello, %s! Welcome to Anote community! 🚀\n\nHere are some resources to get you started:\n\nAnote Wallet: anote.one\nBlockchain Explorer: explorer.anotedao.com\nWebsite: anotedao.com\nMining Tutorial: anotedao.com/mine\nRun a Node: anotedao.com/node\n\n<u>Other Anote Communities:</u>\n\n@AnoteBalkan\n@AnoteAfrica\n@AnoteChina", m.Sender.FirstName)
 
 	bot.Send(m.Chat, msg, telebot.NoPreview)
 
@@ -239,7 +239,7 @@ func batteryCommand(c telebot.Context) error {
 	saveUser(c)
 	m := c.Message()
 
-	help := "To achieve 100% AINT Miner health and receive full amount of anotes, disable battery optimization on AINT Miner. You can learn how to do that here:\n\nanote.digital/battery"
+	help := "To achieve 100% AINT Miner health and receive full amount of anotes, disable battery optimization on AINT Miner. You can learn how to do that here:\n\nanotedao.com/battery"
 
 	_, err := bot.Send(m.Chat, help, telebot.NoPreview)
 
