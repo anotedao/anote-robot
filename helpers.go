@@ -519,7 +519,7 @@ func telegramMine(code string, tid int64) string {
 	}
 
 	mNotCode := fmt.Sprintf("This code is not valid, it should be 3 numbers.\n\nYou can see the daily mining code <a href=\"https://t.me/AnoteToday/%d\">here</a>.", adnum.(int64))
-	mWrongCode := fmt.Sprintf("This code is not correct,\n\nYou can see the daily mining code <a href=\"https://t.me/AnoteToday/%d\">here</a>.", adnum.(int64))
+	mWrongCode := fmt.Sprintf("This code is not correct.\n\nYou can see the daily mining code <a href=\"https://t.me/AnoteToday/%d\">here</a>.", adnum.(int64))
 	mSuccess := "You successfully started your Anote mining cycle. 🚀"
 
 	if len(code) != 3 {
