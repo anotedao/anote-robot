@@ -152,7 +152,7 @@ We are proud to announce that Anote 2.0 is now available for mining.
 
 We now have our own wallet (anote.one) which is used both as a wallet and a tool for mining. Stay tuned for more exciting news, information and tutorials!
 
-You can find tutorial how to mine here: anotedao.com/mine
+You can find tutorial how to mine here: anotedao.com/mining
 
 Join @AnoteDigital group for help and support!
 
@@ -162,7 +162,7 @@ Daily Mining Code: %d
 
 var defaultAd = `Invite 3 or more users to Anote with the referral link from AINT Miner and your mining power will get multiplied by 10.
 
-You can find tutorial how to mine here: anote.one/mine
+You can find tutorial how to mine here: anote.one/mining
 
 Join @AnoteDigital group for help and support!
 
