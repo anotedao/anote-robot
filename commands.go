@@ -278,6 +278,7 @@ func myStatsCommand(c telebot.Context) error {
 	}
 
 	message := fmt.Sprintf(`⭕️ <b><u>Your Anote Stats</u></b>
+	
 	Balance: %.8f ANOTES
 	Cycle Blocks: %d
 	`, float64(abr.Balance)/float64(MULTI8),
