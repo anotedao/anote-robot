@@ -270,6 +270,7 @@ func myStatsCommand(c telebot.Context) error {
 	var err error
 
 	miner := getMiner(c.Message().Chat.ID)
+	log.Println(prettyPrint(miner))
 	abr, err := anc.AddressesBalance(miner.Address)
 	if err != nil {
 		log.Println(err.Error())
