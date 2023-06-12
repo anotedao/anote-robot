@@ -290,8 +290,8 @@ func myStatsCommand(c telebot.Context) error {
 	<b>Balance:</b> %.8f ANOTES
 
 	<b>Cycle Blocks Left:</b> %d
-	<b>Cycle Time Left:</b> %d:%d
-	
+	<b>Cycle Time Left:</b> %02d:%02d
+
 	<b>Referred Total:</b> %d
 	<b>Referred Active:</b> %d
 	<b>Referred Confirmed:</b> %d`,
