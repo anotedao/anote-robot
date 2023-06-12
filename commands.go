@@ -267,10 +267,10 @@ func mineCommand(c telebot.Context) error {
 }
 
 func myStatsCommand(c telebot.Context) error {
+	msg := c.Message()
 	var err error
 
 	miner := getMiner(c.Message().Chat.ID)
-	log.Println(prettyPrint(miner))
 	abr, err := anc.AddressesBalance(miner.Address)
 	if err != nil {
 		log.Println(err.Error())
@@ -278,11 +278,15 @@ func myStatsCommand(c telebot.Context) error {
 	}
 
 	message := fmt.Sprintf(`⭕️ <b><u>Your Anote Stats</u></b>
-	
+
 	Balance: %.8f ANOTES
 	Cycle Blocks: %d
 	`, float64(abr.Balance)/float64(MULTI8),
 		miner.Height-uint64(miner.MiningHeight))
+
+	if !msg.Private() {
+		message = "Please send this command as a private message to bot."
+	}
 
 	_, err = bot.Send(c.Chat(), message, telebot.NoPreview)
 
