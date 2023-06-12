@@ -63,10 +63,10 @@ func startCommand(c telebot.Context) error {
 		if saveTelegram(split[1], tid) != 0 {
 			response = "There's already an Anote address attached to this Telegram account."
 		} else {
-			response = "You have successfully connected your AINT Miner to the bot. 🚀 Return to AINT Miner app to start mining!\n\nJoin @AnoteDigital group for help and support."
+			response = "You have successfully connected your AINT Miner to the bot. 🚀 Return to AINT Miner app to start mining!\n\nJoin @AnoteDAO group for help and support."
 		}
 	} else {
-		response = "Please run this bot from AINT Miner app (click the blue briefcase icon and then connect Telegram)!\n\nJoin @AnoteDigital group for help and support."
+		response = "Please run this bot from AINT Miner app (click the blue briefcase icon and then connect Telegram)!\n\nJoin @AnoteDAO group for help and support."
 	}
 
 	bot.Send(m.Chat, response)

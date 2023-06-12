@@ -154,7 +154,7 @@ We now have our own wallet (anote.one) which is used both as a wallet and a tool
 
 You can find tutorial how to mine here: anotedao.com/mining
 
-Join @AnoteDigital group for help and support!
+Join @AnoteDAO group for help and support!
 
 ________________________
 Daily Mining Code: %d
@@ -164,7 +164,7 @@ var defaultAd = `Invite 3 or more users to Anote with the referral link from AIN
 
 You can find tutorial how to mine here: anote.one/mining
 
-Join @AnoteDigital group for help and support!
+Join @AnoteDAO group for help and support!
 
 <a href="https://anotedao.com/advertise"><strong><u>Advertise here!</u></strong></a>
 ________________________
