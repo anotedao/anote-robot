@@ -277,12 +277,21 @@ func myStatsCommand(c telebot.Context) error {
 		logTelegram(err.Error())
 	}
 
+	blocks := 1410 - miner.Height + uint64(miner.MiningHeight)
+	duration, err := time.ParseDuration(fmt.Sprintf("%dm", blocks))
+	if err != nil {
+		log.Println(err.Error())
+		logTelegram(err.Error())
+	}
+
 	message := fmt.Sprintf(`⭕️ <b><u>Your Anote Stats</u></b>
 
 	Balance: %.8f ANOTES
-	Cycle Blocks: %d
-	`, float64(abr.Balance)/float64(MULTI8),
-		1410-miner.Height+uint64(miner.MiningHeight))
+	Cycle Blocks Left: %d
+	Cycle Time Left: %s`,
+		float64(abr.Balance)/float64(MULTI8),
+		blocks,
+		duration.String())
 
 	if !msg.Private() {
 		message = "Please send this command as a private message to bot."
