@@ -582,5 +582,22 @@ type MinerResponse struct {
 func getMiner(tid int64) *MinerResponse {
 	mr := &MinerResponse{}
 
+	resp, err := http.Get("http://localhost:5001/tminer/" + strconv.Itoa(int(tid)))
+	if err != nil {
+		log.Println(err)
+		logTelegram(err.Error())
+	}
+	defer resp.Body.Close()
+	body, err := ioutil.ReadAll(resp.Body)
+	if err != nil {
+		log.Println(err)
+		logTelegram(err.Error())
+	}
+
+	if err := json.Unmarshal(body, mr); err != nil {
+		log.Println(err)
+		logTelegram(err.Error())
+	}
+
 	return mr
 }
