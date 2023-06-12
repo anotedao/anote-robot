@@ -270,10 +270,15 @@ func myStatsCommand(c telebot.Context) error {
 	var err error
 
 	miner := getMiner(c.Message().Chat.ID)
+	abr, err := anc.AddressesBalance(miner.Address)
+	if err != nil {
+		log.Println(err.Error())
+		logTelegram(err.Error())
+	}
 
 	message := fmt.Sprintf(`⭕️ <b><u>Your Anote Stats</u></b>
 	Balance: %.8f
-	`, 2.323)
+	`, float64(abr.Balance)/float64(MULTI8))
 
 	_, err = bot.Send(c.Chat(), message, telebot.NoPreview)
 
