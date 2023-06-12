@@ -157,7 +157,7 @@ You can find tutorial how to mine here: anotedao.com/mining
 Join @AnoteDAO group for help and support!
 
 ________________________
-Daily Mining Code: %d
+@AnoteRobot Daily Mining Code: %d
 `
 
 var defaultAd = `Invite 3 or more users to Anote with the referral link from AINT Miner and your mining power will get multiplied by 10.
@@ -168,5 +168,5 @@ Join @AnoteDAO group for help and support!
 
 <a href="https://anotedao.com/advertise"><strong><u>Advertise here!</u></strong></a>
 ________________________
-Daily Mining Code: %d
+@AnoteRobot Daily Mining Code: %d
 `
