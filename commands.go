@@ -19,6 +19,7 @@ func initCommands() {
 	bot.Handle("/help", helpCommand)
 	bot.Handle("/start", startCommand)
 	bot.Handle("/stats", statsCommand)
+	bot.Handle("/mystats", myStatsCommand)
 	// bot.Handle("/delete", deleteCommand)
 	bot.Handle("/code", codeCommand)
 	bot.Handle("/bo", batteryCommand)
@@ -261,6 +262,17 @@ func mineCommand(c telebot.Context) error {
 		message := telegramMine(c.Message().Text, c.Chat().ID)
 		_, err = bot.Send(c.Chat(), message, telebot.NoPreview)
 	}
+
+	return err
+}
+
+func myStatsCommand(c telebot.Context) error {
+	var err error
+
+	message := fmt.Sprintf(`⭕️ <b><u>Your Anote Stats</u></b>
+	`)
+
+	_, err = bot.Send(c.Chat(), message, telebot.NoPreview)
 
 	return err
 }
