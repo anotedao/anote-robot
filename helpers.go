@@ -567,3 +567,20 @@ type MineResponse struct {
 	Success bool `json:"success"`
 	Error   int  `json:"error"`
 }
+
+type MinerResponse struct {
+	Address      string `json:"address"`
+	Referred     int64  `json:"referred"`
+	Active       int64  `json:"active"`
+	Confirmed    int64  `json:"confirmed"`
+	HasTelegram  bool   `json:"has_telegram"`
+	MiningHeight int64  `json:"mining_height"`
+	Height       uint64 `json:"height"`
+	Exists       bool   `json:"exists"`
+}
+
+func getMiner(tid int64) *MinerResponse {
+	mr := &MinerResponse{}
+
+	return mr
+}

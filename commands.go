@@ -269,8 +269,11 @@ func mineCommand(c telebot.Context) error {
 func myStatsCommand(c telebot.Context) error {
 	var err error
 
+	miner := getMiner(c.Message().Chat.ID)
+
 	message := fmt.Sprintf(`⭕️ <b><u>Your Anote Stats</u></b>
-	`)
+	Balance: %.8f
+	`, 2.323)
 
 	_, err = bot.Send(c.Chat(), message, telebot.NoPreview)
 

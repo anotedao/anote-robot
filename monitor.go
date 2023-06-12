@@ -12,7 +12,6 @@ import (
 )
 
 type Monitor struct {
-	Miners             *MinersResponse
 	Height             uint64
 	BeneficiaryBalance uint64
 }
@@ -54,20 +53,9 @@ func (m *Monitor) monitorDiskSpace() {
 }
 
 func initMonitor() *Monitor {
-	m := &Monitor{
-		Miners: &MinersResponse{},
-	}
+	m := &Monitor{}
 	// go m.start()
 	go m.monitorAintBuys()
 	go m.monitorDiskSpace()
 	return m
-}
-
-type MinersResponse []*MinerResponse
-
-type MinerResponse struct {
-	Address          string    `json:"address"`
-	LastNotification time.Time `json:"last_notification"`
-	TelegramID       int       `json:"telegram_id"`
-	MiningHeight     int       `json:"mining_height"`
 }
