@@ -286,13 +286,20 @@ func myStatsCommand(c telebot.Context) error {
 
 	message := fmt.Sprintf(`⭕️ <b><u>Your Anote Stats</u></b>
 
-	Balance: %.8f ANOTES
-	Cycle Blocks Left: %d
-	Cycle Time Left: %d:%d`,
+	<b>Mined:</b> N/A
+	<b>Balance:</b> %.8f ANOTES
+	<b>Cycle Blocks Left:</b> %d
+	<b>Cycle Time Left:</b> %d:%d
+	<b>Referred Total:</b> %d
+	<b>Referred Active:</b> %d
+	<b>Referred Confirmed:</b> %d`,
 		float64(abr.Balance)/float64(MULTI8),
 		blocks,
 		int(duration.Hours()),
-		int(duration.Minutes())%60)
+		int(duration.Minutes())%60,
+		miner.Referred,
+		miner.Active,
+		miner.Confirmed)
 
 	if !msg.Private() {
 		message = "Please send this command as a private message to bot."
