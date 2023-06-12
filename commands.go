@@ -282,7 +282,7 @@ func myStatsCommand(c telebot.Context) error {
 	Balance: %.8f ANOTES
 	Cycle Blocks: %d
 	`, float64(abr.Balance)/float64(MULTI8),
-		miner.Height-uint64(miner.MiningHeight))
+		1410-miner.Height+uint64(miner.MiningHeight))
 
 	if !msg.Private() {
 		message = "Please send this command as a private message to bot."
