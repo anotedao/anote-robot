@@ -288,10 +288,11 @@ func myStatsCommand(c telebot.Context) error {
 
 	Balance: %.8f ANOTES
 	Cycle Blocks Left: %d
-	Cycle Time Left: %s`,
+	Cycle Time Left: %d:%d`,
 		float64(abr.Balance)/float64(MULTI8),
 		blocks,
-		duration.String())
+		duration.Hours(),
+		duration.Minutes())
 
 	if !msg.Private() {
 		message = "Please send this command as a private message to bot."
