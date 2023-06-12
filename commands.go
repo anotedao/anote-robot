@@ -212,7 +212,7 @@ func deleteCommand(c telebot.Context) error {
 
 		bot.Send(msg.Chat, "Your account has been successfully disconnected.")
 	} else {
-		bot.Send(msg.Chat, "Please send this command as a private message to bot.")
+		bot.Send(msg.Chat, "Please send this command as a direct message to @AnoteRobot.")
 	}
 
 	return nil
@@ -304,7 +304,7 @@ func myStatsCommand(c telebot.Context) error {
 		miner.Confirmed)
 
 	if !msg.Private() {
-		message = "Please send this command as a private message to bot."
+		message = "Please send this command as a direct message to @AnoteRobot."
 	}
 
 	_, err = bot.Send(c.Chat(), message, telebot.NoPreview)
