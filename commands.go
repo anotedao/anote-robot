@@ -19,7 +19,7 @@ func initCommands() {
 	bot.Handle("/help", helpCommand)
 	bot.Handle("/start", startCommand)
 	bot.Handle("/stats", statsCommand)
-	bot.Handle("/mystats", myStatsCommand)
+	bot.Handle("/miner", myStatsCommand)
 	bot.Handle("/code", codeCommand)
 	bot.Handle("/bo", batteryCommand)
 	bot.Handle(telebot.OnUserJoined, userJoined)
