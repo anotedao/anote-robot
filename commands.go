@@ -328,7 +328,10 @@ func myStatsCommand(c telebot.Context) error {
 
 	<b>Referred Total:</b> %d
 	<b>Referred Active:</b> %d
-	<b>Referred Confirmed:</b> %d`,
+	<b>Referred Confirmed:</b> %d
+	
+	<b><u>Other Commands</u></b>
+	/ref - Your Anote referral link`,
 		float64(abr.Balance)/float64(MULTI8),
 		blocks,
 		int(duration.Hours()),
