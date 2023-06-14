@@ -22,6 +22,7 @@ func initCommands() {
 	bot.Handle("/miner", myStatsCommand)
 	bot.Handle("/code", codeCommand)
 	bot.Handle("/bo", batteryCommand)
+	bot.Handle("/ref", refCommand)
 	bot.Handle(telebot.OnUserJoined, userJoined)
 	bot.Handle(telebot.OnText, mineCommand)
 }
@@ -340,6 +341,27 @@ func myStatsCommand(c telebot.Context) error {
 		message = "Please send this command as a direct message to @AnoteRobot."
 	}
 
+	_, err = bot.Send(c.Chat(), message, telebot.NoPreview)
+
+	return err
+}
+
+func refCommand(c telebot.Context) error {
+	msg := c.Message()
+	var err error
+
+	if !msg.Private() {
+		message := "Please send this command as a direct message to @AnoteRobot."
+		_, err = bot.Send(c.Chat(), message, telebot.NoPreview)
+		return err
+	}
+
+	miner := getMiner(c.Message().Sender.ID)
+
+	message := fmt.Sprint("Your Anote referral link:")
+	_, err = bot.Send(c.Chat(), message, telebot.NoPreview)
+
+	message = fmt.Sprintf("https://t.me/AnoteRobot?start=%d", miner.ID)
 	_, err = bot.Send(c.Chat(), message, telebot.NoPreview)
 
 	return err
