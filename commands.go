@@ -40,7 +40,7 @@ func helpCommand(c telebot.Context) error {
 	
 	To start mining Anote, follow these simple steps:
 
-	  - read the daily mining code from <a href="https://t.me/AnoteToday/%d">AnoteToday</a> channel
+	  - read the daily mining code from <a href="https://t.me/AnoteAds/%d">AnoteToday</a> channel
 	  - open @AnoteRobot and click start if you already haven't
 	  - send the daily mining code to AnoteRobot as a message
 	  
@@ -71,7 +71,7 @@ func startCommand(c telebot.Context) error {
 			saveTelegram("none", tid)
 			response = fmt.Sprintf(`⭕️ <b><u>Welcome to Anote!</u></b> 🚀
 			
-Start mining by reading the daily mining code in <a href="https://t.me/AnoteToday/%d">AnoteToday</a> channel and sending it back here to activate the mining cycle.
+Start mining by reading the daily mining code in <a href="https://t.me/AnoteAds/%d">AnoteToday</a> channel and sending it back here to activate the mining cycle.
 		
 Join @AnoteDAO group for help and support.`,
 				adnum)
@@ -80,7 +80,7 @@ Join @AnoteDAO group for help and support.`,
 		saveTelegram("none", tid)
 		response = fmt.Sprintf(`⭕️ <b><u>Welcome to Anote!</u></b> 🚀
 		
-Start mining by reading the daily mining code in <a href="https://t.me/AnoteToday/%d">AnoteToday</a> channel and sending it back here to activate the mining cycle.
+Start mining by reading the daily mining code in <a href="https://t.me/AnoteAds/%d">AnoteToday</a> channel and sending it back here to activate the mining cycle.
 		
 Join @AnoteDAO group for help and support.`,
 			adnum)
@@ -261,7 +261,7 @@ func codeCommand(c telebot.Context) error {
 		logTelegram(err.Error())
 	}
 
-	help := fmt.Sprintf("<a href=\"https://t.me/AnoteToday/%d\"><strong><u>Click here</u></strong></a>, daily mining code is at the bottom of the last announcement.", adnum.(int64))
+	help := fmt.Sprintf("<a href=\"https://t.me/AnoteAds/%d\"><strong><u>Click here</u></strong></a>, daily mining code is at the bottom of the last announcement.", adnum.(int64))
 
 	_, err = bot.Send(m.Chat, help, telebot.NoPreview)
 
