@@ -569,7 +569,7 @@ type MineResponse struct {
 }
 
 type MinerResponse struct {
-	ID           string `json:"id"`
+	ID           uint   `json:"id"`
 	Address      string `json:"address"`
 	Referred     int64  `json:"referred"`
 	Active       int64  `json:"active"`
