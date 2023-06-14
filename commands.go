@@ -20,7 +20,6 @@ func initCommands() {
 	bot.Handle("/start", startCommand)
 	bot.Handle("/stats", statsCommand)
 	bot.Handle("/mystats", myStatsCommand)
-	// bot.Handle("/delete", deleteCommand)
 	bot.Handle("/code", codeCommand)
 	bot.Handle("/bo", batteryCommand)
 	bot.Handle(telebot.OnUserJoined, userJoined)
@@ -57,19 +56,35 @@ func startCommand(c telebot.Context) error {
 	m := c.Message()
 	split := strings.Split(m.Text, " ")
 	response := ""
+	tid := strconv.Itoa(int(m.Chat.ID))
+
+	adnum, err := getData2("%s__adnum", nil)
+	if err != nil {
+		log.Println(err)
+		logTelegram(err.Error())
+	}
 
 	if len(split) == 2 {
-		tid := strconv.Itoa(int(m.Chat.ID))
 		if saveTelegram(split[1], tid) != 0 {
 			response = "There's already an Anote address attached to this Telegram account."
 		} else {
 			response = "You have successfully connected your AINT Miner to the bot. 🚀 Return to AINT Miner app to start mining!\n\nJoin @AnoteDAO group for help and support."
 		}
 	} else {
-		response = "Please run this bot from AINT Miner app (click the blue briefcase icon and then connect Telegram)!\n\nJoin @AnoteDAO group for help and support."
+		saveTelegram("none", tid)
+		response = fmt.Sprintf(`⭕️ <b><u>Welcome to Anote!</u></b> 🚀
+		
+Start mining by reading the daily mining code in <a href="https://t.me/AnoteToday/%d">AnoteToday</a> channel and sending it back here to activate the mining cycle.
+		
+Join @AnoteDAO group for help and support.`,
+			adnum)
 	}
 
-	bot.Send(m.Chat, response)
+	_, err = bot.Send(m.Chat, response, telebot.NoPreview)
+	if err != nil {
+		log.Println(err)
+		logTelegram(err.Error())
+	}
 
 	return nil
 }
