@@ -379,27 +379,27 @@ func refCommand(c telebot.Context) error {
 func withdrawCommand(c telebot.Context) error {
 	msg := c.Message()
 	var err error
-	message := ""
+	// message := ""
 
-	if !msg.Private() {
-		message := "Please send this command as a direct message to @AnoteRobot."
-		_, err = bot.Send(c.Chat(), message, telebot.NoPreview)
-		return err
-	}
+	// if !msg.Private() {
+	// 	message := "Please send this command as a direct message to @AnoteRobot."
+	// 	_, err = bot.Send(c.Chat(), message, telebot.NoPreview)
+	// 	return err
+	// }
 
-	miner := getMiner(c.Message().Sender.ID)
+	// miner := getMiner(c.Message().Sender.ID)
 
-	if miner.MinedMobile+miner.MinedTelegram > Fee {
-		if strconv.Itoa(int(miner.TelegramId)) == miner.Address {
-			message = "To withdraw your funds, please open account on anote.one wallet and connect it to the bot!"
-		} else {
-			message = "Your funds have been sent to your address. 🚀"
-		}
-	} else {
-		message = "You don't have enough funds to withdraw. Please try later!"
-	}
+	// if miner.MinedMobile+miner.MinedTelegram > Fee {
+	// 	if strconv.Itoa(int(miner.TelegramId)) == miner.Address {
+	// 		message = "To withdraw your funds, please open account on anote.one wallet and connect it to the bot!"
+	// 	} else {
+	// 		message = "Your funds have been sent to your address. 🚀"
+	// 	}
+	// } else {
+	// 	message = "You don't have enough funds to withdraw. Please try later!"
+	// }
 
-	// message := "This command is under construction."
+	message := "This command is under construction."
 	_, err = bot.Send(c.Chat(), message, telebot.NoPreview)
 
 	return err
