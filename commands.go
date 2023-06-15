@@ -379,6 +379,7 @@ func refCommand(c telebot.Context) error {
 func withdrawCommand(c telebot.Context) error {
 	msg := c.Message()
 	var err error
+	message := ""
 
 	if !msg.Private() {
 		message := "Please send this command as a direct message to @AnoteRobot."
@@ -386,9 +387,15 @@ func withdrawCommand(c telebot.Context) error {
 		return err
 	}
 
-	// miner := getMiner(c.Message().Sender.ID)
+	miner := getMiner(c.Message().Sender.ID)
 
-	message := "This command is under construction."
+	if miner.MinedMobile+miner.MinedTelegram > Fee {
+		message = "You don't have enough funds to withdraw. Please try later!"
+	} else {
+		message = "Your funds have been sent to your address. 🚀"
+	}
+
+	// message := "This command is under construction."
 	_, err = bot.Send(c.Chat(), message, telebot.NoPreview)
 
 	return err
