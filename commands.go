@@ -377,7 +377,7 @@ func refCommand(c telebot.Context) error {
 }
 
 func withdrawCommand(c telebot.Context) error {
-	msg := c.Message()
+	// msg := c.Message()
 	var err error
 	// message := ""
 
