@@ -322,7 +322,7 @@ func myStatsCommand(c telebot.Context) error {
 
 	<b>Mined Telegram:</b> %.8f ANOTE
 	<b>Mined Mobile:</b> %.8f ANOTE
-	<b>Balance:</b> %.8f ANOTE
+	<b>Address Balance:</b> %.8f ANOTE
 
 	<b>Cycle Blocks Left:</b> %d
 	<b>Cycle Time Left:</b> %02d:%02d
