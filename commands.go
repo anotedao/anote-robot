@@ -390,9 +390,13 @@ func withdrawCommand(c telebot.Context) error {
 	miner := getMiner(c.Message().Sender.ID)
 
 	if miner.MinedMobile+miner.MinedTelegram > Fee {
-		message = "You don't have enough funds to withdraw. Please try later!"
+		if strconv.Itoa(int(miner.TelegramId)) == miner.Address {
+			message = "To withdraw your funds, please open account on anote.one wallet and connect it to the bot!"
+		} else {
+			message = "Your funds have been sent to your address. 🚀"
+		}
 	} else {
-		message = "Your funds have been sent to your address. 🚀"
+		message = "You don't have enough funds to withdraw. Please try later!"
 	}
 
 	// message := "This command is under construction."
