@@ -334,8 +334,8 @@ func myStatsCommand(c telebot.Context) error {
 	<b><u>Other Commands</u></b>
 
 	/ref - Your Anote referral link`,
-		miner.MinedTelegram,
-		miner.MinedMobile,
+		float64(miner.MinedTelegram)/float64(MULTI8),
+		float64(miner.MinedMobile)/float64(MULTI8),
 		float64(abr.Balance)/float64(MULTI8),
 		blocks,
 		int(duration.Hours()),
