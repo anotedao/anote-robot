@@ -320,7 +320,8 @@ func myStatsCommand(c telebot.Context) error {
 
 	message := fmt.Sprintf(`⭕️ <b><u>Your Anote Stats</u></b>
 
-	<b>Mined:</b> N/A
+	<b>Mined Telegram:</b> %.8f ANOTE
+	<b>Mined Mobile:</b> %.8f ANOTE
 	<b>Balance:</b> %.8f ANOTE
 
 	<b>Cycle Blocks Left:</b> %d
@@ -331,8 +332,10 @@ func myStatsCommand(c telebot.Context) error {
 	<b>Referred Confirmed:</b> %d
 	
 	<b><u>Other Commands</u></b>
-	
+
 	/ref - Your Anote referral link`,
+		miner.MinedTelegram,
+		miner.MinedMobile,
 		float64(abr.Balance)/float64(MULTI8),
 		blocks,
 		int(duration.Hours()),
