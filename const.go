@@ -34,6 +34,8 @@ const (
 
 	MobileAddress = "3ANzidsKXn9a1s9FEbWA19hnMgV9zZ2RB9a"
 
+	TelegramAddress = "3AFnfAsxMsJdF9UF3JLVAzx3hjJcK5pguXd"
+
 	TodayAddress = "3ANmnLHt8mR9c36mdfQVpBtxUs8z1mMAHQW"
 
 	AdKey = "%s__anoteTodayAd"

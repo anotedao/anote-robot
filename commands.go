@@ -140,6 +140,7 @@ func statsCommand(c telebot.Context) error {
 	defer cancel()
 
 	addr := proto.MustAddressFromString(MobileAddress)
+	addrt := proto.MustAddressFromString(TelegramAddress)
 
 	total, _, err := cl.Addresses.Balance(ctx, addr)
 	if err != nil {
@@ -147,12 +148,21 @@ func statsCommand(c telebot.Context) error {
 		logTelegram(err.Error())
 	}
 
+	totalt, _, err := cl.Addresses.Balance(ctx, addrt)
+	if err != nil {
+		log.Println(err)
+		logTelegram(err.Error())
+	}
+
 	basicAmount := float64(0)
+	basicAmountT := float64(0)
 
 	if stats.ActiveUnits > 0 {
 		basicAmount = float64((total.Balance/(uint64(stats.ActiveUnits)+uint64(stats.ActiveReferred/4)))-Fee) / MULTI8
+		basicAmountT = float64((totalt.Balance/(uint64(stats.ActiveUnits)+uint64(stats.ActiveReferred/4)))-Fee) / MULTI8
 	} else {
 		basicAmount = float64((total.Balance - Fee) / MULTI8)
+		basicAmount = float64((totalt.Balance - Fee) / MULTI8)
 	}
 
 	s := fmt.Sprintf(`⭕️ <u><b>Anote Basic Stats</b></u>
@@ -160,7 +170,8 @@ func statsCommand(c telebot.Context) error {
 	<b>Active Miners:</b> %d
 	<b>Holders:</b> %d
 	<b>Price:</b> $%.2f
-	<b>Basic Amount:</b> %.8f
+	<b>Telegram Amount:</b> %.8f
+	<b>Mobile Amount:</b> %.8f
 	
 	<b>Mined:</b> %s ANOTE
 	<b>Community:</b> %s ANOTE
@@ -172,6 +183,7 @@ func statsCommand(c telebot.Context) error {
 		stats.ActiveMiners,
 		stats.Holders,
 		pc.AnotePrice,
+		basicAmountT,
 		basicAmount,
 		humanize.Comma(mined),
 		humanize.Comma(int64(balance)),
