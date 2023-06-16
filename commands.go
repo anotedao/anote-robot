@@ -154,6 +154,8 @@ func statsCommand(c telebot.Context) error {
 		logTelegram(err.Error())
 	}
 
+	log.Println(prettyPrint(stats))
+
 	basicAmount := float64(0)
 	basicAmountT := float64(0)
 
@@ -164,6 +166,9 @@ func statsCommand(c telebot.Context) error {
 		basicAmount = float64((total.Balance - Fee) / MULTI8)
 		basicAmountT = float64((totalt.Balance - Fee) / MULTI8)
 	}
+
+	log.Println(basicAmount)
+	log.Println(basicAmountT)
 
 	s := fmt.Sprintf(`⭕️ <u><b>Anote Basic Stats</b></u>
 	
