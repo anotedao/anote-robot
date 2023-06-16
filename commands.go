@@ -160,11 +160,11 @@ func statsCommand(c telebot.Context) error {
 	basicAmountT := float64(0)
 
 	if stats.ActiveUnits > 0 {
-		basicAmount = float64((float64(total.Balance)/float64(uint64(stats.ActiveUnits)+uint64(stats.ActiveReferred/4)))-Fee) / MULTI8
-		basicAmountT = float64((float64(totalt.Balance)/float64(uint64(stats.ActiveUnits)+uint64(stats.ActiveReferred/4)))-Fee) / MULTI8
+		basicAmount = float64((float64(total.Balance) / float64(uint64(stats.ActiveUnits)+uint64(stats.ActiveReferred/4)))) / MULTI8
+		basicAmountT = float64((float64(totalt.Balance) / float64(uint64(stats.ActiveUnits)+uint64(stats.ActiveReferred/4)))) / MULTI8
 	} else {
-		basicAmount = float64((float64(total.Balance - Fee)) / MULTI8)
-		basicAmountT = float64((float64(totalt.Balance - Fee)) / MULTI8)
+		basicAmount = float64((float64(total.Balance)) / MULTI8)
+		basicAmountT = float64((float64(totalt.Balance)) / MULTI8)
 	}
 
 	log.Println(basicAmount)
