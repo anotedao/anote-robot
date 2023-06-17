@@ -160,9 +160,9 @@ ________________________
 @AnoteRobot Daily Mining Code: %d
 `
 
-var defaultAd = `Invite 3 or more users to Anote with the referral link from AINT Miner and your mining power will get multiplied by 10.
+var defaultAd = `Invite 3 or more users to Anote and your mining power will get multiplied by 10. You will get the referral link if you send /ref command to the miner.
 
-You can find tutorial how to mine here: anote.one/mining
+You can find tutorial how to mine here: anote.one/mine
 
 Join @AnoteDAO group for help and support!
 
