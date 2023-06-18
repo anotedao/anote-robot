@@ -333,7 +333,7 @@ func myStatsCommand(c telebot.Context) error {
 		}
 	}
 
-	blocks := 1410 - miner.Height + uint64(miner.MiningHeight)
+	blocks := 1410 - int64(miner.Height) + miner.MiningHeight
 	duration, err := time.ParseDuration(fmt.Sprintf("%dm", blocks))
 	if err != nil {
 		log.Println(err.Error())
