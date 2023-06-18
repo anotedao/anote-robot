@@ -333,7 +333,7 @@ func myStatsCommand(c telebot.Context) error {
 		}
 	}
 
-	blocks := 1410 - int64(miner.Height) + miner.MiningHeight
+	blocks := 1411 - int64(miner.Height) + miner.MiningHeight
 	if blocks < 0 {
 		blocks = 0
 	}
