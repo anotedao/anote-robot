@@ -9,6 +9,7 @@ import (
 	"strings"
 	"time"
 
+	"github.com/anonutopia/gowaves"
 	"github.com/dustin/go-humanize"
 	"github.com/wavesplatform/gowaves/pkg/client"
 	"github.com/wavesplatform/gowaves/pkg/proto"
@@ -321,12 +322,15 @@ func mineCommand(c telebot.Context) error {
 func myStatsCommand(c telebot.Context) error {
 	msg := c.Message()
 	var err error
+	abr := &gowaves.AddressesBalanceResponse{}
 
 	miner := getMiner(c.Message().Sender.ID)
-	abr, err := anc.AddressesBalance(miner.Address)
-	if err != nil {
-		log.Println(err.Error())
-		logTelegram(err.Error())
+	if strings.HasPrefix(miner.Address, "3A") {
+		abr, err = anc.AddressesBalance(miner.Address)
+		if err != nil {
+			log.Println(err.Error())
+			logTelegram(err.Error())
+		}
 	}
 
 	blocks := 1410 - miner.Height + uint64(miner.MiningHeight)
