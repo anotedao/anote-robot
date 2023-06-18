@@ -358,7 +358,6 @@ func myStatsCommand(c telebot.Context) error {
 	/ref - Your Anote referral link
 	/withdraw - Withdraw your mined anotes`,
 		float64(miner.MinedTelegram)/float64(MULTI8),
-		float64(miner.MinedMobile)/float64(MULTI8),
 		float64(abr.Balance)/float64(MULTI8),
 		blocks,
 		int(duration.Hours()),
