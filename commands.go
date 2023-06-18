@@ -343,7 +343,7 @@ func myStatsCommand(c telebot.Context) error {
 	message := fmt.Sprintf(`⭕️ <b><u>Your Anote Stats</u></b>
 
 	<b>Mined Telegram:</b> %.8f ANOTE
-	<b>Mined Mobile:</b> %.8f ANOTE
+	<b>Mined Mobile:</b> N/A
 	<b>Address Balance:</b> %.8f ANOTE
 
 	<b>Cycle Blocks Left:</b> %d
