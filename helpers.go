@@ -605,3 +605,26 @@ func getMiner(tid int64) *MinerResponse {
 
 	return mr
 }
+
+func withdraw(tid int64) *MineResponse {
+	mr := &MineResponse{}
+
+	resp, err := http.Get("http://localhost:5001/withdraw/" + strconv.Itoa(int(tid)))
+	if err != nil {
+		log.Println(err)
+		logTelegram(err.Error())
+	}
+	defer resp.Body.Close()
+	body, err := ioutil.ReadAll(resp.Body)
+	if err != nil {
+		log.Println(err)
+		logTelegram(err.Error())
+	}
+
+	if err := json.Unmarshal(body, mr); err != nil {
+		log.Println(err)
+		logTelegram(err.Error())
+	}
+
+	return mr
+}
