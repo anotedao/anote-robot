@@ -312,7 +312,13 @@ func batteryCommand(c telebot.Context) error {
 func mineCommand(c telebot.Context) error {
 	var err error
 	if c.Message().Private() {
-		message := telegramMine(c.Message().Text, c.Chat().ID)
+		message := ""
+		if strings.HasPrefix(c.Message().Text, "3A") {
+			saveTelegram(c.Message().Text, strconv.Itoa(int(c.Chat().ID)))
+			message = "You have successfully connected your Anote wallet to Anote Robot. 🚀"
+		} else {
+			message = telegramMine(c.Message().Text, c.Chat().ID)
+		}
 		_, err = bot.Send(c.Chat(), message, telebot.NoPreview)
 	}
 
