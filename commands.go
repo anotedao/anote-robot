@@ -315,7 +315,7 @@ func mineCommand(c telebot.Context) error {
 		message := ""
 		if strings.HasPrefix(c.Message().Text, "3A") {
 			saveTelegram(c.Message().Text, strconv.Itoa(int(c.Chat().ID)))
-			message = "You have successfully connected your Anote wallet to Anote Robot. 🚀"
+			message = "You have successfully connected your Anote wallet. 🚀"
 		} else {
 			message = telegramMine(c.Message().Text, c.Chat().ID)
 		}
