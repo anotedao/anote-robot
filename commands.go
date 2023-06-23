@@ -426,7 +426,7 @@ func withdrawCommand(c telebot.Context) error {
 			message = "Your funds have been sent to your address. 🚀"
 		}
 	} else {
-		message = "You don't have enough funds to withdraw. Please try later!"
+		message = "You don't have enough funds to withdraw. The amount has to be bigger than 0.001 anotes. Please try later!"
 	}
 
 	// message := "This command is under construction."
