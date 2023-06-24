@@ -15,6 +15,7 @@ func initMacaron() *macaron.Macaron {
 	m.Get("/log/:message", viewTelegramLog)
 	m.Get("/invite/:telegramid", inviteView)
 	m.Get("/notification-end/:telegramid", viewNotificationEnd)
+	m.Get("/notification-weekly/:telegramid", viewNotificationWeekly)
 	m.Get("/notification-bo/:telegramid", viewNotificationBattery)
 	m.Get("/notification-first/:telegramid", viewNotificationFirst)
 

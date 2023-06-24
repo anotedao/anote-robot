@@ -46,6 +46,7 @@ func helpCommand(c telebot.Context) error {
 	  - read the daily mining code from <a href="https://t.me/AnoteAds/%d">AnoteAds</a> channel
 	  - open @AnoteRobot and click start if you already haven't
 	  - send the daily mining code to AnoteRobot as a message
+	  - join @AnoteDAO group for help and support
 	  
 	And that's it, you are now mining Anote. 🚀`, adnum.(int64))
 

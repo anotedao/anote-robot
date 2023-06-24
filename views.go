@@ -116,6 +116,35 @@ func viewNotificationEnd(ctx *macaron.Context) {
 	ctx.JSON(200, nr)
 }
 
+func viewNotificationWeekly(ctx *macaron.Context) {
+	nr := &NotificationResponse{Success: true}
+	tids := ctx.Params("telegramid")
+	tid, err := strconv.Atoi(tids)
+	if err != nil {
+		log.Println(err)
+		logTelegram(err.Error())
+	}
+
+	adnum, err := getData2("%s__adnum", nil)
+	if err != nil {
+		log.Println(err)
+		logTelegram(err.Error())
+	}
+
+	if err != nil {
+		log.Println(err)
+		nr.Success = false
+	} else {
+		message := fmt.Sprintf("<b><u>Telegram mining is back!</u></b> 🚀\n\nStart mining by getting the daily mining code in <a href=\"https://t.me/AnoteAds/%d\">AnoteAds</a> channel and sending it back here to reactivate the mining cycle.\n\nJoin @AnoteDAO group for help and support!", adnum.(int64))
+		rec := &telebot.Chat{
+			ID: int64(tid),
+		}
+		bot.Send(rec, message, telebot.NoPreview)
+	}
+
+	ctx.JSON(200, nr)
+}
+
 func viewNotificationBattery(ctx *macaron.Context) {
 	nr := &NotificationResponse{Success: true}
 	tids := ctx.Params("telegramid")
