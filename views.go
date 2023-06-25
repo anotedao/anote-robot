@@ -137,11 +137,40 @@ func viewNotificationWeekly(ctx *macaron.Context) {
 		logTelegram(err.Error())
 	}
 
+	stats := getStats()
+
+	cl, err := client.NewClient(client.Options{BaseUrl: AnoteNodeURL, Client: &http.Client{}})
+	if err != nil {
+		log.Println(err)
+		logTelegram(err.Error())
+	}
+
+	ctxb, cancel := context.WithTimeout(context.Background(), 10*time.Second)
+	defer cancel()
+
+	addr := proto.MustAddressFromString(MobileAddress)
+
+	total, _, err := cl.Addresses.Balance(ctxb, addr)
+	if err != nil {
+		log.Println(err)
+		logTelegram(err.Error())
+	}
+
+	basicAmount := float64(0)
+
+	if stats.PayoutMiners > 0 {
+		basicAmount = float64((total.Balance/(uint64(stats.PayoutMiners)+uint64(stats.ActiveReferred/4)))-Fee) / MULTI8
+	} else {
+		basicAmount = float64((total.Balance - Fee) / MULTI8)
+	}
+
 	if err != nil {
 		log.Println(err)
 		nr.Success = false
 	} else {
 		message := fmt.Sprintf("<b><u>Telegram mining is back!</u></b> 🚀\n\nStart mining by getting the daily mining code in <a href=\"https://t.me/AnoteAds/%d\">AnoteAds</a> channel and sending it back here to reactivate the mining cycle.\n\nJoin @AnoteDAO group for help and support!", adnum.(int64))
+		da := pc.AnotePrice * basicAmount
+		message += fmt.Sprintf("\n\nPlease notice that by not mining Anote, you lose $%.2f daily.\n\nStart mining and earning today! 🚀", da)
 		rec := &telebot.Chat{
 			ID: int64(tid),
 		}
