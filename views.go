@@ -178,7 +178,7 @@ func viewNotificationFirst(ctx *macaron.Context) {
 		log.Println(err)
 		nr.Success = false
 	} else {
-		message := fmt.Sprint("<u><strong>You have successfully started Anote mining cycle!</strong></u> 🚀\n\nYou can check your Anote balance with /miner command.")
+		message := "<u><strong>You have successfully started Anote mining cycle!</strong></u> 🚀\n\nCheck your Anote balance with /miner command!"
 		rec := &telebot.Chat{
 			ID: int64(tid),
 		}
