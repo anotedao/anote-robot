@@ -65,11 +65,17 @@ func viewNotification(ctx *macaron.Context) {
 		ID: int64(idNum),
 	}
 
-	notification := "You have successfully started Anote mining cycle."
+	notification := "<b><u>You have successfully started Anote mining cycle!</u></b> 🚀"
 
 	if shi > 0 && hi-shi > 2880 {
 		notification += "\n\n<u>Please notice that if you have continuity and mine on a daily basis, you receive a much bigger reward.</u>"
 	}
+
+	notification += `<b><u>Commands:</u></b>
+
+	/miner - Your miner stats
+	/ref - Your Anote referral link
+	/withdraw - Withdraw your mined anotes`
 
 	_, err = bot.Send(rec, notification)
 	if err != nil {
@@ -106,7 +112,7 @@ func viewNotificationEnd(ctx *macaron.Context) {
 		log.Println(err)
 		nr.Success = false
 	} else {
-		message := fmt.Sprintf("Your mining cycle has ended.\n\nPlease run it again by getting the daily mining code in <a href=\"https://t.me/AnoteAds/%d\">AnoteAds</a> channel and sending it back here to reactivate mining cycle and withdraw already mined anotes. 🚀", adnum.(int64))
+		message := fmt.Sprintf("Your mining cycle has ended.\n\nPlease run it again by getting the daily mining code in <a href=\"https://t.me/AnoteAds/%d\">AnoteAds</a> channel and sending it back here to reactivate the mining cycle. 🚀", adnum.(int64))
 		rec := &telebot.Chat{
 			ID: int64(tid),
 		}
