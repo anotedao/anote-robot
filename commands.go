@@ -156,7 +156,7 @@ func statsCommand(c telebot.Context) error {
 		logTelegram(err.Error())
 	}
 
-	log.Println(prettyPrint(stats))
+	// log.Println(prettyPrint(stats))
 
 	basicAmount := float64(0)
 	basicAmountT := float64(0)
