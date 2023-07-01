@@ -316,7 +316,7 @@ func mineCommand(c telebot.Context) error {
 		message := ""
 		if strings.HasPrefix(c.Message().Text, "3A") {
 			if saveTelegram(c.Message().Text, strconv.Itoa(int(c.Chat().ID))) != 0 {
-				message = "This address is already used"
+				message = "This address is already used."
 			} else {
 				message = "You have successfully connected your Anote wallet. 🚀"
 			}
