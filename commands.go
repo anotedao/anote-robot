@@ -70,7 +70,7 @@ func startCommand(c telebot.Context) error {
 
 	if len(split) == 2 {
 		if saveTelegram(split[1], tid) != 0 {
-			response = "There's already an Anote address attached to this Telegram account."
+			response = "This address is already used."
 		} else {
 			saveTelegram("none", tid)
 			response = fmt.Sprintf(`⭕️ <b><u>Welcome to Anote!</u></b> 🚀
@@ -315,8 +315,11 @@ func mineCommand(c telebot.Context) error {
 	if c.Message().Private() {
 		message := ""
 		if strings.HasPrefix(c.Message().Text, "3A") {
-			saveTelegram(c.Message().Text, strconv.Itoa(int(c.Chat().ID)))
-			message = "You have successfully connected your Anote wallet. 🚀"
+			if saveTelegram(c.Message().Text, strconv.Itoa(int(c.Chat().ID))) != 0 {
+				message = "This address is already used"
+			} else {
+				message = "You have successfully connected your Anote wallet. 🚀"
+			}
 		} else {
 			message = telegramMine(c.Message().Text, c.Chat().ID)
 		}
