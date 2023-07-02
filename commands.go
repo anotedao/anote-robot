@@ -447,5 +447,8 @@ func alphaCommand(c telebot.Context) error {
 
 	log.Println(prettyPrint(miner))
 
+	message := "This command is under construction."
+	_, err = bot.Send(c.Chat(), message, telebot.NoPreview)
+
 	return err
 }
