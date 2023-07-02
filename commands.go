@@ -442,7 +442,7 @@ func withdrawCommand(c telebot.Context) error {
 
 func alphaCommand(c telebot.Context) error {
 	var err error
-	message := "Exchange has been done successfully. Alpha version of Anote has been added to your beta balance.  🚀"
+	message := "Exchange has been done successfully. Alpha version of Anote has been added to your beta balance in 1:10 ratio. 🚀"
 
 	miner := getMiner(c.Message().Sender.ID)
 
