@@ -462,10 +462,10 @@ func alphaCommand(c telebot.Context) error {
 					sendAsset(ab/10, "", miner.Address)
 				}
 			} else {
-				message = fmt.Sprintf("Alpha anotes from this address have already been exchanged: %s", miner.Address)
+				message = fmt.Sprintf("Alpha anotes from this address have already been exchanged:\n\n%s", miner.Address)
 			}
 		} else {
-			message = fmt.Sprintf("The address is not valid: %s", miner.Address)
+			message = fmt.Sprintf("The address is not valid:/n/n%s", miner.Address)
 		}
 	} else {
 		message = "Exchange period ended with block 314000. You can check current block here:\n\nexplorer.anotedao.com"
