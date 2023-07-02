@@ -453,7 +453,7 @@ func alphaCommand(c telebot.Context) error {
 		if alp.ID == 0 {
 			ab := getAlphaBalance(miner.Address)
 			log.Printf("Alpha balance: %s %d", miner.Address, ab)
-			logTelegram(fmt.Sprintf("Alpha balance: %s %d", miner.Address, ab))
+			logTelegram(fmt.Sprintf("Alpha balance: %s %.8f", miner.Address, float64(ab)/10/float64(MULTI8)))
 			alp.Address = miner.Address
 			err := db.Save(alp).Error
 			if err == nil {
