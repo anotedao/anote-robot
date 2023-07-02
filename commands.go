@@ -447,7 +447,7 @@ func alphaCommand(c telebot.Context) error {
 	miner := getMiner(c.Message().Sender.ID)
 	height := getHeight()
 
-	if height <= 250000 {
+	if height <= 314000 {
 		if strings.HasPrefix(miner.Address, "3A") {
 			alp := &Alpha{}
 			db.First(alp, &Alpha{Address: miner.Address})
