@@ -445,25 +445,30 @@ func alphaCommand(c telebot.Context) error {
 	message := "Exchange has been done successfully. Alpha version of Anote has been added to your beta balance in 1:10 ratio. 🚀"
 
 	miner := getMiner(c.Message().Sender.ID)
+	height := getHeight()
 
-	if strings.HasPrefix(miner.Address, "3A") {
-		alp := &Alpha{}
-		db.First(alp, &Alpha{Address: miner.Address})
+	if height <= 250000 {
+		if strings.HasPrefix(miner.Address, "3A") {
+			alp := &Alpha{}
+			db.First(alp, &Alpha{Address: miner.Address})
 
-		if alp.ID == 0 {
-			ab := getAlphaBalance(miner.Address)
-			log.Printf("Alpha balance: %s %d", miner.Address, ab)
-			logTelegram(fmt.Sprintf("Alpha balance: %s %.8f", miner.Address, float64(ab)/10/float64(MULTI8)))
-			alp.Address = miner.Address
-			err := db.Save(alp).Error
-			if err == nil {
-				sendAsset(ab/10, "", miner.Address)
+			if alp.ID == 0 {
+				ab := getAlphaBalance(miner.Address)
+				log.Printf("Alpha balance: %s %d", miner.Address, ab)
+				logTelegram(fmt.Sprintf("Alpha balance: %s %.8f", miner.Address, float64(ab)/10/float64(MULTI8)))
+				alp.Address = miner.Address
+				err := db.Save(alp).Error
+				if err == nil {
+					sendAsset(ab/10, "", miner.Address)
+				}
+			} else {
+				message = fmt.Sprintf("Alpha anotes from this address have already been exchanged: %s", miner.Address)
 			}
 		} else {
-			message = fmt.Sprintf("Alpha anotes from this address have already been exchanged: %s", miner.Address)
+			message = fmt.Sprintf("The address is not valid: %s", miner.Address)
 		}
 	} else {
-		message = fmt.Sprintf("The address is not valid: %s", miner.Address)
+		message = "Exchange period ended with block 314000. You can check current block here:\n\nexplorer.anotedao.com"
 	}
 
 	_, err = bot.Send(c.Chat(), message, telebot.NoPreview)
