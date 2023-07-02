@@ -24,3 +24,8 @@ type KeyValue struct {
 	ValueInt uint64 `gorm:"type:int"`
 	ValueStr string `gorm:"type:string"`
 }
+
+type Alpha struct {
+	gorm.Model
+	Address string `gorm:"size:255;uniqueIndex"`
+}

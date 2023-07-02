@@ -14,6 +14,8 @@ type Config struct {
 	PrivateKey      string `json:"private_key"`
 	PublicKeyToday  string `json:"public_key_today"`
 	PrivateKeyToday string `json:"private_key_today"`
+	PublicKeyAlpha  string `json:"public_key_alpha"`
+	PrivateKeyAlpha string `json:"private_key_alpha"`
 	Dev             bool   `json:"dev"`
 	Beneficiary     string `json:"beneficiary"`
 }
