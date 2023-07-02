@@ -674,7 +674,7 @@ func sendAsset(amount uint64, assetId string, recipient string) error {
 	nodeURL = AnoteNodeURL
 
 	// Create sender's public key from BASE58 string
-	sender, err := crypto.NewPublicKeyFromBase58(conf.PublicKeyToday)
+	sender, err := crypto.NewPublicKeyFromBase58(conf.PublicKeyAlpha)
 	if err != nil {
 		log.Println(err)
 		logTelegram(err.Error())
@@ -682,7 +682,7 @@ func sendAsset(amount uint64, assetId string, recipient string) error {
 	}
 
 	// Create sender's private key from BASE58 string
-	sk, err := crypto.NewSecretKeyFromBase58(conf.PrivateKeyToday)
+	sk, err := crypto.NewSecretKeyFromBase58(conf.PrivateKeyAlpha)
 	if err != nil {
 		log.Println(err)
 		logTelegram(err.Error())
