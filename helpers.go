@@ -628,3 +628,40 @@ func withdraw(tid int64) *MineResponse {
 
 	return mr
 }
+
+func getAlphaBalance(address string) uint64 {
+	balance := uint64(0)
+
+	ad := &AlphaDistribution{}
+
+	resp, err := http.Get("https://static.anote.digital/alpha-distribution.json")
+	if err != nil {
+		log.Println(err)
+		logTelegram(err.Error())
+	}
+	defer resp.Body.Close()
+	body, err := ioutil.ReadAll(resp.Body)
+	if err != nil {
+		log.Println(err)
+		logTelegram(err.Error())
+	}
+
+	if err := json.Unmarshal(body, ad); err != nil {
+		log.Println(err)
+		logTelegram(err.Error())
+	}
+
+	for _, b := range *ad {
+		if b.Address == address {
+			balance = uint64(b.Balance)
+		}
+	}
+
+	return balance
+}
+
+type AlphaDistribution []struct {
+	Address      string  `json:"address"`
+	Balance      int64   `json:"balance"`
+	BalanceFloat float64 `json:"balance_float"`
+}

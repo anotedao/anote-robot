@@ -442,12 +442,16 @@ func withdrawCommand(c telebot.Context) error {
 
 func alphaCommand(c telebot.Context) error {
 	var err error
+	message := ""
 
 	miner := getMiner(c.Message().Sender.ID)
 
-	log.Println(prettyPrint(miner))
+	if strings.HasPrefix(miner.Address, "3A") {
+		log.Printf("Alpha balance: %d", getAlphaBalance(miner.Address))
+	} else {
+		message = fmt.Sprintf("The address is not right: %s", miner.Address)
+	}
 
-	message := "This command is under construction."
 	_, err = bot.Send(c.Chat(), message, telebot.NoPreview)
 
 	return err
