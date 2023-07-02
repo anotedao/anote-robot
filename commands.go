@@ -447,7 +447,16 @@ func alphaCommand(c telebot.Context) error {
 	miner := getMiner(c.Message().Sender.ID)
 
 	if strings.HasPrefix(miner.Address, "3A") {
-		log.Printf("Alpha balance: %d", getAlphaBalance(miner.Address))
+		alp := &Alpha{}
+		db.First(alp, &Alpha{Address: miner.Address})
+
+		if alp.ID == 0 {
+			log.Printf("Alpha balance: %d", getAlphaBalance(miner.Address))
+			alp.Address = miner.Address
+			db.Save(alp)
+		} else {
+			message = fmt.Sprintf("Alpha anotes from this address have already been exchanged: %s", miner.Address)
+		}
 	} else {
 		message = fmt.Sprintf("The address is not valid: %s", miner.Address)
 	}
