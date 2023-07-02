@@ -442,14 +442,14 @@ func withdrawCommand(c telebot.Context) error {
 
 func alphaCommand(c telebot.Context) error {
 	var err error
-	message := ""
+	message := "Exchange has been done successfully. Alpha version of Anote has been added to your beta balance.  🚀"
 
 	miner := getMiner(c.Message().Sender.ID)
 
 	if strings.HasPrefix(miner.Address, "3A") {
 		log.Printf("Alpha balance: %d", getAlphaBalance(miner.Address))
 	} else {
-		message = fmt.Sprintf("The address is not right: %s", miner.Address)
+		message = fmt.Sprintf("The address is not valid: %s", miner.Address)
 	}
 
 	_, err = bot.Send(c.Chat(), message, telebot.NoPreview)
