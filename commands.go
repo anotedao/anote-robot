@@ -142,7 +142,7 @@ func statsCommand(c telebot.Context) error {
 	defer cancel()
 
 	addr := proto.MustAddressFromString(MobileAddress)
-	addrt := proto.MustAddressFromString(TelegramAddress)
+	// addrt := proto.MustAddressFromString(TelegramAddress)
 
 	total, _, err := cl.Addresses.Balance(ctx, addr)
 	if err != nil {
@@ -150,11 +150,11 @@ func statsCommand(c telebot.Context) error {
 		logTelegram(err.Error())
 	}
 
-	totalt, _, err := cl.Addresses.Balance(ctx, addrt)
-	if err != nil {
-		log.Println(err)
-		logTelegram(err.Error())
-	}
+	// totalt, _, err := cl.Addresses.Balance(ctx, addrt)
+	// if err != nil {
+	// 	log.Println(err)
+	// 	logTelegram(err.Error())
+	// }
 
 	// log.Println(prettyPrint(stats))
 
