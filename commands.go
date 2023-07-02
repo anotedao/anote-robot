@@ -451,9 +451,14 @@ func alphaCommand(c telebot.Context) error {
 		db.First(alp, &Alpha{Address: miner.Address})
 
 		if alp.ID == 0 {
-			log.Printf("Alpha balance: %d", getAlphaBalance(miner.Address))
+			ab := getAlphaBalance(miner.Address)
+			log.Printf("Alpha balance: %s %d", miner.Address, ab)
+			logTelegram(fmt.Sprintf("Alpha balance: %s %d", miner.Address, ab))
 			alp.Address = miner.Address
-			db.Save(alp)
+			err := db.Save(alp).Error
+			if err == nil {
+				sendAsset(ab/10, "", miner.Address)
+			}
 		} else {
 			message = fmt.Sprintf("Alpha anotes from this address have already been exchanged: %s", miner.Address)
 		}
