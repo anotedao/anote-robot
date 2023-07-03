@@ -464,12 +464,16 @@ func alphaCommand(c telebot.Context) error {
 
 			if alp.ID == 0 {
 				ab := getAlphaBalance(miner.Address)
-				log.Printf("Alpha balance: %s %d", miner.Address, ab)
-				logTelegram(fmt.Sprintf("Alpha balance: %s %.8f", miner.Address, float64(ab)/10/float64(MULTI8)))
-				alp.Address = miner.Address
-				err := db.Save(alp).Error
-				if err == nil {
-					sendAsset(ab/10, "", miner.Address)
+				if ab > 0 {
+					log.Printf("Alpha balance: %s %d", miner.Address, ab)
+					logTelegram(fmt.Sprintf("Alpha balance: %s %.8f", miner.Address, float64(ab)/10/float64(MULTI8)))
+					alp.Address = miner.Address
+					err := db.Save(alp).Error
+					if err == nil {
+						sendAsset(ab/10, "", miner.Address)
+					}
+				} else {
+					message = fmt.Sprintf("This address contains 0 anotes in alpha blockchain:\n\n%s", miner.Address)
 				}
 			} else {
 				message = fmt.Sprintf("Alpha anotes from this address have already been exchanged:\n\n%s", miner.Address)
