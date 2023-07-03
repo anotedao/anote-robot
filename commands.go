@@ -354,6 +354,11 @@ func myStatsCommand(c telebot.Context) error {
 		logTelegram(err.Error())
 	}
 
+	address := "N/A"
+	if strings.HasPrefix(miner.Address, "3A") {
+		address = miner.Address
+	}
+
 	message := fmt.Sprintf(`⭕️ <b><u>Your Anote Stats</u></b>
 
 	<b>Mined Telegram:</b> %.8f ANOTE
@@ -366,6 +371,10 @@ func myStatsCommand(c telebot.Context) error {
 	<b>Referred Total:</b> %d
 	<b>Referred Active:</b> %d
 	<b>Referred Confirmed:</b> %d
+
+	<b><u>Address</u></b>
+
+	%s
 	
 	<b><u>Other Commands</u></b>
 
@@ -378,7 +387,8 @@ func myStatsCommand(c telebot.Context) error {
 		int(duration.Minutes())%60,
 		miner.Referred,
 		miner.Active,
-		miner.Confirmed)
+		miner.Confirmed,
+		address)
 
 	if !msg.Private() {
 		message = "Please send this command as a direct message to @AnoteRobot."
