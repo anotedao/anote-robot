@@ -473,6 +473,8 @@ func alphaCommand(c telebot.Context) error {
 						sendAsset(ab/10, "", miner.Address)
 					}
 				} else {
+					alp.Address = miner.Address
+					db.Save(alp)
 					message = fmt.Sprintf("This address contains 0 anotes in alpha blockchain:\n\n%s", miner.Address)
 				}
 			} else {
