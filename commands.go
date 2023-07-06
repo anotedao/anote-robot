@@ -496,9 +496,12 @@ func alphaCommand(c telebot.Context) error {
 func checkCommand(c telebot.Context) error {
 	var err error
 
-	miner := getMiner(c.Message().ReplyTo.Sender.ID)
-
-	log.Println(prettyPrint(miner))
+	if c.Message().IsReply() {
+		miner := getMiner(c.Message().ReplyTo.Sender.ID)
+		log.Println(prettyPrint(miner))
+	} else {
+		_, err = bot.Send(c.Chat(), "To check the user, reply with /check to his message.")
+	}
 
 	return err
 }
