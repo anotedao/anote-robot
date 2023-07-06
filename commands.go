@@ -26,6 +26,7 @@ func initCommands() {
 	bot.Handle("/ref", refCommand)
 	bot.Handle("/withdraw", withdrawCommand)
 	bot.Handle("/alpha", alphaCommand)
+	bot.Handle("/check", checkCommand)
 	bot.Handle(telebot.OnUserJoined, userJoined)
 	bot.Handle(telebot.OnText, mineCommand)
 }
@@ -488,6 +489,16 @@ func alphaCommand(c telebot.Context) error {
 	}
 
 	_, err = bot.Send(c.Chat(), message, telebot.NoPreview)
+
+	return err
+}
+
+func checkCommand(c telebot.Context) error {
+	var err error
+
+	miner := getMiner(c.Message().Sender.ID)
+
+	log.Println(prettyPrint(miner))
 
 	return err
 }
