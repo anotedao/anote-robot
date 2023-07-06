@@ -496,7 +496,7 @@ func alphaCommand(c telebot.Context) error {
 func checkCommand(c telebot.Context) error {
 	var err error
 
-	miner := getMiner(c.Message().Sender.ID)
+	miner := getMiner(c.Message().ReplyTo.Sender.ID)
 
 	log.Println(prettyPrint(miner))
 
