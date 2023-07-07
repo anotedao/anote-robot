@@ -495,13 +495,27 @@ func alphaCommand(c telebot.Context) error {
 
 func checkCommand(c telebot.Context) error {
 	var err error
+	message := ""
+	height := getHeight()
 
 	if c.Message().IsReply() {
 		miner := getMiner(c.Message().ReplyTo.Sender.ID)
+		if miner.ID > 0 {
+			diff := height - uint64(miner.MiningHeight)
+			if diff <= 1410 {
+				message = "This user is currently mining. 🚀"
+			} else {
+				message = fmt.Sprintf("This user is not mining currently, but have mined %d blocks ago.", diff)
+			}
+		} else {
+			message = "This user never mined."
+		}
 		log.Println(prettyPrint(miner))
 	} else {
-		_, err = bot.Send(c.Chat(), "To check the user, reply with /check to his message.")
+		message = "To check the user, reply with /check to his message."
 	}
+
+	_, err = bot.Send(c.Chat(), message, telebot.NoPreview)
 
 	return err
 }
