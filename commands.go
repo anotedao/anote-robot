@@ -505,7 +505,7 @@ func checkCommand(c telebot.Context) error {
 			if diff <= 1410 {
 				message = "This user is currently mining. 🚀"
 			} else {
-				message = fmt.Sprintf("This user is not mining currently, but have mined %d blocks ago.", diff)
+				message = fmt.Sprintf("This user is not mining currently, but has mined %d blocks ago.", diff)
 			}
 		} else {
 			message = "This user never mined."
