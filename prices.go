@@ -56,9 +56,14 @@ func (pc *PriceClient) doRequest() (*Prices, error) {
 
 	pc.Prices = p
 
-	pc.doRequestOrderbook()
+	// pc.doRequestOrderbook()
+	pc.loadPrice()
 
 	return p, nil
+}
+
+func (pc *PriceClient) loadPrice() {
+	pc.AnotePrice = getPriceAggregator()
 }
 
 func (pc *PriceClient) doRequestOrderbook() {
@@ -156,4 +161,70 @@ type OrderbookStatusResponse struct {
 	LastSide   string `json:"lastSide"`
 	Status     string `json:"status"`
 	LastPrice  int    `json:"lastPrice"`
+}
+
+type AggregtorResponse struct {
+	Routes []struct {
+		RealPrice float64 `json:"realPrice"`
+		In        int     `json:"in"`
+		AllIn     int     `json:"allIn"`
+		Exchanges []struct {
+			From      string `json:"from"`
+			To        string `json:"to"`
+			Pool      string `json:"pool"`
+			Type      string `json:"type"`
+			AmountIn  int    `json:"amountIn"`
+			AmountOut int    `json:"amountOut"`
+		} `json:"exchanges"`
+	} `json:"routes"`
+	AggregatedProfit int     `json:"aggregatedProfit"`
+	EstimatedOut     int     `json:"estimatedOut"`
+	PriceImpact      float64 `json:"priceImpact"`
+	Parameters       string  `json:"parameters"`
+	Error            string  `json:"error"`
+}
+
+func getPriceAggregator() float64 {
+	price := float64(0)
+	ar := &AggregtorResponse{}
+	cl := http.Client{}
+
+	var req *http.Request
+	var err error
+
+	req, err = http.NewRequest(http.MethodGet, AggregatorURL, nil)
+
+	req.Header.Set("Content-Type", "application/json")
+
+	if err != nil {
+		log.Println(err)
+		logTelegram(err.Error())
+		return price
+	}
+
+	res, err := cl.Do(req)
+
+	if err == nil {
+		body, err := ioutil.ReadAll(res.Body)
+		if err != nil {
+			log.Println(err)
+			logTelegram(err.Error())
+			return price
+		}
+		if res.StatusCode != 200 {
+			err := errors.New(res.Status)
+			log.Println(err)
+			logTelegram(err.Error())
+			return price
+		}
+		json.Unmarshal(body, ar)
+	} else {
+		log.Println(err)
+		logTelegram(err.Error())
+		return price
+	}
+
+	price = float64(ar.EstimatedOut) / 100
+
+	return price
 }

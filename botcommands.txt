@@ -2,4 +2,5 @@ miner - Your personal Anote statistics.
 help - Learn how to mine Anote.
 stats - Get Basic Anote statistics.
 code - Short help for finding daily code.
+check - Reply to check if user is mining.
 bo - Help with battery optimization.
