@@ -266,3 +266,22 @@ func inviteView(ctx *macaron.Context) {
 
 	ctx.JSON(200, nr)
 }
+
+func viewAlphaSent(ctx *macaron.Context) {
+	alr := &AlphaSentResponse{Sent: false}
+	addr := ctx.Params("addr")
+
+	if len(addr) > 0 {
+		alp := &Alpha{}
+		db.First(alp, &Alpha{Address: addr})
+		if alp.ID > 0 {
+			alr.Sent = true
+		}
+	}
+
+	ctx.JSON(200, alr)
+}
+
+type AlphaSentResponse struct {
+	Sent bool `json:"sent"`
+}
