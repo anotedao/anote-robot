@@ -322,6 +322,8 @@ func mineCommand(c telebot.Context) error {
 			} else {
 				message = "You have successfully connected your Anote wallet. 🚀"
 			}
+		} else if c.Message().IsForwarded() {
+			message = "Forwarded."
 		} else {
 			message = telegramMine(c.Message().Text, c.Chat().ID)
 		}
