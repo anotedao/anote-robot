@@ -500,7 +500,7 @@ func checkCommand(c telebot.Context) error {
 
 	if c.Message().IsReply() {
 		miner := getMiner(c.Message().ReplyTo.Sender.ID)
-		if miner.ID > 0 {
+		if miner.ID > 0 && miner.MiningHeight > 0 {
 			diff := height - uint64(miner.MiningHeight)
 			if diff <= 1410 {
 				message = "This user is currently mining. 🚀"
