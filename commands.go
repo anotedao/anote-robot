@@ -373,7 +373,6 @@ func myStatsCommand(c telebot.Context) error {
 
 	<b>Referred Total:</b> %d
 	<b>Referred Active:</b> %d
-	<b>Referred Confirmed:</b> %d
 
 	<b><u>Address</u></b>
 
@@ -390,7 +389,6 @@ func myStatsCommand(c telebot.Context) error {
 		int(duration.Minutes())%60,
 		miner.Referred,
 		miner.Active,
-		miner.Confirmed,
 		address)
 
 	if !msg.Private() {
