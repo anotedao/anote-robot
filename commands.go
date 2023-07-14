@@ -184,11 +184,7 @@ func statsCommand(c telebot.Context) error {
 	
 	<b>Mined:</b> %s ANOTE
 	<b>Community:</b> %s ANOTE
-	<b>In Circulation:</b> %s ANOTE
-	
-	<b>Referred Miners:</b> %d
-	<b>Payout Miners:</b> %d
-	<b>Inactive Miners:</b> %d`,
+	<b>In Circulation:</b> %s ANOTE`,
 		stats.ActiveMiners,
 		stats.Holders,
 		pc.AnotePrice,
@@ -196,10 +192,18 @@ func statsCommand(c telebot.Context) error {
 		basicAmount,
 		humanize.Comma(mined),
 		humanize.Comma(int64(balance)),
-		humanize.Comma(circulation),
-		stats.ActiveReferred,
-		stats.PayoutMiners,
-		stats.InactiveMiners)
+		humanize.Comma(circulation))
+
+	if m.Private() {
+		s += fmt.Sprintf(`
+	
+	<b>Referred Miners:</b> %d
+	<b>Payout Miners:</b> %d
+	<b>Inactive Miners:</b> %d`,
+			stats.ActiveReferred,
+			stats.PayoutMiners,
+			stats.InactiveMiners)
+	}
 
 	bot.Send(m.Chat, s)
 
