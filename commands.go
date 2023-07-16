@@ -214,7 +214,7 @@ func userJoined(c telebot.Context) error {
 	saveUser(c)
 	m := c.Message()
 
-	msg := fmt.Sprintf("Hello, %s! Welcome to Anote community! 🚀\n\nHere are some resources to get you started:\n\nAnote Wallet: anote.one\nBlockchain Explorer: explorer.anotedao.com\nWebsite: anotedao.com\nMining Tutorial: anotedao.com/mine\nRun a Node: anotedao.com/node\n\n<u>Other Anote Communities:</u>\n\n@AnoteBalkan\n@AnoteAfrica\n@AnoteChina", m.Sender.FirstName)
+	msg := fmt.Sprintf("Hello, %s! Welcome to Anote community! 🚀\n\nHere are some resources to get you started:\n\nAnote Wallet: app.anotedao.com\nBlockchain Explorer: explorer.anotedao.com\nWebsite: anotedao.com\nMining Tutorial: anotedao.com/mine\nRun a Node: anotedao.com/node\n\n<u>Other Anote Communities:</u>\n\n@AnoteBalkan\n@AnoteAfrica\n@AnoteChina", m.Sender.FirstName)
 
 	bot.Send(m.Chat, msg, telebot.NoPreview)
 
@@ -440,7 +440,7 @@ func withdrawCommand(c telebot.Context) error {
 
 	if miner.MinedMobile+miner.MinedTelegram > Fee {
 		if strconv.Itoa(int(miner.TelegramId)) == miner.Address {
-			message = "To withdraw your funds, please open account on anote.one wallet and connect it to the bot!"
+			message = "To withdraw your funds, please open account on app.anotedao.com wallet and connect it to the bot!"
 		} else {
 			withdraw(miner.TelegramId)
 			message = "Your funds have been sent to your address. 🚀"
