@@ -24,6 +24,21 @@ func initTelegramBot() *telebot.Bot {
 	return b
 }
 
+func initTelegramBot2() *telebot.Bot {
+	b, err := telebot.NewBot(telebot.Settings{
+		Token:     conf.TelegramAPIKey2,
+		Poller:    &telebot.LongPoller{Timeout: T_POLLER_TIMEOUT * time.Second},
+		Verbose:   false,
+		ParseMode: "html",
+	})
+
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	return b
+}
+
 func logTelegram(message string) {
 	message = "anote-robot:" + getCallerInfo() + message
 	rec := &telebot.Chat{

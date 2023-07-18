@@ -13,6 +13,8 @@ var conf *Config
 
 var bot *telebot.Bot
 
+var bot2 *telebot.Bot
+
 var anc *gowaves.WavesNodeClient
 
 var db *gorm.DB
@@ -31,6 +33,8 @@ func main() {
 	m = initMacaron()
 
 	bot = initTelegramBot()
+
+	bot2 = initTelegramBot2()
 
 	initCommands()
 

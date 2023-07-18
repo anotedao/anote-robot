@@ -17,17 +17,19 @@ import (
 )
 
 func initCommands() {
-	bot.Handle("/help", helpCommand)
+	bot2.Handle("/help", helpCommand)
+	bot2.Handle("/stats", statsCommand)
+	bot2.Handle("/code", codeCommand)
+	bot2.Handle("/bo", batteryCommand)
+	bot2.Handle("/alpha", alphaCommand)
+	bot2.Handle("/check", checkCommand)
+	bot2.Handle(telebot.OnUserJoined, userJoined)
+
 	bot.Handle("/start", startCommand)
-	bot.Handle("/stats", statsCommand)
 	bot.Handle("/miner", myStatsCommand)
-	bot.Handle("/code", codeCommand)
-	bot.Handle("/bo", batteryCommand)
-	bot.Handle("/ref", refCommand)
 	bot.Handle("/withdraw", withdrawCommand)
-	bot.Handle("/alpha", alphaCommand)
-	bot.Handle("/check", checkCommand)
-	bot.Handle(telebot.OnUserJoined, userJoined)
+	bot.Handle("/ref", refCommand)
+	bot.Handle("/help", helpCommand)
 	bot.Handle(telebot.OnText, mineCommand)
 }
 
@@ -205,7 +207,7 @@ func statsCommand(c telebot.Context) error {
 			stats.InactiveMiners)
 	}
 
-	bot.Send(m.Chat, s)
+	bot2.Send(m.Chat, s)
 
 	return nil
 }
@@ -290,7 +292,7 @@ func codeCommand(c telebot.Context) error {
 
 	help := fmt.Sprintf("<a href=\"https://t.me/AnoteAds/%d\"><strong><u>Click here</u></strong></a>, daily mining code is at the bottom of the last announcement.", adnum.(int64))
 
-	_, err = bot.Send(m.Chat, help, telebot.NoPreview)
+	_, err = bot2.Send(m.Chat, help, telebot.NoPreview)
 
 	return err
 }
@@ -311,7 +313,7 @@ func batteryCommand(c telebot.Context) error {
 
 	help := "To achieve 100% AINT Miner health and receive full amount of anotes, disable battery optimization on AINT Miner. You can learn how to do that here:\n\nanotedao.com/battery"
 
-	_, err := bot.Send(m.Chat, help, telebot.NoPreview)
+	_, err := bot2.Send(m.Chat, help, telebot.NoPreview)
 
 	return err
 }
@@ -519,7 +521,7 @@ func checkCommand(c telebot.Context) error {
 		message = "To check the user, reply with /check to his message."
 	}
 
-	_, err = bot.Send(c.Chat(), message, telebot.NoPreview)
+	_, err = bot2.Send(c.Chat(), message, telebot.NoPreview)
 
 	return err
 }

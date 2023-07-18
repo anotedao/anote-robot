@@ -1,6 +1,10 @@
 miner - Your personal Anote statistics.
+withdraw - Withdraw mined anotes to your wallet.
+ref - Get your referral link.
 help - Learn how to mine Anote.
+
 stats - Get Basic Anote statistics.
 code - Short help for finding daily code.
 check - Reply to check if user is mining.
 bo - Help with battery optimization.
+help - Learn how to mine Anote.
