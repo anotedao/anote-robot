@@ -17,7 +17,7 @@ import (
 )
 
 func initCommands() {
-	bot2.Handle("/help", helpCommand)
+	bot2.Handle("/help", helpCommand2)
 	bot2.Handle("/stats", statsCommand)
 	bot2.Handle("/code", codeCommand)
 	bot2.Handle("/bo", batteryCommand)
@@ -55,6 +55,32 @@ func helpCommand(c telebot.Context) error {
 	And that's it, you are now mining Anote. 🚀`, adnum.(int64))
 
 	_, err = bot.Send(m.Chat, help, telebot.NoPreview)
+
+	return err
+}
+
+func helpCommand2(c telebot.Context) error {
+	adnum, err := getData2("%s__adnum", nil)
+	if err != nil {
+		log.Println(err)
+		logTelegram(err.Error())
+	}
+
+	saveUser(c)
+	m := c.Message()
+
+	help := fmt.Sprintf(`⭕️ <b><u>Anote Mining Tutorial</u></b>
+	
+	To start mining Anote, follow these simple steps:
+
+	  - read the daily mining code from <a href="https://t.me/AnoteAds/%d">AnoteAds</a> channel
+	  - open @AnoteRobot and click start if you already haven't
+	  - send the daily mining code to AnoteRobot as a message
+	  - join @AnoteDAO group for help and support
+	  
+	And that's it, you are now mining Anote. 🚀`, adnum.(int64))
+
+	_, err = bot2.Send(m.Chat, help, telebot.NoPreview)
 
 	return err
 }
