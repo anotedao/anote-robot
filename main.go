@@ -50,5 +50,7 @@ func main() {
 
 	log.Println("AnoteRobot started.")
 
-	bot.Start()
+	go bot.Start()
+
+	bot2.Start()
 }
