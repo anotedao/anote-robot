@@ -408,12 +408,7 @@ func myStatsCommand(c telebot.Context) error {
 
 	<b><u>Address</u></b>
 
-	%s
-	
-	<b><u>Other Commands</u></b>
-
-	/ref - Your Anote referral link
-	/withdraw - Withdraw your mined anotes`,
+	%s`,
 		float64(miner.MinedTelegram)/float64(MULTI8),
 		float64(abr.Balance)/float64(MULTI8),
 		blocks,
