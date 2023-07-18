@@ -244,7 +244,7 @@ func userJoined(c telebot.Context) error {
 
 	msg := fmt.Sprintf("Hello, %s! Welcome to Anote community! 🚀\n\nHere are some resources to get you started:\n\nAnote Wallet: app.anotedao.com\nBlockchain Explorer: explorer.anotedao.com\nWebsite: anotedao.com\nMining Tutorial: anotedao.com/mine\nRun a Node: anotedao.com/node\n\n<u>Other Anote Communities:</u>\n\n@AnoteBalkan\n@AnoteAfrica\n@AnoteChina", m.Sender.FirstName)
 
-	bot.Send(m.Chat, msg, telebot.NoPreview)
+	bot2.Send(m.Chat, msg, telebot.NoPreview)
 
 	return nil
 }
@@ -520,7 +520,7 @@ func alphaCommand(c telebot.Context) error {
 		message = "Exchange period ended with block 314000. You can check current block here:\n\nexplorer.anotedao.com"
 	}
 
-	_, err = bot.Send(c.Chat(), message, telebot.NoPreview)
+	_, err = bot2.Send(c.Chat(), message, telebot.NoPreview)
 
 	return err
 }
