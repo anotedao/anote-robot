@@ -185,46 +185,48 @@ type AggregtorResponse struct {
 }
 
 func getPriceAggregator() float64 {
-	price := float64(0)
-	ar := &AggregtorResponse{}
-	cl := http.Client{}
+	// price := float64(0)
+	// ar := &AggregtorResponse{}
+	// cl := http.Client{}
 
-	var req *http.Request
-	var err error
+	// var req *http.Request
+	// var err error
 
-	req, err = http.NewRequest(http.MethodGet, AggregatorURL, nil)
+	// req, err = http.NewRequest(http.MethodGet, AggregatorURL, nil)
 
-	req.Header.Set("Content-Type", "application/json")
+	// req.Header.Set("Content-Type", "application/json")
 
-	if err != nil {
-		log.Println(err)
-		logTelegram(err.Error())
-		return price
-	}
+	// if err != nil {
+	// 	log.Println(err)
+	// 	logTelegram(err.Error())
+	// 	return price
+	// }
 
-	res, err := cl.Do(req)
+	// res, err := cl.Do(req)
 
-	if err == nil {
-		body, err := ioutil.ReadAll(res.Body)
-		if err != nil {
-			log.Println(err)
-			logTelegram(err.Error())
-			return price
-		}
-		if res.StatusCode != 200 {
-			err := errors.New(res.Status)
-			log.Println(err)
-			logTelegram(err.Error())
-			return price
-		}
-		json.Unmarshal(body, ar)
-	} else {
-		log.Println(err)
-		logTelegram(err.Error())
-		return price
-	}
+	// if err == nil {
+	// 	body, err := ioutil.ReadAll(res.Body)
+	// 	if err != nil {
+	// 		log.Println(err)
+	// 		logTelegram(err.Error())
+	// 		return price
+	// 	}
+	// 	if res.StatusCode != 200 {
+	// 		err := errors.New(res.Status)
+	// 		log.Println(err)
+	// 		logTelegram(err.Error())
+	// 		return price
+	// 	}
+	// 	json.Unmarshal(body, ar)
+	// } else {
+	// 	log.Println(err)
+	// 	logTelegram(err.Error())
+	// 	return price
+	// }
 
-	price = float64(ar.EstimatedOut) / 100
+	// price = float64(ar.EstimatedOut) / 100
+
+	price := 1.27
 
 	return price
 }
