@@ -60,5 +60,6 @@ const (
 
 	MULTI8 = 100000000
 
-	AggregatorURL = "https://wavescup.world/aggregator/calc?token0=HqieNeUxTqzMufgF49QvK99h2ShsAuJAGYKvYZrvRejN&token1=9wc3LXNA4TEBsXyKtoLE9mrbDD7WMHXvXrCjZvabLAsi&amountIn=10000"
+	// AggregatorURL = "https://wavescup.world/aggregator/calc?token0=HqieNeUxTqzMufgF49QvK99h2ShsAuJAGYKvYZrvRejN&token1=9wc3LXNA4TEBsXyKtoLE9mrbDD7WMHXvXrCjZvabLAsi&amountIn=10000"
+	AggregatorURL = "https://waves.puzzle-aggr-api.com/aggregator/calc?token0=HqieNeUxTqzMufgF49QvK99h2ShsAuJAGYKvYZrvRejN&token1=WAVES&amountIn=1000000000"
 )
