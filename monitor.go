@@ -25,7 +25,6 @@ func (m *Monitor) monitorAintBuys() {
 		}
 
 		ctx, cancel := context.WithTimeout(context.Background(), 600*time.Second)
-		defer cancel()
 
 		addr := proto.MustAddressFromString(conf.Beneficiary)
 
@@ -33,14 +32,16 @@ func (m *Monitor) monitorAintBuys() {
 		if err != nil {
 			log.Println(err)
 			logTelegram(err.Error())
+		} else {
+			if total.Balance > m.BeneficiaryBalance {
+				nb := float64(total.Balance-m.BeneficiaryBalance) / MULTI8
+				notificationTelegram(fmt.Sprintf("<u><strong>New AINT minted:</strong></u> 🚀\n\n%.8f WAVES", nb))
+			}
+
+			m.BeneficiaryBalance = total.Balance
 		}
 
-		if total.Balance > m.BeneficiaryBalance {
-			nb := float64(total.Balance-m.BeneficiaryBalance) / MULTI8
-			notificationTelegram(fmt.Sprintf("<u><strong>New AINT purchase: %.8f WAVES</strong></u> 🚀", nb))
-		}
-
-		m.BeneficiaryBalance = total.Balance
+		cancel()
 
 		time.Sleep(time.Second * 60)
 	}
