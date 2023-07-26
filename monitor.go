@@ -17,6 +17,7 @@ type Monitor struct {
 }
 
 func (m *Monitor) monitorAintBuys() {
+	count := 0
 	for {
 		cl, err := client.NewClient(client.Options{BaseUrl: WavesNodeURL, Client: &http.Client{}})
 		if err != nil {
@@ -33,7 +34,7 @@ func (m *Monitor) monitorAintBuys() {
 			log.Println(err)
 			logTelegram(err.Error())
 		} else {
-			if total.Balance > m.BeneficiaryBalance {
+			if total.Balance > m.BeneficiaryBalance && count > 0 {
 				nb := float64(total.Balance-m.BeneficiaryBalance) / MULTI8
 				notificationTelegram(fmt.Sprintf("<u><strong>New AINT minted!</strong></u> 🚀\n\n%.8f WAVES", nb))
 				notificationTelegramTeam(fmt.Sprintf("<u><strong>New AINT minted!</strong></u> 🚀\n\n%.8f WAVES", nb))
@@ -43,6 +44,8 @@ func (m *Monitor) monitorAintBuys() {
 		}
 
 		cancel()
+
+		count++
 
 		time.Sleep(time.Second * 60)
 	}

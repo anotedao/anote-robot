@@ -557,7 +557,11 @@ func checkUserCommand(c telebot.Context) error {
 		tid := m.OriginalSender.ID
 		m := getMiner(tid)
 
-		message := fmt.Sprintf("<b><u>Anote User Info</u></b>\n\nAddress: %s", m.Address)
+		message := fmt.Sprintf(`<b><u>Anote User Info</u></b>
+		
+Address: %s`,
+
+			m.Address)
 
 		_, err = bot2.Send(c.Chat(), message, telebot.NoPreview)
 	}
