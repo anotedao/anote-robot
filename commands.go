@@ -550,8 +550,13 @@ func checkCommand(c telebot.Context) error {
 }
 
 func checkUserCommand(c telebot.Context) error {
+	var err error
 	m := c.Message()
-	log.Println(prettyPrint(m))
 
-	return nil
+	if m.IsForwarded() {
+		tid := m.OriginalSender.ID
+		log.Println(tid)
+	}
+
+	return err
 }
