@@ -5,13 +5,8 @@ const (
 	SATINBTC = uint64(100000000)
 
 	// Telegram groups
-	T_ANON_BALKAN    = -1001161265502
-	T_ANON           = -1001361489843
-	T_ANON_TAXI      = -1001422544298
-	T_ANON_TAXI_PRIV = -1001271198034
-	T_ANON_OPS       = -1001213539865
-	T_ANON_SHOUT     = -1001453693349
-	T_ANON_TEAM      = -1001280228955
+	T_ANON_BALKAN = -1001161265502
+	T_ANON        = -1001361489843
 
 	// Telegram poller timeout in seconds
 	T_POLLER_TIMEOUT = 30
@@ -45,6 +40,8 @@ const (
 	TelDevAnoteToday = -1001631518083
 
 	TelAnonOps = -1001213539865
+
+	TelGroup = -1989611705
 
 	SendAdHour = 14
 

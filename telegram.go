@@ -56,7 +56,7 @@ func notificationTelegram(message string) {
 
 func notificationTelegramTeam(message string) {
 	rec := &telebot.Chat{
-		ID: int64(TelAnonOps),
+		ID: int64(TelGroup),
 	}
 	bot.Send(rec, message)
 }
