@@ -35,8 +35,8 @@ func (m *Monitor) monitorAintBuys() {
 		} else {
 			if total.Balance > m.BeneficiaryBalance {
 				nb := float64(total.Balance-m.BeneficiaryBalance) / MULTI8
-				notificationTelegram(fmt.Sprintf("<u><strong>New AINT minted:</strong></u> 🚀\n\n%.8f WAVES", nb))
-				notificationTelegramTeam(fmt.Sprintf("<u><strong>New AINT minted:</strong></u> 🚀\n\n%.8f WAVES", nb))
+				notificationTelegram(fmt.Sprintf("<u><strong>New AINT minted!</strong></u> 🚀\n\n%.8f WAVES", nb))
+				notificationTelegramTeam(fmt.Sprintf("<u><strong>New AINT minted!</strong></u> 🚀\n\n%.8f WAVES", nb))
 			}
 
 			m.BeneficiaryBalance = total.Balance
