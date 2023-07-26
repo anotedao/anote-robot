@@ -130,9 +130,9 @@ Join @AnoteDAO group for help and support.`,
 }
 
 func statsCommand(c telebot.Context) error {
-	log.Println(prettyPrint(c))
 	saveUser(c)
 	m := c.Message()
+	log.Println(prettyPrint(m))
 	bh, err := anc.BlocksHeight()
 	if err != nil {
 		log.Println(err.Error())
