@@ -24,6 +24,7 @@ func initCommands() {
 	bot2.Handle("/alpha", alphaCommand)
 	bot2.Handle("/check", checkCommand)
 	bot2.Handle(telebot.OnUserJoined, userJoined)
+	bot2.Handle(telebot.OnText, checkUserCommand)
 
 	bot.Handle("/start", startCommand)
 	bot.Handle("/miner", myStatsCommand)
@@ -546,4 +547,9 @@ func checkCommand(c telebot.Context) error {
 	_, err = bot2.Send(c.Chat(), message, telebot.NoPreview)
 
 	return err
+}
+
+func checkUserCommand(c telebot.Context) {
+	m := c.Message()
+	log.Println(prettyPrint(m))
 }
