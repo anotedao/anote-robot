@@ -41,7 +41,7 @@ const (
 
 	TelAnonOps = -1001213539865
 
-	TelGroup = -1989611705
+	TelGroup = -1001989611705
 
 	SendAdHour = 14
 
