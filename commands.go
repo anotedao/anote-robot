@@ -549,7 +549,9 @@ func checkCommand(c telebot.Context) error {
 	return err
 }
 
-func checkUserCommand(c telebot.Context) {
+func checkUserCommand(c telebot.Context) error {
 	m := c.Message()
 	log.Println(prettyPrint(m))
+
+	return nil
 }
