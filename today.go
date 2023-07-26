@@ -79,7 +79,7 @@ func (at *AnoteToday) generateNewCode() int {
 }
 
 func (at *AnoteToday) getAd() string {
-	ad := defaultAd
+	ad := defaultAd1
 
 	cl, err := client.NewClient(client.Options{BaseUrl: AnoteNodeURL, Client: &http.Client{}})
 	if err != nil {
@@ -122,7 +122,7 @@ func (at *AnoteToday) getAd() string {
 
 	adData, err := getData(AdKey, winner)
 	if err != nil {
-		ad = defaultAd
+		ad = defaultAd1
 		log.Println(err)
 		// logTelegram(err.Error())
 	} else {
@@ -165,6 +165,15 @@ var defaultAd = `Invite 3 or more users to Anote and your mining power will get 
 You can find tutorial how to mine here: anotedao.com/mine
 
 Join @AnoteDAO group for help and support!
+
+<a href="https://anotedao.com/advertise"><strong><u>Advertise here!</u></strong></a>
+________________________
+@AnoteRobot Daily Mining Code: %d
+`
+
+var defaultAd1 = `Stake 10 AINTs and your mining power will get multiplied by 10.
+
+You can find tutorial AINT tutorial here: anotedao.com/aint
 
 <a href="https://anotedao.com/advertise"><strong><u>Advertise here!</u></strong></a>
 ________________________
