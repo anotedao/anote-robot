@@ -171,9 +171,9 @@ ________________________
 @AnoteRobot Daily Mining Code: %d
 `
 
-var defaultAd1 = `Stake 10 AINTs and your mining power will get multiplied by 10.
+var defaultAd1 = `Stake 10 AINTs or refer 3 new users and your mining power will get multiplied by 10.
 
-You can find tutorial AINT tutorial here: anotedao.com/aint
+You can find AINT tutorial here: anotedao.com/aint
 
 <a href="https://anotedao.com/advertise"><strong><u>Advertise here!</u></strong></a>
 ________________________
