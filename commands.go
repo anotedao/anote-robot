@@ -555,7 +555,11 @@ func checkUserCommand(c telebot.Context) error {
 
 	if m.IsForwarded() {
 		tid := m.OriginalSender.ID
-		log.Println(tid)
+		m := getMiner(tid)
+
+		message := fmt.Sprintf("<b><u>Anote User Info</u></b>\n\nAddress: %s", m.Address)
+
+		_, err = bot2.Send(c.Chat(), message, telebot.NoPreview)
 	}
 
 	return err
