@@ -274,6 +274,8 @@ func getPriceCoinGecko() float64 {
 	req.Header.Set("Content-Type", "application/json;version=20230302")
 	req.Header.Set("Accept", "application/json;version=20230302")
 
+	log.Println(prettyPrint(req))
+
 	if err != nil {
 		log.Println(err)
 		logTelegram(err.Error())
