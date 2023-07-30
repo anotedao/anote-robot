@@ -6,6 +6,7 @@ import (
 	"io/ioutil"
 	"log"
 	"net/http"
+	"strconv"
 	"time"
 )
 
@@ -63,7 +64,7 @@ func (pc *PriceClient) doRequest() (*Prices, error) {
 }
 
 func (pc *PriceClient) loadPrice() {
-	pc.AnotePrice = getPriceAggregator()
+	pc.AnotePrice = getPriceCoinGecko()
 }
 
 func (pc *PriceClient) doRequestOrderbook() {
@@ -228,6 +229,96 @@ func getPriceAggregator() float64 {
 	// price = float64(ar.EstimatedOut) / 100
 
 	price = 1.03
+
+	return price
+}
+
+type CoinGeckoResponse struct {
+	Data struct {
+		ID         string `json:"id"`
+		Type       string `json:"type"`
+		Attributes struct {
+			Address           string `json:"address"`
+			Name              string `json:"name"`
+			Symbol            string `json:"symbol"`
+			Decimals          int    `json:"decimals"`
+			TotalSupply       string `json:"total_supply"`
+			FdvUsd            string `json:"fdv_usd"`
+			TotalReserveInUsd string `json:"total_reserve_in_usd"`
+			VolumeUsd         struct {
+				H24 string `json:"h24"`
+			} `json:"volume_usd"`
+		} `json:"attributes"`
+		Relationships struct {
+			TopPools struct {
+				Data []struct {
+					ID   string `json:"id"`
+					Type string `json:"type"`
+				} `json:"data"`
+			} `json:"top_pools"`
+		} `json:"relationships"`
+	} `json:"data"`
+}
+
+func getPriceCoinGecko() float64 {
+	price := float64(1.5)
+
+	cgr := &CoinGeckoResponse{}
+	cl := http.Client{}
+
+	var req *http.Request
+	var err error
+
+	req, err = http.NewRequest(http.MethodGet, CoinGeckoURL, nil)
+
+	req.Header.Set("Content-Type", "application/json")
+
+	if err != nil {
+		log.Println(err)
+		logTelegram(err.Error())
+		return price
+	}
+
+	res, err := cl.Do(req)
+
+	if err == nil {
+		log.Println(prettyPrint(res.Body))
+		body, err := ioutil.ReadAll(res.Body)
+		if err != nil {
+			log.Println(err)
+			logTelegram(err.Error())
+			return price
+		}
+		if res.StatusCode != 200 {
+			err := errors.New(res.Status)
+			log.Println(err)
+			logTelegram(err.Error())
+			return price
+		}
+		json.Unmarshal(body, cgr)
+	} else {
+		log.Println(err)
+		logTelegram(err.Error())
+		return price
+	}
+
+	fdv, err := strconv.ParseFloat(cgr.Data.Attributes.FdvUsd, 32)
+	if err != nil {
+		log.Println(err)
+		logTelegram(err.Error())
+		return price
+	}
+
+	ts, err := strconv.ParseFloat(cgr.Data.Attributes.TotalSupply, 32)
+	if err != nil {
+		log.Println(err)
+		logTelegram(err.Error())
+		return price
+	}
+
+	ts = ts / float64(MULTI8)
+
+	price = fdv / ts
 
 	return price
 }
