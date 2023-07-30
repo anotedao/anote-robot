@@ -292,6 +292,7 @@ func getPriceCoinGecko() float64 {
 		if res.StatusCode != 200 && res.StatusCode != 304 {
 			err := errors.New(res.Status)
 			log.Println(err)
+			log.Println(body)
 			logTelegram(err.Error())
 			return price
 		}
