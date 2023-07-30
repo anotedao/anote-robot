@@ -284,6 +284,8 @@ func getPriceCoinGecko() float64 {
 
 	res, err := cl.Do(req)
 
+	log.Println(prettyPrint(res))
+
 	if err == nil {
 		log.Println(prettyPrint(res.Body))
 		body, err := ioutil.ReadAll(res.Body)
