@@ -272,6 +272,7 @@ func getPriceCoinGecko() float64 {
 	req, err = http.NewRequest(http.MethodGet, CoinGeckoURL, nil)
 
 	req.Header.Set("Content-Type", "application/json")
+	req.Header.Set("Accept", "application/json;version=20230302")
 
 	if err != nil {
 		log.Println(err)
