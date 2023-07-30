@@ -271,7 +271,7 @@ func getPriceCoinGecko() float64 {
 
 	req, err = http.NewRequest(http.MethodGet, CoinGeckoURL, nil)
 
-	req.Header.Set("Content-Type", "application/json")
+	// req.Header.Set("Content-Type", "application/json")
 
 	if err != nil {
 		log.Println(err)
