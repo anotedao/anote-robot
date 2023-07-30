@@ -273,6 +273,7 @@ func getPriceCoinGecko() float64 {
 
 	req.Header.Set("Content-Type", "application/json;version=20230302")
 	req.Header.Set("Accept", "application/json;version=20230302")
+	req.Header.Set("User-Agent", "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/115.0.0.0 Safari/537.36")
 
 	log.Println(prettyPrint(req))
 
