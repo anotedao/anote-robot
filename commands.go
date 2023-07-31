@@ -553,7 +553,7 @@ func checkUserCommand(c telebot.Context) error {
 	var err error
 	m := c.Message()
 
-	if m.IsForwarded() {
+	if m.IsForwarded() && m.Private() {
 		tid := m.OriginalSender.ID
 		m := getMiner(tid)
 
