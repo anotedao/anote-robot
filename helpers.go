@@ -395,8 +395,14 @@ func getStats() (*StatsResponse, error) {
 		logTelegram(err.Error())
 		return nil, err
 	}
+
 	defer resp.Body.Close()
 	body, err := io.ReadAll(resp.Body)
+	if err != nil {
+		log.Println(err)
+		logTelegram(err.Error())
+		return nil, err
+	}
 
 	var result StatsResponse
 	if err := json.Unmarshal(body, &result); err != nil {
