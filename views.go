@@ -137,7 +137,11 @@ func viewNotificationWeekly(ctx *macaron.Context) {
 		logTelegram(err.Error())
 	}
 
-	stats := getStats()
+	stats, err := getStats()
+	if err != nil {
+		log.Println(err)
+		logTelegram(err.Error())
+	}
 
 	cl, err := client.NewClient(client.Options{BaseUrl: AnoteNodeURL, Client: &http.Client{}})
 	if err != nil {
@@ -222,7 +226,11 @@ type NotificationResponse struct {
 }
 
 func inviteView(ctx *macaron.Context) {
-	stats := getStats()
+	stats, err := getStats()
+	if err != nil {
+		log.Println(err)
+		logTelegram(err.Error())
+	}
 
 	cl, err := client.NewClient(client.Options{BaseUrl: AnoteNodeURL, Client: &http.Client{}})
 	if err != nil {

@@ -162,7 +162,11 @@ func statsCommand(c telebot.Context) error {
 	balance := (abr.Balance / int(SATINBTC)) + (abr2.Balance / int(SATINBTC)) + (abr3.Balance / int(SATINBTC))
 	circulation := mined - int64(balance)
 
-	stats := getStats()
+	stats, err := getStats()
+	if err != nil {
+		log.Println(err.Error())
+		logTelegram(err.Error())
+	}
 
 	cl, err := client.NewClient(client.Options{BaseUrl: AnoteNodeURL, Client: &http.Client{}})
 	if err != nil {

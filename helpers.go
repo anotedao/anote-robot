@@ -384,42 +384,46 @@ func getCallerInfo() (info string) {
 	return fmt.Sprintf("%s:%d: ", fileName, lineNo)
 }
 
-func getStats() *StatsResponse {
-	resp, err := http.Get("http://localhost:5001/stats")
+func getStats() (*StatsResponse, error) {
+	client := http.Client{
+		Timeout: 5 * time.Second,
+	}
+
+	resp, err := client.Get("http://localhost:5001/stats")
 	if err != nil {
 		log.Println(err)
 		logTelegram(err.Error())
-		return nil
+		return nil, err
 	}
 	defer resp.Body.Close()
-	body, err := ioutil.ReadAll(resp.Body)
+	body, err := io.ReadAll(resp.Body)
 
 	var result StatsResponse
 	if err := json.Unmarshal(body, &result); err != nil {
 		log.Println(err)
 		logTelegram(err.Error())
-		return nil
+		return nil, err
 	}
 
-	resp, err = http.Get("http://localhost:5005/distribution")
+	resp, err = client.Get("http://localhost:5005/distribution")
 	if err != nil {
 		log.Println(err)
 		logTelegram(err.Error())
-		return nil
+		return nil, err
 	}
 	defer resp.Body.Close()
-	body, err = ioutil.ReadAll(resp.Body)
+	body, err = io.ReadAll(resp.Body)
 
 	var ds DistributionResponse
 	if err := json.Unmarshal(body, &ds); err != nil {
 		log.Println(err)
 		logTelegram(err.Error())
-		return nil
+		return nil, err
 	}
 
 	result.Holders = len(ds)
 
-	return &result
+	return &result, nil
 }
 
 type StatsResponse struct {
