@@ -568,6 +568,14 @@ Address: %s`,
 			m.Address)
 
 		_, err = bot2.Send(c.Chat(), message, telebot.NoPreview)
+	} else if !m.Private() {
+		txt := m.Text
+		if len(txt) == 3 {
+			code, err := strconv.Atoi(txt)
+			if err == nil && code < 1000 {
+				bot2.Reply(m, "Please send the code to @AnoteRobot!", telebot.NoPreview)
+			}
+		}
 	}
 
 	return err
