@@ -226,50 +226,50 @@ type NotificationResponse struct {
 }
 
 func inviteView(ctx *macaron.Context) {
+	nr := &NotificationResponse{Success: false}
 	stats, err := getStats()
 	if err != nil {
 		log.Println(err)
 		logTelegram(err.Error())
-	}
-
-	cl, err := client.NewClient(client.Options{BaseUrl: AnoteNodeURL, Client: &http.Client{}})
-	if err != nil {
-		log.Println(err)
-		logTelegram(err.Error())
-	}
-
-	ctxb, cancel := context.WithTimeout(context.Background(), 10*time.Second)
-	defer cancel()
-
-	addr := proto.MustAddressFromString(MobileAddress)
-
-	total, _, err := cl.Addresses.Balance(ctxb, addr)
-	if err != nil {
-		log.Println(err)
-		logTelegram(err.Error())
-	}
-
-	basicAmount := float64(0)
-
-	if stats.PayoutMiners > 0 {
-		basicAmount = float64((total.Balance/(uint64(stats.PayoutMiners)+uint64(stats.ActiveReferred/4)))-Fee) / MULTI8
 	} else {
-		basicAmount = float64((total.Balance - Fee) / MULTI8)
-	}
-
-	nr := &NotificationResponse{Success: true}
-	tids := ctx.Params("telegramid")
-	tid, err := strconv.Atoi(tids)
-	if err != nil {
-		log.Println(err)
-		nr.Success = false
-	} else {
-		da := pc.AnotePrice * basicAmount
-		message := fmt.Sprintf("Please notice that by not mining Anote, you lose $%.2f daily.\n\nStart mining and earning today! 🚀", da)
-		rec := &telebot.Chat{
-			ID: int64(tid),
+		cl, err := client.NewClient(client.Options{BaseUrl: AnoteNodeURL, Client: &http.Client{}})
+		if err != nil {
+			log.Println(err)
+			logTelegram(err.Error())
 		}
-		bot.Send(rec, message)
+
+		ctxb, cancel := context.WithTimeout(context.Background(), 10*time.Second)
+		defer cancel()
+
+		addr := proto.MustAddressFromString(MobileAddress)
+
+		total, _, err := cl.Addresses.Balance(ctxb, addr)
+		if err != nil {
+			log.Println(err)
+			logTelegram(err.Error())
+		}
+
+		basicAmount := float64(0)
+
+		if stats.PayoutMiners > 0 {
+			basicAmount = float64((total.Balance/(uint64(stats.PayoutMiners)+uint64(stats.ActiveReferred/4)))-Fee) / MULTI8
+		} else {
+			basicAmount = float64((total.Balance - Fee) / MULTI8)
+		}
+
+		tids := ctx.Params("telegramid")
+		tid, err := strconv.Atoi(tids)
+		if err != nil {
+			log.Println(err)
+		} else {
+			nr.Success = true
+			da := pc.AnotePrice * basicAmount
+			message := fmt.Sprintf("Please notice that by not mining Anote, you lose $%.2f daily.\n\nStart mining and earning today! 🚀", da)
+			rec := &telebot.Chat{
+				ID: int64(tid),
+			}
+			bot.Send(rec, message)
+		}
 	}
 
 	ctx.JSON(200, nr)
