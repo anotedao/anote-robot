@@ -386,7 +386,7 @@ func getCallerInfo() (info string) {
 
 func getStats() (*StatsResponse, error) {
 	client := http.Client{
-		Timeout: 15 * time.Second,
+		Timeout: 30 * time.Second,
 	}
 
 	resp, err := client.Get("http://localhost:5001/stats")
