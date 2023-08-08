@@ -250,9 +250,14 @@ func userJoined(c telebot.Context) error {
 
 	msg := fmt.Sprintf("Hello, %s! Welcome to Anote community! 🚀\n\nHere are some resources to get you started:\n\nAnote Wallet: app.anotedao.com\nBlockchain Explorer: explorer.anotedao.com\nWebsite: anotedao.com\nMining Tutorial: anotedao.com/mine\nRun a Node: anotedao.com/node\n\n<u>Other Anote Communities:</u>\n\n@AnoteBalkan\n@AnoteAfrica\n@AnoteChina", m.Sender.FirstName)
 
-	bot2.Send(m.Chat, msg, telebot.NoPreview)
+	m, err := bot2.Send(m.Chat, msg, telebot.NoPreview)
 
-	return nil
+	go func(m *telebot.Message) {
+		time.Sleep(time.Second * 30)
+		bot2.Delete(m)
+	}(m)
+
+	return err
 }
 
 func deleteCommand(c telebot.Context) error {
