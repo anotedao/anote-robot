@@ -374,12 +374,12 @@ func addressBscCommand(c telebot.Context) error {
 
 	help := "Address of Anote contract in BSC chain:\n\n`0xbad04e33cc88bbcccc1b7adb8319f7d36f5bc472`"
 
-	o := telebot.SendOptions{
-		ParseMode:             telebot.ModeMarkdownV2,
-		DisableWebPagePreview: true,
-	}
+	// o := telebot.SendOptions{
+	// 	ParseMode:             telebot.ModeMarkdownV2,
+	// 	DisableWebPagePreview: true,
+	// }
 
-	_, err := bot2.Send(m.Chat, help, o)
+	_, err := bot2.Send(m.Chat, help, telebot.ModeMarkdownV2)
 
 	return err
 }
