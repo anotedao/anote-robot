@@ -328,7 +328,7 @@ func codeCommand(c telebot.Context) error {
 		logTelegram(err.Error())
 	}
 
-	help := fmt.Sprintf("<a href=\"https://t.me/AnoteAds/%d\"><strong><u>Click here</u></strong></a>, daily mining code is at the bottom of the last announcement.", adnum.(int64))
+	help := fmt.Sprintf("Daily mining code is at the bottom of the last announcement in <a href=\"https://t.me/AnoteAds/%d\"><strong><u>AnoteAds</u></strong></a> channel.", adnum.(int64))
 
 	_, err = bot2.Send(m.Chat, help, telebot.NoPreview)
 
