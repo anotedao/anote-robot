@@ -22,6 +22,7 @@ func initCommands() {
 	bot2.Handle("/code", codeCommand)
 	bot2.Handle("/bo", batteryCommand)
 	bot2.Handle("/alpha", alphaCommand)
+	bot2.Handle("/seed", seedCommand)
 	bot2.Handle("/check", checkCommand)
 	bot2.Handle(telebot.OnUserJoined, userJoined)
 	bot2.Handle(telebot.OnText, checkUserCommand)
@@ -349,6 +350,17 @@ func batteryCommand(c telebot.Context) error {
 	m := c.Message()
 
 	help := "To achieve 100% AINT Miner health and receive full amount of anotes, disable battery optimization on AINT Miner. You can learn how to do that here:\n\nanotedao.com/battery"
+
+	_, err := bot2.Send(m.Chat, help, telebot.NoPreview)
+
+	return err
+}
+
+func seedCommand(c telebot.Context) error {
+	saveUser(c)
+	m := c.Message()
+
+	help := "You can find your seed in the wallet settings when you click on the gear icon in the upper right corner of your wallet (app.anotedao.com)."
 
 	_, err := bot2.Send(m.Chat, help, telebot.NoPreview)
 
