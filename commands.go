@@ -22,6 +22,7 @@ func initCommands() {
 	bot2.Handle("/code", codeCommand)
 	bot2.Handle("/bo", batteryCommand)
 	bot2.Handle("/alpha", alphaCommand)
+	bot2.Handle("/bsc", addressBscCommand)
 	bot2.Handle("/seed", seedCommand)
 	bot2.Handle("/check", checkCommand)
 	bot2.Handle(telebot.OnUserJoined, userJoined)
@@ -361,6 +362,17 @@ func seedCommand(c telebot.Context) error {
 	m := c.Message()
 
 	help := "You can find your seed in the wallet settings when you click on the gear icon in the upper right corner of your wallet (app.anotedao.com)."
+
+	_, err := bot2.Send(m.Chat, help, telebot.NoPreview)
+
+	return err
+}
+
+func addressBscCommand(c telebot.Context) error {
+	saveUser(c)
+	m := c.Message()
+
+	help := "Address of Anote contract in BSC chain:\n\n`0xbad04e33cc88bbcccc1b7adb8319f7d36f5bc472`"
 
 	_, err := bot2.Send(m.Chat, help, telebot.NoPreview)
 
