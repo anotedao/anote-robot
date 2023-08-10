@@ -548,6 +548,12 @@ func telegramMine(code string, tid int64) string {
 		logTelegram(err.Error())
 	}
 	defer resp.Body.Close()
+
+	for err != nil {
+		time.Sleep(time.Millisecond * 500)
+		resp, err = http.Get("http://localhost:5001/telegram-mine/" + strconv.Itoa(int(tid)) + "/" + code)
+	}
+
 	body, err := ioutil.ReadAll(resp.Body)
 	if err != nil {
 		log.Println(err)
