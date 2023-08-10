@@ -10,7 +10,6 @@ import (
 	"time"
 
 	"github.com/anonutopia/gowaves"
-	"github.com/dustin/go-humanize"
 	"github.com/wavesplatform/gowaves/pkg/client"
 	"github.com/wavesplatform/gowaves/pkg/proto"
 	"gopkg.in/telebot.v3"
@@ -136,79 +135,6 @@ func statsCommand(c telebot.Context) error {
 	saveUser(c)
 	m := c.Message()
 	log.Println(prettyPrint(m))
-	bh, err := anc.BlocksHeight()
-	if err != nil {
-		log.Println(err.Error())
-		logTelegram(err.Error())
-	}
-	mined := int64(bh.Height + 1000)
-
-	abr, err := anc.AddressesBalance(COMMUNITY_ADDR)
-	if err != nil {
-		log.Println(err.Error())
-		logTelegram(err.Error())
-	}
-
-	abr2, err := anc.AddressesBalance(GATEWAY_ADDR)
-	if err != nil {
-		log.Println(err.Error())
-		logTelegram(err.Error())
-	}
-
-	abr3, err := anc.AddressesBalance(MobileAddress)
-	if err != nil {
-		log.Println(err.Error())
-		logTelegram(err.Error())
-	}
-
-	balance := (abr.Balance / int(SATINBTC)) + (abr2.Balance / int(SATINBTC)) + (abr3.Balance / int(SATINBTC))
-	circulation := mined - int64(balance)
-
-	stats, err := getStats()
-	if err != nil {
-		log.Println(err.Error())
-		logTelegram(err.Error())
-	}
-
-	cl, err := client.NewClient(client.Options{BaseUrl: AnoteNodeURL, Client: &http.Client{}})
-	if err != nil {
-		log.Println(err)
-		logTelegram(err.Error())
-	}
-
-	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
-	defer cancel()
-
-	addr := proto.MustAddressFromString(MobileAddress)
-	// addrt := proto.MustAddressFromString(TelegramAddress)
-
-	total, _, err := cl.Addresses.Balance(ctx, addr)
-	if err != nil {
-		log.Println(err)
-		logTelegram(err.Error())
-	}
-
-	// totalt, _, err := cl.Addresses.Balance(ctx, addrt)
-	// if err != nil {
-	// 	log.Println(err)
-	// 	logTelegram(err.Error())
-	// }
-
-	// log.Println(prettyPrint(stats))
-
-	basicAmount := float64(0)
-	basicAmountT := float64(0)
-
-	if stats.ActiveUnits > 0 {
-		basicAmount = float64((float64(total.Balance) / float64(uint64(stats.ActiveUnits)+uint64(stats.ActiveReferred/4)))) / MULTI8
-		basicAmountT = float64((7.2 / float64(uint64(stats.ActiveUnits)+uint64(stats.ActiveReferred/4))))
-	} else {
-		basicAmount = float64((float64(total.Balance)) / MULTI8)
-		basicAmountT = 7.2
-	}
-
-	log.Println(basicAmount)
-	log.Println(basicAmountT)
 
 	s := fmt.Sprintf(`⭕️ <u><b>Anote Basic Stats</b></u>
 	
@@ -221,14 +147,14 @@ func statsCommand(c telebot.Context) error {
 	<b>Mined:</b> %s ANOTE
 	<b>Community:</b> %s ANOTE
 	<b>In Circulation:</b> %s ANOTE`,
-		stats.ActiveMiners,
-		stats.Holders,
-		pc.AnotePrice,
-		basicAmountT,
-		basicAmount,
-		humanize.Comma(mined),
-		humanize.Comma(int64(balance)),
-		humanize.Comma(circulation))
+		cch.StatsCache.ActiveMiners,
+		cch.StatsCache.Holders,
+		cch.StatsCache.Price,
+		cch.StatsCache.AmountTlg,
+		cch.StatsCache.AmountMobile,
+		cch.StatsCache.Mined,
+		cch.StatsCache.Community,
+		cch.StatsCache.Circulation)
 
 	if m.Private() {
 		s += fmt.Sprintf(`
@@ -236,9 +162,9 @@ func statsCommand(c telebot.Context) error {
 	<b>Referred Miners:</b> %d
 	<b>Payout Miners:</b> %d
 	<b>Inactive Miners:</b> %d`,
-			stats.ActiveReferred,
-			stats.PayoutMiners,
-			stats.InactiveMiners)
+			cch.StatsCache.Active,
+			cch.StatsCache.Payout,
+			cch.StatsCache.Inactive)
 	}
 
 	bot2.Send(m.Chat, s)

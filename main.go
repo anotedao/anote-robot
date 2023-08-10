@@ -25,6 +25,8 @@ var monitor *Monitor
 
 var pc *PriceClient
 
+var cch *Cache
+
 func main() {
 	log.SetFlags(log.LstdFlags | log.Lshortfile)
 
@@ -47,6 +49,8 @@ func main() {
 	pc = initPriceClient()
 
 	initAnoteToday()
+
+	cch = initCache()
 
 	log.Println("AnoteRobot started.")
 
