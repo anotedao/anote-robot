@@ -56,8 +56,7 @@ func (c *Cache) loadStatsCache() {
 		logTelegram(err.Error())
 	}
 
-	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
-	defer cancel()
+	ctx, cancel := context.WithTimeout(context.Background(), 30*time.Second)
 
 	addr := proto.MustAddressFromString(MobileAddress)
 
@@ -89,6 +88,8 @@ func (c *Cache) loadStatsCache() {
 	c.StatsCache.Active = stats.ActiveReferred
 	c.StatsCache.Payout = stats.PayoutMiners
 	c.StatsCache.Inactive = stats.InactiveMiners
+
+	cancel()
 }
 
 func (c *Cache) start() {
