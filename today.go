@@ -79,7 +79,7 @@ func (at *AnoteToday) generateNewCode() int {
 }
 
 func (at *AnoteToday) getAd() string {
-	ad := defaultAd1
+	ad := defaultAd2
 
 	cl, err := client.NewClient(client.Options{BaseUrl: AnoteNodeURL, Client: &http.Client{}})
 	if err != nil {
@@ -122,7 +122,7 @@ func (at *AnoteToday) getAd() string {
 
 	adData, err := getData(AdKey, winner)
 	if err != nil {
-		ad = defaultAd1
+		ad = defaultAd2
 		log.Println(err)
 		// logTelegram(err.Error())
 	} else {
@@ -174,6 +174,19 @@ ________________________
 var defaultAd1 = `Stake 10 AINTs or refer 3 new users and your mining power will get multiplied by 10.
 
 You can find AINT tutorial here: anotedao.com/aint
+
+<a href="https://anotedao.com/advertise"><strong><u>Advertise here!</u></strong></a>
+________________________
+@AnoteRobot Daily Mining Code: %d
+`
+
+var defaultAd2 = `Anote Staking Is Live 🚀
+
+You can now stake your anotes and receive up to 70% APY (Annual Percentage Yield). This means that if you stake 100 anotes, you will receive 70 more in a year. Payouts are done automatically every 10 minutes.
+
+Read more about how to do it in the tutorial:
+
+anotedao.com/staking
 
 <a href="https://anotedao.com/advertise"><strong><u>Advertise here!</u></strong></a>
 ________________________
