@@ -182,7 +182,7 @@ ________________________
 
 var defaultAd2 = `Anote Staking Is Live 🚀
 
-You can now stake your anotes and receive up to 70% APY (Annual Percentage Yield). This means that if you stake 100 anotes, you will receive 70 more in a year. Payouts are done automatically every 10 minutes.
+You can now stake your anotes and receive up to 70%% APY (Annual Percentage Yield). This means that if you stake 100 anotes, you will receive 70 more in a year. Payouts are done automatically every 10 minutes.
 
 Read more about how to do it in the tutorial:
 
