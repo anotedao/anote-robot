@@ -394,6 +394,7 @@ func getStats() (*StatsResponse, error) {
 		log.Println(err)
 		logTelegram(err.Error())
 		resp.Body.Close()
+		client.CloseIdleConnections()
 		return nil, err
 	}
 
