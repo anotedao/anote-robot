@@ -393,6 +393,7 @@ func getStats() (*StatsResponse, error) {
 	if err != nil {
 		log.Println(err)
 		logTelegram(err.Error())
+		resp.Body.Close()
 		return nil, err
 	}
 
