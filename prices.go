@@ -110,29 +110,27 @@ func (pc *PriceClient) doRequestOrderbook() {
 }
 
 func (pc *PriceClient) start() {
-	go func() {
-		for {
-			if p, err := pc.doRequest(); err != nil {
-				log.Println(err)
-				logTelegram(err.Error())
-			} else {
-				pc.Prices = p
-			}
-
-			// if conf.Debug {
-			// 	log.Printf("%#v\n", pc.Prices)
-			// }
-
-			pc.Loaded = true
-
-			time.Sleep(time.Minute * 5)
+	for {
+		if p, err := pc.doRequest(); err != nil {
+			log.Println(err)
+			logTelegram(err.Error())
+		} else {
+			pc.Prices = p
 		}
-	}()
+
+		// if conf.Debug {
+		// 	log.Printf("%#v\n", pc.Prices)
+		// }
+
+		pc.Loaded = true
+
+		time.Sleep(time.Minute * 5)
+	}
 }
 
 func initPriceClient() *PriceClient {
 	pc := &PriceClient{Loaded: false}
-	pc.start()
+	go pc.start()
 	return pc
 }
 
