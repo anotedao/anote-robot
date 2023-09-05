@@ -181,7 +181,7 @@ func userJoined(c telebot.Context) error {
 	m, err := bot2.Send(m.Chat, msg, telebot.NoPreview)
 
 	go func(m *telebot.Message) {
-		time.Sleep(time.Second * 30)
+		time.Sleep(time.Second * 120)
 		bot2.Delete(m)
 	}(m)
 
