@@ -312,6 +312,7 @@ func addressBscCommand(c telebot.Context) error {
 
 func mineCommand(c telebot.Context) error {
 	var err error
+	log.Println(prettyPrint(c))
 	if c.Message().Private() {
 		message := ""
 		if strings.HasPrefix(c.Message().Text, "3A") {
