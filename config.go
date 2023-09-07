@@ -19,6 +19,7 @@ type Config struct {
 	PrivateKeyAlpha string `json:"private_key_alpha"`
 	Dev             bool   `json:"dev"`
 	Beneficiary     string `json:"beneficiary"`
+	DSN             string `json:"dsn"`
 }
 
 // Load method loads configuration file to Config struct
