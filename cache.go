@@ -96,7 +96,7 @@ func (c *Cache) start() {
 	for {
 		c.loadStatsCache()
 
-		time.Sleep(time.Second * 60)
+		time.Sleep(time.Second * 10)
 	}
 }
 
