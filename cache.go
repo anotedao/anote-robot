@@ -2,6 +2,8 @@ package main
 
 import (
 	"context"
+	"encoding/json"
+	"io"
 	"log"
 	"net/http"
 	"time"
@@ -44,11 +46,7 @@ func (c *Cache) loadStatsCache() {
 	balance := (abr.Balance / int(SATINBTC)) + (abr2.Balance / int(SATINBTC)) + (abr3.Balance / int(SATINBTC))
 	circulation := mined - int64(balance)
 
-	stats, err := getStats()
-	if err != nil {
-		log.Println(err.Error())
-		logTelegram(err.Error())
-	}
+	stats := getStats()
 
 	cl, err := client.NewClient(client.Options{BaseUrl: AnoteNodeURL, Client: &http.Client{}})
 	if err != nil {
@@ -78,7 +76,7 @@ func (c *Cache) loadStatsCache() {
 	}
 
 	c.StatsCache.ActiveMiners = stats.ActiveMiners
-	c.StatsCache.Holders = stats.Holders
+	// c.StatsCache.Holders = stats.Holders
 	c.StatsCache.Price = pc.AnotePrice
 	c.StatsCache.AmountTlg = basicAmountT
 	c.StatsCache.AmountMobile = basicAmount
@@ -88,6 +86,27 @@ func (c *Cache) loadStatsCache() {
 	c.StatsCache.Active = stats.ActiveReferred
 	c.StatsCache.Payout = stats.PayoutMiners
 	c.StatsCache.Inactive = stats.InactiveMiners
+	c.StatsCache.Referred = stats.ActiveReferred
+
+	client := http.Client{
+		Timeout: 30 * time.Second,
+	}
+
+	resp, err := client.Get("http://localhost:5005/distribution")
+	if err != nil {
+		log.Println(err)
+		logTelegram(err.Error())
+	}
+	defer resp.Body.Close()
+	body, err := io.ReadAll(resp.Body)
+
+	var ds DistributionResponse
+	if err := json.Unmarshal(body, &ds); err != nil {
+		log.Println(err)
+		logTelegram(err.Error())
+	}
+
+	c.StatsCache.Holders = len(ds)
 
 	cancel()
 }
@@ -120,4 +139,5 @@ type StatsCache struct {
 	Active       int
 	Payout       int
 	Inactive     int
+	Referred     int
 }

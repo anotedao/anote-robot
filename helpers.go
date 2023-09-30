@@ -384,54 +384,129 @@ func getCallerInfo() (info string) {
 	return fmt.Sprintf("%s:%d: ", fileName, lineNo)
 }
 
-func getStats() (*StatsResponse, error) {
-	client := http.Client{
-		Timeout: 30 * time.Second,
+// func getStats() (*StatsResponse, error) {
+// 	client := http.Client{
+// 		Timeout: 30 * time.Second,
+// 	}
+
+// 	resp, err := client.Get("http://localhost:5001/stats")
+// 	if err != nil {
+// 		log.Println(err)
+// 		logTelegram(err.Error())
+// 		resp.Body.Close()
+// 		client.CloseIdleConnections()
+// 		return nil, err
+// 	}
+
+// 	defer resp.Body.Close()
+// 	body, err := io.ReadAll(resp.Body)
+// 	if err != nil {
+// 		log.Println(err)
+// 		logTelegram(err.Error())
+// 		return nil, err
+// 	}
+
+// 	var result StatsResponse
+// 	if err := json.Unmarshal(body, &result); err != nil {
+// 		log.Println(err)
+// 		logTelegram(err.Error())
+// 		return nil, err
+// 	}
+
+// 	resp, err = client.Get("http://localhost:5005/distribution")
+// 	if err != nil {
+// 		log.Println(err)
+// 		logTelegram(err.Error())
+// 		return nil, err
+// 	}
+// 	defer resp.Body.Close()
+// 	body, err = io.ReadAll(resp.Body)
+
+// 	var ds DistributionResponse
+// 	if err := json.Unmarshal(body, &ds); err != nil {
+// 		log.Println(err)
+// 		logTelegram(err.Error())
+// 		return nil, err
+// 	}
+
+// 	result.Holders = len(ds)
+
+// 	return &result, nil
+// }
+
+func getStats() *Stats {
+	var miners []*Miner
+	sr := &Stats{}
+	db.Find(&miners)
+	height := getHeight()
+	pc := 0
+
+	for _, m := range miners {
+		if height-uint64(m.MiningHeight) <= 1440 {
+			sr.ActiveMiners++
+			if m.ReferralID != 0 {
+				sr.ActiveReferred++
+			}
+		}
+
+		if height-uint64(m.MiningHeight) <= 1440 {
+			sr.PayoutMiners++
+			pc += int(m.PingCount)
+
+			if getRefCount(m) >= 3 || hasAintHealth(m, true) {
+				sr.ActiveUnits += 10
+			} else {
+				sr.ActiveUnits++
+			}
+		}
 	}
 
-	resp, err := client.Get("http://localhost:5001/stats")
-	if err != nil {
-		log.Println(err)
-		logTelegram(err.Error())
-		resp.Body.Close()
-		client.CloseIdleConnections()
-		return nil, err
+	sr.InactiveMiners = len(miners) - sr.PayoutMiners
+	sr.PingCount = pc
+
+	return sr
+}
+
+func getRefCount(m *Miner) uint64 {
+	var miners []*Miner
+
+	height := getHeight()
+
+	db.Where("referral_id = ? AND mining_height > ?", m.ID, height-2880).Find(&miners)
+	count := len(miners)
+
+	miners = nil
+
+	return uint64(count)
+}
+
+type Stats struct {
+	ActiveMiners   int `json:"active_miners"`
+	ActiveReferred int `json:"active_referred"`
+	PayoutMiners   int `json:"payout_miners"`
+	InactiveMiners int `json:"inactive_miners"`
+	PingCount      int `json:"ping_count"`
+	ActiveUnits    int `json:"active_units"`
+}
+
+func hasAintHealth(m *Miner, second bool) bool {
+	sma := StakeMobileAddress
+
+	d, err := getData("%s__"+m.Address, &sma)
+	if err != nil || d == nil {
+		return false
 	}
 
-	defer resp.Body.Close()
-	body, err := io.ReadAll(resp.Body)
-	if err != nil {
-		log.Println(err)
-		logTelegram(err.Error())
-		return nil, err
+	aint := parseItem(d.(string), 0)
+	if aint != nil {
+		if second && aint.(int) >= (10*MULTI8) {
+			return true
+		} else if !second && aint.(int) >= MULTI8 {
+			return true
+		}
 	}
 
-	var result StatsResponse
-	if err := json.Unmarshal(body, &result); err != nil {
-		log.Println(err)
-		logTelegram(err.Error())
-		return nil, err
-	}
-
-	resp, err = client.Get("http://localhost:5005/distribution")
-	if err != nil {
-		log.Println(err)
-		logTelegram(err.Error())
-		return nil, err
-	}
-	defer resp.Body.Close()
-	body, err = io.ReadAll(resp.Body)
-
-	var ds DistributionResponse
-	if err := json.Unmarshal(body, &ds); err != nil {
-		log.Println(err)
-		logTelegram(err.Error())
-		return nil, err
-	}
-
-	result.Holders = len(ds)
-
-	return &result, nil
+	return false
 }
 
 type StatsResponse struct {

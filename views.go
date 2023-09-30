@@ -137,11 +137,7 @@ func viewNotificationWeekly(ctx *macaron.Context) {
 		logTelegram(err.Error())
 	}
 
-	stats, err := getStats()
-	if err != nil {
-		log.Println(err)
-		logTelegram(err.Error())
-	}
+	stats := cch.StatsCache
 
 	cl, err := client.NewClient(client.Options{BaseUrl: AnoteNodeURL, Client: &http.Client{}})
 	if err != nil {
@@ -162,8 +158,8 @@ func viewNotificationWeekly(ctx *macaron.Context) {
 
 	basicAmount := float64(0)
 
-	if stats.PayoutMiners > 0 {
-		basicAmount = float64((total.Balance/(uint64(stats.PayoutMiners)+uint64(stats.ActiveReferred/4)))-Fee) / MULTI8
+	if stats.Payout > 0 {
+		basicAmount = float64((total.Balance/(uint64(stats.Payout)+uint64(stats.Referred/4)))-Fee) / MULTI8
 	} else {
 		basicAmount = float64((total.Balance - Fee) / MULTI8)
 	}
@@ -227,49 +223,44 @@ type NotificationResponse struct {
 
 func inviteView(ctx *macaron.Context) {
 	nr := &NotificationResponse{Success: false}
-	stats, err := getStats()
+	stats := cch.StatsCache
+	cl, err := client.NewClient(client.Options{BaseUrl: AnoteNodeURL, Client: &http.Client{}})
 	if err != nil {
 		log.Println(err)
 		logTelegram(err.Error())
+	}
+
+	ctxb, cancel := context.WithTimeout(context.Background(), 10*time.Second)
+	defer cancel()
+
+	addr := proto.MustAddressFromString(MobileAddress)
+
+	total, _, err := cl.Addresses.Balance(ctxb, addr)
+	if err != nil {
+		log.Println(err)
+		logTelegram(err.Error())
+	}
+
+	basicAmount := float64(0)
+
+	if stats.Payout > 0 {
+		basicAmount = float64((total.Balance/(uint64(stats.Payout)+uint64(stats.Referred/4)))-Fee) / MULTI8
 	} else {
-		cl, err := client.NewClient(client.Options{BaseUrl: AnoteNodeURL, Client: &http.Client{}})
-		if err != nil {
-			log.Println(err)
-			logTelegram(err.Error())
+		basicAmount = float64((total.Balance - Fee) / MULTI8)
+	}
+
+	tids := ctx.Params("telegramid")
+	tid, err := strconv.Atoi(tids)
+	if err != nil {
+		log.Println(err)
+	} else {
+		nr.Success = true
+		da := pc.AnotePrice * basicAmount
+		message := fmt.Sprintf("Please notice that by not mining Anote, you lose $%.2f daily.\n\nStart mining and earning today! 🚀", da)
+		rec := &telebot.Chat{
+			ID: int64(tid),
 		}
-
-		ctxb, cancel := context.WithTimeout(context.Background(), 10*time.Second)
-		defer cancel()
-
-		addr := proto.MustAddressFromString(MobileAddress)
-
-		total, _, err := cl.Addresses.Balance(ctxb, addr)
-		if err != nil {
-			log.Println(err)
-			logTelegram(err.Error())
-		}
-
-		basicAmount := float64(0)
-
-		if stats.PayoutMiners > 0 {
-			basicAmount = float64((total.Balance/(uint64(stats.PayoutMiners)+uint64(stats.ActiveReferred/4)))-Fee) / MULTI8
-		} else {
-			basicAmount = float64((total.Balance - Fee) / MULTI8)
-		}
-
-		tids := ctx.Params("telegramid")
-		tid, err := strconv.Atoi(tids)
-		if err != nil {
-			log.Println(err)
-		} else {
-			nr.Success = true
-			da := pc.AnotePrice * basicAmount
-			message := fmt.Sprintf("Please notice that by not mining Anote, you lose $%.2f daily.\n\nStart mining and earning today! 🚀", da)
-			rec := &telebot.Chat{
-				ID: int64(tid),
-			}
-			bot.Send(rec, message)
-		}
+		bot.Send(rec, message)
 	}
 
 	ctx.JSON(200, nr)
