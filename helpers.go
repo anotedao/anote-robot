@@ -710,22 +710,45 @@ type MinerResponse struct {
 
 func getMiner(tid int64) *MinerResponse {
 	mr := &MinerResponse{}
+	var miners []*Miner
+	height := getHeight()
 
-	resp, err := http.Get("http://localhost:5001/tminer/" + strconv.Itoa(int(tid)))
-	if err != nil {
-		log.Println(err)
-		logTelegram(err.Error())
-	}
-	defer resp.Body.Close()
-	body, err := ioutil.ReadAll(resp.Body)
-	if err != nil {
-		log.Println(err)
-		logTelegram(err.Error())
-	}
+	// resp, err := http.Get("http://localhost:5001/tminer/" + strconv.Itoa(int(tid)))
+	// if err != nil {
+	// 	log.Println(err)
+	// 	logTelegram(err.Error())
+	// }
+	// defer resp.Body.Close()
+	// body, err := ioutil.ReadAll(resp.Body)
+	// if err != nil {
+	// 	log.Println(err)
+	// 	logTelegram(err.Error())
+	// }
 
-	if err := json.Unmarshal(body, mr); err != nil {
-		log.Println(err)
-		logTelegram(err.Error())
+	// if err := json.Unmarshal(body, mr); err != nil {
+	// 	log.Println(err)
+	// 	logTelegram(err.Error())
+	// }
+
+	u := getMinerTel(tid)
+
+	if u.ID != 0 {
+		mr.ID = u.ID
+		mr.Exists = true
+		mr.Address = u.Address
+		mr.MiningHeight = u.MiningHeight
+		mr.Height = height
+		mr.MinedMobile = u.MinedMobile
+		mr.MinedTelegram = u.MinedTelegram
+		mr.TelegramId = u.TelegramId
+
+		if u.TelegramId != 0 {
+			mr.HasTelegram = true
+		}
+
+		db.Where("referral_id = ?", u.ID).Find(&miners).Count(&mr.Referred)
+
+		db.Where("referral_id = ? AND mining_height > ?", u.ID, height-2880).Find(&miners).Count(&mr.Active)
 	}
 
 	return mr
