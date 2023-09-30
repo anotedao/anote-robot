@@ -573,24 +573,57 @@ type DistributionResponse []struct {
 	BalanceFloat float64 `json:"balance_float"`
 }
 
-func saveTelegram(addr string, tid string) int {
-	resp, err := http.Get("http://localhost:5001/save-telegram/" + addr + "/" + tid)
+func saveTelegram(addr string, tids string) int {
+	// resp, err := http.Get("http://localhost:5001/save-telegram/" + addr + "/" + tid)
+	// if err != nil {
+	// 	log.Println(err)
+	// 	logTelegram(err.Error())
+	// 	return 5
+	// }
+	// defer resp.Body.Close()
+	// body, err := ioutil.ReadAll(resp.Body)
+
+	// var result SaveTelegramResponse
+	// if err := json.Unmarshal(body, &result); err != nil {
+	// 	log.Println(err)
+	// 	logTelegram(err.Error())
+	// 	return 6
+	// }
+
+	// return result.Error
+
+	tid, err := strconv.Atoi(tids)
 	if err != nil {
 		log.Println(err)
 		logTelegram(err.Error())
-		return 5
+		return 1
 	}
-	defer resp.Body.Close()
-	body, err := ioutil.ReadAll(resp.Body)
 
-	var result SaveTelegramResponse
-	if err := json.Unmarshal(body, &result); err != nil {
+	m := &Miner{}
+	db.First(m, &Miner{TelegramId: int64(tid)})
+
+	if m.ID == 0 {
+		db.FirstOrCreate(m, &Miner{TelegramId: int64(tid), Address: tids})
+	}
+
+	if strings.HasPrefix(addr, "3A") {
+		m.Address = addr
+	} else {
+		refid, err := strconv.Atoi(addr)
+		if err == nil && m.ReferralID == 0 && m.ID != uint(refid) {
+			// result = db.FirstOrCreate(m, &Miner{TelegramId: int64(tid), Address: tids, ReferralID: uint(refid)})
+			m.ReferralID = uint(refid)
+		}
+	}
+
+	err = db.Save(m).Error
+	if err != nil {
 		log.Println(err)
 		logTelegram(err.Error())
-		return 6
+		return 3
 	}
 
-	return result.Error
+	return 0
 }
 
 type SaveTelegramResponse struct {
