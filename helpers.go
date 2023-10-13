@@ -453,7 +453,7 @@ func getStats() *Stats {
 			sr.PayoutMiners++
 			pc += int(m.PingCount)
 
-			if getRefCount(m) >= 3 || hasAintHealth(m, true) {
+			if hasAintHealth(m, true) {
 				sr.ActiveUnits += 10
 			} else {
 				sr.ActiveUnits++
