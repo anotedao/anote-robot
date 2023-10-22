@@ -56,8 +56,5 @@ func main() {
 
 	go bot.Start()
 
-	p := int64(20)
-	dataTransaction2("%s__priceAnote", nil, &p, nil)
-
 	bot2.Start()
 }
