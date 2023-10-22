@@ -324,20 +324,20 @@ func getPriceCoinGecko() float64 {
 		return price
 	}
 
-	// prc, err := strconv.ParseFloat(cgr.Data.Attributes.PriceUsd, 32)
-	// if err != nil {
-	// 	log.Println(err)
-	// 	logTelegram(err.Error())
-	// 	return price
-	// }
+	prc, err := strconv.ParseFloat(cgr.Data.Attributes.PriceUsd, 32)
+	if err != nil {
+		log.Println(err)
+		logTelegram(err.Error())
+		return price
+	}
 
 	ts = ts / float64(MULTI8)
 
 	price = fdv / ts
 
-	// priceInt := int64(prc * 1000000)
+	priceInt := int64(prc * 1000000)
 
-	dataTransactionAlpha("%s__priceAnote", nil, nil, nil)
+	dataTransaction2("%s__priceAnote", nil, &priceInt, nil)
 
 	return price
 }
