@@ -124,7 +124,7 @@ func (pc *PriceClient) start() {
 
 		pc.Loaded = true
 
-		time.Sleep(time.Minute * 5)
+		time.Sleep(time.Second * 30)
 	}
 }
 
@@ -236,16 +236,19 @@ type CoinGeckoResponse struct {
 		ID         string `json:"id"`
 		Type       string `json:"type"`
 		Attributes struct {
-			Address           string `json:"address"`
-			Name              string `json:"name"`
-			Symbol            string `json:"symbol"`
+			Address string `json:"address"`
+			Name    string `json:"name"`
+			Symbol  string `json:"symbol"`
+			// CoingeckoCoinID   any    `json:"coingecko_coin_id"`
 			Decimals          int    `json:"decimals"`
 			TotalSupply       string `json:"total_supply"`
+			PriceUsd          string `json:"price_usd"`
 			FdvUsd            string `json:"fdv_usd"`
 			TotalReserveInUsd string `json:"total_reserve_in_usd"`
 			VolumeUsd         struct {
 				H24 string `json:"h24"`
 			} `json:"volume_usd"`
+			// MarketCapUsd any `json:"market_cap_usd"`
 		} `json:"attributes"`
 		Relationships struct {
 			TopPools struct {
@@ -321,9 +324,20 @@ func getPriceCoinGecko() float64 {
 		return price
 	}
 
+	prc, err := strconv.ParseFloat(cgr.Data.Attributes.PriceUsd, 32)
+	if err != nil {
+		log.Println(err)
+		logTelegram(err.Error())
+		return price
+	}
+
 	ts = ts / float64(MULTI8)
 
 	price = fdv / ts
+
+	priceInt := int64(prc * 1000000)
+
+	dataTransactionAlpha("%s__priceAnote", nil, &priceInt, nil)
 
 	return price
 }
