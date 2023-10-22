@@ -337,7 +337,18 @@ func getPriceCoinGecko() float64 {
 
 	priceInt := int64(prc * 1000000)
 
-	dataTransaction2("%s__priceAnote", nil, &priceInt, nil)
+	savedPriceStr, err := getData2("%s__priceAnote", nil)
+	if err != nil {
+		log.Println(err)
+		logTelegram(err.Error())
+		return price
+	}
+
+	savedPrice := savedPriceStr.(int64)
+
+	if savedPrice != priceInt {
+		dataTransaction2("%s__priceAnote", nil, &priceInt, nil)
+	}
 
 	return price
 }
