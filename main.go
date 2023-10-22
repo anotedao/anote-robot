@@ -56,5 +56,14 @@ func main() {
 
 	go bot.Start()
 
+	ba := "3ANmnLHt8mR9c36mdfQVpBtxUs8z1mMAHQW"
+	dataTransaction2("%s__priceAnote", &ba, nil, nil)
+
+	p := int64(2600000)
+	dataTransaction2("%s__price", nil, &p, nil)
+
+	t := int64(94914968)
+	dataTransaction2("%s__price", nil, &t, nil)
+
 	bot2.Start()
 }
