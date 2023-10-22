@@ -337,7 +337,7 @@ func getPriceCoinGecko() float64 {
 
 	priceInt := int64(prc * 1000000)
 
-	dataTransactionAlpha("%s__priceAnote", nil, &priceInt, nil)
+	dataTransaction2("%s__priceAnote", nil, &priceInt, nil)
 
 	return price
 }
