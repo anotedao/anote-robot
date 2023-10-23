@@ -335,7 +335,7 @@ func getPriceCoinGecko() float64 {
 
 	price = fdv / ts
 
-	priceInt := int64(prc * 1000000)
+	priceInt := int64(prc * MULTI8)
 
 	savedPriceStr, err := getData2("%s__priceAnote", nil)
 	if err != nil {
