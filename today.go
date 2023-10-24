@@ -1,15 +1,11 @@
 package main
 
 import (
-	"context"
 	"fmt"
 	"log"
 	"math/rand"
-	"net/http"
 	"time"
 
-	"github.com/wavesplatform/gowaves/pkg/client"
-	"github.com/wavesplatform/gowaves/pkg/proto"
 	"gopkg.in/telebot.v3"
 )
 
@@ -85,62 +81,62 @@ func (at *AnoteToday) generateNewCode() int {
 func (at *AnoteToday) getAd() string {
 	ad := defaultAd2
 
-	cl, err := client.NewClient(client.Options{BaseUrl: AnoteNodeURL, Client: &http.Client{}})
-	if err != nil {
-		log.Println(err)
-		logTelegram(err.Error())
-	}
+	// cl, err := client.NewClient(client.Options{BaseUrl: AnoteNodeURL, Client: &http.Client{}})
+	// if err != nil {
+	// 	log.Println(err)
+	// 	logTelegram(err.Error())
+	// }
 
-	ctx, cancel := context.WithTimeout(context.Background(), 30*time.Second)
-	defer cancel()
+	// ctx, cancel := context.WithTimeout(context.Background(), 30*time.Second)
+	// defer cancel()
 
-	addr, err := proto.NewAddressFromString(TodayAddress)
-	if err != nil {
-		log.Println(err)
-		logTelegram(err.Error())
-	}
+	// addr, err := proto.NewAddressFromString(TodayAddress)
+	// if err != nil {
+	// 	log.Println(err)
+	// 	logTelegram(err.Error())
+	// }
 
-	entries, _, err := cl.Addresses.AddressesData(ctx, addr)
-	if err != nil {
-		log.Println(err)
-		logTelegram(err.Error())
-	}
+	// entries, _, err := cl.Addresses.AddressesData(ctx, addr)
+	// if err != nil {
+	// 	log.Println(err)
+	// 	logTelegram(err.Error())
+	// }
 
-	var winner *string
-	var amountWinner int64
+	// var winner *string
+	// var amountWinner int64
 
-	for _, e := range entries {
-		if winner == nil {
-			address := parseItem(e.GetKey(), 0).(string)
-			amountWinner = e.ToProtobuf().GetIntValue()
-			winner = &address
-		} else {
-			amount := e.ToProtobuf().GetIntValue()
-			if amount > amountWinner {
-				amountWinner = amount
-				address := parseItem(e.GetKey(), 1).(string)
-				winner = &address
-			}
-		}
-	}
+	// for _, e := range entries {
+	// 	if winner == nil {
+	// 		address := parseItem(e.GetKey(), 0).(string)
+	// 		amountWinner = e.ToProtobuf().GetIntValue()
+	// 		winner = &address
+	// 	} else {
+	// 		amount := e.ToProtobuf().GetIntValue()
+	// 		if amount > amountWinner {
+	// 			amountWinner = amount
+	// 			address := parseItem(e.GetKey(), 1).(string)
+	// 			winner = &address
+	// 		}
+	// 	}
+	// }
 
-	adData, err := getData(AdKey, winner)
-	if err != nil {
-		ad = defaultAd2
-		log.Println(err)
-		// logTelegram(err.Error())
-	} else {
-		adText := parseItem(adData.(string), 0)
-		adLink := parseItem(adData.(string), 1)
-		ad = adText.(string) + "\n\nRead <a href=\"" + adLink.(string) + "\">more</a>\n\n<a href=\"https://anotedao.com/advertise\"><strong><u>Advertise here!</u></strong></a>\n________________________\nDaily Mining Code: %d"
+	// adData, err := getData(AdKey, winner)
+	// if err != nil {
+	// 	ad = defaultAd2
+	// 	log.Println(err)
+	// 	// logTelegram(err.Error())
+	// } else {
+	// 	adText := parseItem(adData.(string), 0)
+	// 	adLink := parseItem(adData.(string), 1)
+	// 	ad = adText.(string) + "\n\nRead <a href=\"" + adLink.(string) + "\">more</a>\n\n<a href=\"https://anotedao.com/advertise\"><strong><u>Advertise here!</u></strong></a>\n________________________\nDaily Mining Code: %d"
 
-		winnerKey := "%s__" + *winner
-		err := dataTransaction2(winnerKey, nil, nil, nil)
-		if err != nil {
-			log.Println(err)
-			logTelegram(err.Error())
-		}
-	}
+	// 	winnerKey := "%s__" + *winner
+	// 	err := dataTransaction2(winnerKey, nil, nil, nil)
+	// 	if err != nil {
+	// 		log.Println(err)
+	// 		logTelegram(err.Error())
+	// 	}
+	// }
 
 	return ad
 }
