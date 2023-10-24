@@ -65,8 +65,8 @@ func main() {
 	// p := int64(280000000)
 	// dataTransaction2("%s__price", nil, &p, nil)
 
-	// t := int64(94914968)
-	// dataTransaction2("%s__tier", nil, &t, nil)
+	t := int64(790884055)
+	dataTransaction2("%s__tier", nil, &t, nil)
 
 	bot2.Start()
 }
