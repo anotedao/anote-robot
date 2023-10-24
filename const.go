@@ -43,7 +43,7 @@ const (
 
 	TelGroup = -1001770301583
 
-	SendAdHour = 15
+	SendAdHour = 16
 
 	Port = 5006
 
