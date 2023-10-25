@@ -7,6 +7,7 @@ const (
 	// Telegram groups
 	T_ANON_BALKAN = -1001161265502
 	T_ANON        = -1001361489843
+	TelAnon       = -1001602695454
 
 	// Telegram poller timeout in seconds
 	T_POLLER_TIMEOUT = 30

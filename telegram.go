@@ -79,14 +79,14 @@ func notificationTelegramTeamPin(message string) {
 
 func notificationTelegramGroup(message string) {
 	rec := &telebot.Chat{
-		ID: int64(T_ANON),
+		ID: int64(TelAnon),
 	}
 	bot2.Send(rec, message)
 }
 
 func notificationTelegramGroupPin(message string) {
 	rec := &telebot.Chat{
-		ID: int64(T_ANON),
+		ID: int64(TelAnon),
 	}
 	m, _ := bot2.Send(rec, message)
 	bot2.Pin(m)
