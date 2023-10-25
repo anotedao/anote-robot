@@ -14,12 +14,13 @@ import (
 type Monitor struct {
 	Height             uint64
 	BeneficiaryBalance uint64
+	AintBalance        uint64
 }
 
 func (m *Monitor) monitorAintBuys() {
 	count := 0
 	for {
-		cl, err := client.NewClient(client.Options{BaseUrl: WavesNodeURL, Client: &http.Client{}})
+		cl, err := client.NewClient(client.Options{BaseUrl: AnoteNodeURL, Client: &http.Client{}})
 		if err != nil {
 			log.Println(err)
 			logTelegram(err.Error())
@@ -36,8 +37,8 @@ func (m *Monitor) monitorAintBuys() {
 		} else {
 			if total.Balance > m.BeneficiaryBalance && count > 0 {
 				nb := float64(total.Balance-m.BeneficiaryBalance) / MULTI8
-				notificationTelegram(fmt.Sprintf("<u><strong>New AINT minted!</strong></u> 🚀\n\n%.8f WAVES", nb))
-				notificationTelegramTeam(fmt.Sprintf("<u><strong>New AINT minted!</strong></u> 🚀\n\n%.8f WAVES", nb))
+				notificationTelegram(fmt.Sprintf("<u><strong>New AINT minted!</strong></u> 🚀\n\n%.8f ANOTE", nb))
+				// notificationTelegramTeam(fmt.Sprintf("<u><strong>New AINT minted!</strong></u> 🚀\n\n%.8f ANOTE", nb))
 			}
 
 			m.BeneficiaryBalance = total.Balance
