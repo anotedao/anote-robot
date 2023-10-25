@@ -62,8 +62,8 @@ func main() {
 	// p := int64(20)
 	// dataTransaction2("%s__priceAnote", nil, &p, nil)
 
-	// p := int64(280000000)
-	// dataTransaction2("%s__price", nil, &p, nil)
+	p := int64(280000000)
+	dataTransaction2("%s__price", nil, &p, nil)
 
 	// t := int64(790884055)
 	// dataTransaction2("%s__tier", nil, &t, nil)
