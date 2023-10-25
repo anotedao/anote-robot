@@ -77,6 +77,21 @@ func notificationTelegramTeamPin(message string) {
 	bot2.Pin(m)
 }
 
+func notificationTelegramGroup(message string) {
+	rec := &telebot.Chat{
+		ID: int64(T_ANON),
+	}
+	bot2.Send(rec, message)
+}
+
+func notificationTelegramGroupPin(message string) {
+	rec := &telebot.Chat{
+		ID: int64(T_ANON),
+	}
+	m, _ := bot2.Send(rec, message)
+	bot2.Pin(m)
+}
+
 func logTelegramService(message string) error {
 	m, _ := url.QueryUnescape(message)
 	message, _ = url.PathUnescape(m)

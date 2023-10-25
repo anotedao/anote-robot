@@ -61,6 +61,7 @@ func (m *Monitor) monitorAintBuys() {
 				usd := nb * pc.AnotePrice
 				notificationTelegram(fmt.Sprintf("<u><strong>New AINT Minted!</strong></u> 🚀\n\nPaid:\n%.8f ANOTE ($%.2f)\nMinted:\n%.8f AINT", nb, usd, naints))
 				notificationTelegramTeam(fmt.Sprintf("<u><strong>New AINT Minted!</strong></u> 🚀\n\nPaid:\n%.8f ANOTE ($%.2f)\nMinted:\n%.8f AINT", nb, usd, naints))
+				notificationTelegramGroup(fmt.Sprintf("<u><strong>New AINT Minted!</strong></u> 🚀\n\nPaid:\n%.8f ANOTE ($%.2f)\nMinted:\n%.8f AINT", nb, usd, naints))
 			}
 
 			m.BeneficiaryBalance = total.Balance
@@ -77,6 +78,7 @@ func (m *Monitor) monitorAintBuys() {
 
 			if apf > m.AintPrice {
 				notificationTelegramTeamPin(fmt.Sprintf("<u><strong>AINT Price Increased!</strong></u> 🚀\n\nNew Price:\n$%.2f", apf))
+				notificationTelegramGroupPin(fmt.Sprintf("<u><strong>AINT Price Increased!</strong></u> 🚀\n\nNew Price:\n$%.2f", apf))
 			}
 		}
 
