@@ -45,7 +45,7 @@ func (m *Monitor) monitorAintBuys() {
 			logTelegram(err.Error())
 		} else {
 			if m.AintBalance != aints.Balance {
-				naints = float64(m.AintBalance - aints.Balance)
+				naints = float64(m.AintBalance-aints.Balance) / MULTI8
 			}
 			m.AintBalance = aints.Balance
 		}
