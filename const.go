@@ -63,4 +63,7 @@ const (
 	CoinGeckoURL = "https://api.geckoterminal.com/api/v2/networks/bsc/tokens/0xbad04e33cc88bbcccc1b7adb8319f7d36f5bc472"
 
 	StakeMobileAddress = "3A9y1Zy78DDApbQWXKxonXxci6DvnJnnNZD"
+
+	// AINT token id in Anote blockchain
+	AintAnoteId = "7paojf37ipks5Ac4rHMwtLHHe9YU6w8FBfafwoTEmmf9"
 )

@@ -8,6 +8,7 @@ import (
 	"time"
 
 	"github.com/wavesplatform/gowaves/pkg/client"
+	"github.com/wavesplatform/gowaves/pkg/crypto"
 	"github.com/wavesplatform/gowaves/pkg/proto"
 )
 
@@ -19,7 +20,15 @@ type Monitor struct {
 
 func (m *Monitor) monitorAintBuys() {
 	count := 0
+
+	asset, err := crypto.NewDigestFromBase58(AintAnoteId)
+	if err != nil {
+		log.Println(err)
+		logTelegram(err.Error())
+	}
+
 	for {
+		naints := float64(0)
 		cl, err := client.NewClient(client.Options{BaseUrl: AnoteNodeURL, Client: &http.Client{}})
 		if err != nil {
 			log.Println(err)
@@ -30,6 +39,17 @@ func (m *Monitor) monitorAintBuys() {
 
 		addr := proto.MustAddressFromString(conf.Beneficiary)
 
+		aints, _, err := cl.Assets.BalanceByAddressAndAsset(ctx, addr, asset)
+		if err != nil {
+			log.Println(err)
+			logTelegram(err.Error())
+		} else {
+			if m.AintBalance != aints.Balance {
+				naints = float64(m.AintBalance - aints.Balance)
+				m.AintBalance = aints.Balance
+			}
+		}
+
 		total, _, err := cl.Addresses.Balance(ctx, addr)
 		if err != nil {
 			log.Println(err)
@@ -38,7 +58,7 @@ func (m *Monitor) monitorAintBuys() {
 			if total.Balance > m.BeneficiaryBalance && count > 0 {
 				nb := float64(total.Balance-m.BeneficiaryBalance) / MULTI8
 				usd := nb * pc.AnotePrice
-				notificationTelegram(fmt.Sprintf("<u><strong>New AINT minted!</strong></u> 🚀\n\n%.8f ANOTE\n$%.8f", nb, usd))
+				notificationTelegram(fmt.Sprintf("<u><strong>New AINT minted!</strong></u> 🚀\n\n$%.8f\n%.8f ANOTE\n%.8f AINT", usd, nb, naints))
 				// notificationTelegramTeam(fmt.Sprintf("<u><strong>New AINT minted!</strong></u> 🚀\n\n%.8f ANOTE", nb))
 			}
 
