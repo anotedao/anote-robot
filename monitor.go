@@ -16,6 +16,7 @@ type Monitor struct {
 	Height             uint64
 	BeneficiaryBalance uint64
 	AintBalance        uint64
+	AintPrice          float64
 }
 
 func (m *Monitor) monitorAintBuys() {
@@ -64,6 +65,27 @@ func (m *Monitor) monitorAintBuys() {
 
 			m.BeneficiaryBalance = total.Balance
 		}
+
+		if count > 0 {
+			ap, err := getData2("%s__price", nil)
+			if err != nil {
+				log.Println(err)
+				logTelegram(err.Error())
+			}
+
+			apf := float64(ap.(int64)) / MULTI8
+
+			if apf > m.AintPrice {
+				notificationTelegramTeamPin(fmt.Sprintf("<u><strong>AINT Price Increased!</strong></u> 🚀\n\nNew Price:\n$%.2f", apf))
+			}
+		}
+
+		ap, err := getData2("%s__price", nil)
+		if err != nil {
+			log.Println(err)
+			logTelegram(err.Error())
+		}
+		m.AintPrice = float64(ap.(int64)) / MULTI8
 
 		cancel()
 
