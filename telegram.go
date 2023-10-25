@@ -54,11 +54,27 @@ func notificationTelegram(message string) {
 	bot2.Send(rec, message)
 }
 
+func notificationTelegramPin(message string) {
+	rec := &telebot.Chat{
+		ID: int64(TelAnonOps),
+	}
+	m, _ := bot2.Send(rec, message)
+	bot2.Pin(m)
+}
+
 func notificationTelegramTeam(message string) {
 	rec := &telebot.Chat{
 		ID: int64(TelGroup),
 	}
 	bot2.Send(rec, message)
+}
+
+func notificationTelegramTeamPin(message string) {
+	rec := &telebot.Chat{
+		ID: int64(TelGroup),
+	}
+	m, _ := bot2.Send(rec, message)
+	bot2.Pin(m)
 }
 
 func logTelegramService(message string) error {
