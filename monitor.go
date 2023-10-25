@@ -46,8 +46,8 @@ func (m *Monitor) monitorAintBuys() {
 		} else {
 			if m.AintBalance != aints.Balance {
 				naints = float64(m.AintBalance - aints.Balance)
-				m.AintBalance = aints.Balance
 			}
+			m.AintBalance = aints.Balance
 		}
 
 		total, _, err := cl.Addresses.Balance(ctx, addr)
