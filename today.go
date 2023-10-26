@@ -79,7 +79,7 @@ func (at *AnoteToday) generateNewCode() int {
 }
 
 func (at *AnoteToday) getAd() string {
-	ad := defaultAd2
+	ad := defaultAd3
 
 	// cl, err := client.NewClient(client.Options{BaseUrl: AnoteNodeURL, Client: &http.Client{}})
 	// if err != nil {
@@ -187,6 +187,19 @@ You can now stake your anotes and receive up to 70%% APY (Annual Percentage Yiel
 Read more about how to do it in the tutorial:
 
 anotedao.com/staking
+
+<a href="https://anotedao.com/advertise"><strong><u>Advertise here!</u></strong></a>
+________________________
+@AnoteRobot Daily Mining Code: %d
+`
+
+var defaultAd3 = `Mint AINT With Anotes 🚀
+
+You can now use anotes to mint AINT which provides you with an opportunity for a long term investment because AINT behaves like a mining power for Anote.
+
+Mint it by clicking "Mint AINT" tab in your wallet:
+
+app.anotedao.com
 
 <a href="https://anotedao.com/advertise"><strong><u>Advertise here!</u></strong></a>
 ________________________
