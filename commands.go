@@ -298,7 +298,7 @@ func addressBscCommand(c telebot.Context) error {
 	saveUser(c)
 	m := c.Message()
 
-	help := "Address of Anote contract in BSC chain:\n\n`0xbad04e33cc88bbcccc1b7adb8319f7d36f5bc472`"
+	help := "Address of Anote contract in BSC chain:\n\n`0xe7f0f1585bdbd06b18dbb87099b87bd79bbd315b`"
 
 	// o := telebot.SendOptions{
 	// 	ParseMode:             telebot.ModeMarkdownV2,
