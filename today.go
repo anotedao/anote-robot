@@ -79,7 +79,7 @@ func (at *AnoteToday) generateNewCode() int {
 }
 
 func (at *AnoteToday) getAd() string {
-	ad := defaultAd3
+	ad := defaultAd4
 
 	// cl, err := client.NewClient(client.Options{BaseUrl: AnoteNodeURL, Client: &http.Client{}})
 	// if err != nil {
@@ -200,6 +200,17 @@ You can now use anotes to mint AINT which provides you with an opportunity for a
 Mint it by clicking "Mint AINT" tab in your wallet:
 
 app.anotedao.com
+
+<a href="https://anotedao.com/advertise"><strong><u>Advertise here!</u></strong></a>
+________________________
+@AnoteRobot Daily Mining Code: %d
+`
+
+var defaultAd4 = `Create Your Own Token 🚀
+
+You can now create your own token on Anote chain and list it in Anote wallet. To create the token and list it, use our dev tool:
+
+dev.anotedao.com
 
 <a href="https://anotedao.com/advertise"><strong><u>Advertise here!</u></strong></a>
 ________________________
