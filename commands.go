@@ -19,7 +19,7 @@ func initCommands() {
 	bot2.Handle("/help", helpCommand2)
 	bot2.Handle("/stats", statsCommand)
 	bot2.Handle("/code", codeCommand)
-	bot2.Handle("/bo", batteryCommand)
+	// bot2.Handle("/bo", batteryCommand)
 	bot2.Handle("/alpha", alphaCommand)
 	bot2.Handle("/bsc", addressBscCommand)
 	bot2.Handle("/seed", seedCommand)

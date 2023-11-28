@@ -7,6 +7,5 @@ stats - Get Basic Anote statistics.
 code - Short help for finding daily code.
 check - Reply to check if user is mining.
 bsc - Get BSC Anote address.
-bo - Help with battery optimization.
 seed - How to find the seed.
 help - Learn how to mine Anote.
