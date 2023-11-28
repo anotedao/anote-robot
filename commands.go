@@ -326,10 +326,10 @@ func mineCommand(c telebot.Context) error {
 			message = "Forwarded."
 		} else {
 			message = telegramMine(c.Message().Text, c.Chat().ID)
+
+			withdrawCommand(c)
 		}
 		_, err = bot.Send(c.Chat(), message, telebot.NoPreview)
-
-		withdrawCommand(c)
 	}
 
 	return err
