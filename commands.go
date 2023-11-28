@@ -420,7 +420,7 @@ func refCommand(c telebot.Context) error {
 	message := fmt.Sprint("Your Anote referral link:")
 	_, err = bot.Send(c.Chat(), message, telebot.NoPreview)
 
-	message = fmt.Sprintf("https://t.me/AnoteRobot?start=%d", miner.ID)
+	message = fmt.Sprintf("https://anotedao.com/mine?r=%d", miner.ID)
 	_, err = bot.Send(c.Chat(), message, telebot.NoPreview)
 
 	return err
