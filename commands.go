@@ -316,6 +316,7 @@ func mineCommand(c telebot.Context) error {
 	log.Println(prettyPrint(m))
 	if c.Message().Private() {
 		message := ""
+		w := false
 		if strings.HasPrefix(c.Message().Text, "3A") {
 			if saveTelegram(c.Message().Text, strconv.Itoa(int(c.Chat().ID))) != 0 {
 				message = "This address is already used."
@@ -326,10 +327,13 @@ func mineCommand(c telebot.Context) error {
 			message = "Forwarded."
 		} else {
 			message = telegramMine(c.Message().Text, c.Chat().ID)
-
-			withdrawCommand(c)
+			w = true
 		}
 		_, err = bot.Send(c.Chat(), message, telebot.NoPreview)
+
+		if w {
+			withdrawCommand(c)
+		}
 	}
 
 	return err
