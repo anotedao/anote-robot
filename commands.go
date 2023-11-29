@@ -372,10 +372,12 @@ func myStatsCommand(c telebot.Context) error {
 		address = miner.Address
 	}
 
+	// <b>Mined Telegram:</b> %.8f ANOTE
+	// <b>Mined Mobile:</b> N/A
+	// float64(miner.MinedTelegram)/float64(MULTI8),
+
 	message := fmt.Sprintf(`⭕️ <b><u>Your Anote Stats</u></b>
 
-	<b>Mined Telegram:</b> %.8f ANOTE
-	<b>Mined Mobile:</b> N/A
 	<b>Address Balance:</b> %.8f ANOTE
 
 	<b>Cycle Blocks Left:</b> %d
@@ -387,7 +389,6 @@ func myStatsCommand(c telebot.Context) error {
 	<b><u>Address</u></b>
 
 	%s`,
-		float64(miner.MinedTelegram)/float64(MULTI8),
 		float64(abr.Balance)/float64(MULTI8),
 		blocks,
 		int(duration.Hours()),
