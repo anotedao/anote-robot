@@ -18,6 +18,10 @@ const (
 
 	COMMUNITY_ADDR2 = "3ALas9y8ubXCi21siyp36f8HELHkmgMgU29"
 
+	AINT_MINT_ADDR = "3ANmnLHt8mR9c36mdfQVpBtxUs8z1mMAHQW"
+
+	ANOTE_STAKE_ADDR = "3AR11vcAeEfWFMTKbcxTo79LcbH7uSmhftZ"
+
 	// AnoteNodeURL is an URL for Anote Node
 	AnoteNodeURL = "http://localhost:6869"
 

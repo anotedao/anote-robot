@@ -49,7 +49,19 @@ func (c *Cache) loadStatsCache() {
 		logTelegram(err.Error())
 	}
 
-	balance := (abr.Balance / int(SATINBTC)) + (abr2.Balance / int(SATINBTC)) + (abr3.Balance / int(SATINBTC)) + (abr4.Balance / int(SATINBTC))
+	abr5, err := anc.AddressesBalance(AINT_MINT_ADDR)
+	if err != nil {
+		log.Println(err.Error())
+		logTelegram(err.Error())
+	}
+
+	abr6, err := anc.AddressesBalance(ANOTE_STAKE_ADDR)
+	if err != nil {
+		log.Println(err.Error())
+		logTelegram(err.Error())
+	}
+
+	balance := (abr.Balance / int(SATINBTC)) + (abr2.Balance / int(SATINBTC)) + (abr3.Balance / int(SATINBTC)) + (abr4.Balance / int(SATINBTC)) + (abr5.Balance / int(SATINBTC)) + (abr6.Balance / int(SATINBTC))
 	circulation := mined - int64(balance)
 
 	stats := getStats()
