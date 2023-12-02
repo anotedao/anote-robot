@@ -16,6 +16,8 @@ const (
 
 	GATEWAY_ADDR = "3AQT89sRrWHqPSwrpfJAj3Yey7BCBTAy4jT"
 
+	COMMUNITY_ADDR2 = "3ALas9y8ubXCi21siyp36f8HELHkmgMgU29"
+
 	// AnoteNodeURL is an URL for Anote Node
 	AnoteNodeURL = "http://localhost:6869"
 
