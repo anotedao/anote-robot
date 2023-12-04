@@ -219,6 +219,8 @@ ________________________
 
 var defaultAd5 = `Mine More Anotes 🚀
 
+<b><u>Additional 25% for each referred user!</u><b>
+
 Invite your friends to Anote and you will mine 25% more anotes every day for each referred user. You can find your referral link in your wallet (app.anotedao.com) or in menu if you open @AnoteRobot.
 
 <a href="https://anotedao.com/advertise"><strong><u>Advertise here!</u></strong></a>
