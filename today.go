@@ -79,7 +79,7 @@ func (at *AnoteToday) generateNewCode() int {
 }
 
 func (at *AnoteToday) getAd() string {
-	ad := defaultAd4
+	ad := defaultAd5
 
 	// cl, err := client.NewClient(client.Options{BaseUrl: AnoteNodeURL, Client: &http.Client{}})
 	// if err != nil {
@@ -211,6 +211,15 @@ var defaultAd4 = `Create Your Own Token 🚀
 You can now create your own token on Anote chain and list it in Anote wallet. To create the token and list it, use our dev tool:
 
 dev.anotedao.com
+
+<a href="https://anotedao.com/advertise"><strong><u>Advertise here!</u></strong></a>
+________________________
+@AnoteRobot Daily Mining Code: %d
+`
+
+var defaultAd5 = `Mine More Anotes 🚀
+
+Invite your friends to Anote and you will mine 25% more anotes every day for each referred user. You can find your referral link in your wallet (app.anotedao.com) or in menu if you open @AnoteRobot.
 
 <a href="https://anotedao.com/advertise"><strong><u>Advertise here!</u></strong></a>
 ________________________
