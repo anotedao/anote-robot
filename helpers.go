@@ -769,6 +769,7 @@ type SaveTelegramResponse struct {
 
 func telegramMine(code string, tid int64) string {
 	adnum, err := getData2("%s__adnum", nil)
+	miner := getMiner(tid)
 	if err != nil {
 		log.Println(err)
 		logTelegram(err.Error())
@@ -776,8 +777,12 @@ func telegramMine(code string, tid int64) string {
 
 	mNotCode := fmt.Sprintf("This code is not valid, it should be 3 numbers.\n\nYou can see the daily mining code <a href=\"https://t.me/AnoteAds/%d\">here</a>.", adnum.(int64))
 	mWrongCode := fmt.Sprintf("This code is not correct.\n\nYou can see the daily mining code <a href=\"https://t.me/AnoteAds/%d\">here</a>.", adnum.(int64))
-	mSuccess := "You successfully started your Anote mining cycle. 🚀"
+	mSuccess := "You successfully started your Anote mining cycle. 🚀\n\nReward is sent each day when you enter daily mining code."
 	mAlreadyMining := "You miner is already mining. You will get notified when you need to repeat the mining cycle."
+
+	if miner.MiningHeight == 0 && !strings.HasPrefix(miner.Address, "3A") {
+		mSuccess += "\n\nTo collect your mining reward, open app.anotedao.com and click 'Connect Telegram' button on the bottom."
+	}
 
 	if len(code) != 3 {
 		return mNotCode
