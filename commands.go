@@ -105,12 +105,7 @@ func startCommand(c telebot.Context) error {
 			response = "This address is already used."
 		} else {
 			saveTelegram("none", tid)
-			response = fmt.Sprintf(`⭕️ <b><u>Welcome to Anote!</u></b> 🚀
-			
-Start mining by reading the daily mining code in <a href="https://t.me/AnoteAds/%d">AnoteAds</a> channel and sending it back here to activate the mining cycle.
-		
-Join @AnoteDAO group for help and support.`,
-				adnum)
+			response = "You have successfully connected your Anote wallet. 🚀"
 		}
 	} else {
 		saveTelegram("none", tid)
