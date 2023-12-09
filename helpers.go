@@ -780,7 +780,7 @@ func telegramMine(code string, tid int64) string {
 	mSuccess := "You successfully started your Anote mining cycle. 🚀\n\nReward is sent each day when you enter daily mining code."
 	mAlreadyMining := "You miner is already mining. You will get notified when you need to repeat the mining cycle."
 
-	if miner.MiningHeight == 0 && !strings.HasPrefix(miner.Address, "3A") {
+	if (miner.MiningHeight == 0 || miner.MinedTelegram > 0) && !strings.HasPrefix(miner.Address, "3A") {
 		mSuccess += "\n\nTo collect your mining reward, open app.anotedao.com and click 'Connect Telegram' button on the bottom."
 	}
 
