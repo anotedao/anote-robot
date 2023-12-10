@@ -84,6 +84,15 @@ func helpCommand2(c telebot.Context) error {
 
 	_, err = bot2.Send(m.Chat, help, telebot.NoPreview)
 
+	u, _ := bot.ChatByID(1462936957)
+	ct, err := bot.ChatByID(TelAnoteToday)
+
+	log.Println(prettyPrint(ct))
+
+	cm, err := bot.ChatMemberOf(ct, u)
+	log.Println(prettyPrint(cm))
+	log.Println(prettyPrint(err))
+
 	return err
 }
 

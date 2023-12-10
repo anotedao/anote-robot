@@ -4,11 +4,19 @@ import (
 	"log"
 
 	"gorm.io/driver/postgres"
+	"gorm.io/driver/sqlite"
 	"gorm.io/gorm"
 )
 
 func initDb() *gorm.DB {
-	db, err := gorm.Open(postgres.Open(conf.DSN), &gorm.Config{})
+	var db *gorm.DB
+	var err error
+
+	if conf.Dev {
+		db, err = gorm.Open(sqlite.Open("robot.db"), &gorm.Config{})
+	} else {
+		db, err = gorm.Open(postgres.Open(conf.DSN), &gorm.Config{})
+	}
 
 	if err != nil {
 		log.Println(err)
