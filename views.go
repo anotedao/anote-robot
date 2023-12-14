@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"log"
 	"net/http"
+	"net/url"
 	"strconv"
 	"time"
 
@@ -226,6 +227,8 @@ func viewNotificationTelegram(ctx *macaron.Context) {
 		log.Println(err)
 		logTelegram(err.Error())
 	}
+
+	msg, _ = url.QueryUnescape(msg)
 
 	rec := &telebot.Chat{
 		ID: int64(tid),
