@@ -95,7 +95,7 @@ func helpCommand2(c telebot.Context) error {
 
 	// cm, err := bot.ChatMemberOf(ct, u)
 	// log.Println(prettyPrint(cm.Role))
-	log.Println(isFollower(963770508))
+	log.Println(isFollower(6451693358))
 
 	return err
 }
