@@ -1040,3 +1040,41 @@ func sendAsset(amount uint64, assetId string, recipient string) error {
 
 	return nil
 }
+
+// func isFollower(uid int64) bool {
+// 	u, err := bot.ChatByID(uid)
+// 	if err != nil {
+// 		log.Println(err)
+// 		return false
+// 	}
+
+// 	ct, err := bot.ChatByID(TelAnoteToday)
+// 	if err != nil {
+// 		log.Println(err)
+// 		return false
+// 	}
+
+// 	cn, err := bot.ChatByID(TelAnoteNews)
+// 	if err != nil {
+// 		log.Println(err)
+// 		return false
+// 	}
+
+// 	cm1, err := bot.ChatMemberOf(ct, u)
+// 	if err != nil {
+// 		log.Println(err)
+// 		return false
+// 	}
+
+// 	cm2, err := bot.ChatMemberOf(cn, u)
+// 	if err != nil {
+// 		log.Println(err)
+// 		return false
+// 	}
+
+// 	if cm1.Rights == telebot.MemberStatus && cm2 == telebot.MemberStatus {
+
+// 	}
+
+// 	return false
+// }

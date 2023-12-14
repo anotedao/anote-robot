@@ -93,10 +93,8 @@ func helpCommand2(c telebot.Context) error {
 		log.Println(err)
 	}
 
-	log.Println(prettyPrint(ct))
-
 	cm, err := bot.ChatMemberOf(ct, u)
-	log.Println(prettyPrint(cm))
+	log.Println(prettyPrint(cm.Role))
 	log.Println(prettyPrint(err))
 
 	return err
