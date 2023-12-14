@@ -217,6 +217,24 @@ func viewNotificationFirst(ctx *macaron.Context) {
 	ctx.JSON(200, nr)
 }
 
+func viewNotificationTelegram(ctx *macaron.Context) {
+	nr := &NotificationResponse{Success: true}
+	tids := ctx.Params("telegramid")
+	msg := ctx.Params("message")
+	tid, err := strconv.Atoi(tids)
+	if err != nil {
+		log.Println(err)
+		logTelegram(err.Error())
+	}
+
+	rec := &telebot.Chat{
+		ID: int64(tid),
+	}
+	bot.Send(rec, msg, telebot.NoPreview)
+
+	ctx.JSON(200, nr)
+}
+
 type NotificationResponse struct {
 	Success bool `json:"success"`
 }
