@@ -784,6 +784,10 @@ func telegramMine(code string, tid int64) string {
 		mSuccess += "\n\nTo collect your mining reward, open app.anotedao.com and click 'Connect Telegram' button on the bottom."
 	}
 
+	if !isFollower(tid) {
+		mSuccess += "\n\nSubscribe to both @AnoteAds and @AnoteNews channels to receive 10% bigger reward!"
+	}
+
 	// bot.ChatMemberOf()
 
 	if len(code) != 3 {
