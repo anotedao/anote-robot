@@ -19,7 +19,7 @@ func initMacaron() *macaron.Macaron {
 	m.Get("/notification-bo/:telegramid", viewNotificationBattery)
 	m.Get("/notification-first/:telegramid", viewNotificationFirst)
 	m.Get("/notification-tg/:telegramid/:message", viewNotificationTelegram)
-	m.Get("/is-foolower/:telegramid", viewIsFollower)
+	m.Get("/is-follower/:telegramid", viewIsFollower)
 	m.Get("/alpha-sent/:addr", viewAlphaSent)
 
 	go m.Run("127.0.0.1", Port)
