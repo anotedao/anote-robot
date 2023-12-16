@@ -238,6 +238,20 @@ func viewNotificationTelegram(ctx *macaron.Context) {
 	ctx.JSON(200, nr)
 }
 
+func viewIsFollower(ctx *macaron.Context) {
+	ifr := &IsFollowerResponse{IsFollower: false}
+	tids := ctx.Params("telegramid")
+	tid, err := strconv.Atoi(tids)
+	if err != nil {
+		log.Println(err)
+		logTelegram(err.Error())
+	}
+
+	ifr.IsFollower = isFollower(int64(tid))
+
+	ctx.JSON(200, ifr)
+}
+
 type NotificationResponse struct {
 	Success bool `json:"success"`
 }
@@ -304,4 +318,8 @@ func viewAlphaSent(ctx *macaron.Context) {
 
 type AlphaSentResponse struct {
 	Sent bool `json:"sent"`
+}
+
+type IsFollowerResponse struct {
+	IsFollower bool `json:"is_follower"`
 }
