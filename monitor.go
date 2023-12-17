@@ -130,7 +130,7 @@ func (m *Monitor) monitorNodeMints() {
 			m.NodeBalance = nodes.Balance
 		}
 
-		if nnodes > 0 {
+		if nnodes > 0 && count > 0 {
 			notificationTelegram(fmt.Sprintf("<u><strong>New NODE Minted!</strong></u> 🚀\n\n%d NODEs", nnodes))
 			// notificationTelegramTeam(fmt.Sprintf("<u><strong>New AINT Minted!</strong></u> 🚀\n\nPaid:\n%.8f ANOTE ($%.2f)\nMinted:\n%.8f AINT", nb, usd, naints))
 			// notificationTelegramGroup(fmt.Sprintf("<u><strong>New NODE Minted!</strong></u> 🚀\n\n%d NODEs", nnodes))
