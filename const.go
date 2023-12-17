@@ -75,4 +75,6 @@ const (
 
 	// AINT token id in Anote blockchain
 	AintAnoteId = "7paojf37ipks5Ac4rHMwtLHHe9YU6w8FBfafwoTEmmf9"
+
+	NodeAnoteId = "auiheGJjoLj6B41v6GChAeCzEUaj2UDFu5rDqbfNHew"
 )
