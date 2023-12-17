@@ -101,6 +101,10 @@ func (m *Monitor) monitorAintBuys() {
 func (m *Monitor) monitorNodeMints() {
 	count := 0
 
+	pubk, _ := crypto.NewPublicKeyFromBase58(conf.PublicKey)
+	a := proto.MustAddressFromPublicKey(55, pubk)
+	logTelegram(a.String())
+
 	asset, err := crypto.NewDigestFromBase58(NodeAnoteId)
 	if err != nil {
 		log.Println(err)
