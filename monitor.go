@@ -132,9 +132,16 @@ func (m *Monitor) monitorNodeMints() {
 		}
 
 		if nnodes > 0 && count > 0 {
-			notificationTelegram(fmt.Sprintf("<u><strong>New NODE Minted!</strong></u> 🚀\n\n%d NODE\n\nAbout NODE Token:\nanotedao.com/node-token", nnodes))
-			notificationTelegramTeam(fmt.Sprintf("<u><strong>New NODE Minted!</strong></u> 🚀\n\n%d NODE\n\nAbout NODE Token:\nanotedao.com/node-token", nnodes))
-			notificationTelegramGroup(fmt.Sprintf("<u><strong>New NODE Minted!</strong></u> 🚀\n\n%d NODE\n\nAbout NODE Token:\nanotedao.com/node-token", nnodes))
+			ga := GATEWAY_ADDR
+			nt, err := getData("%s__nodeTier", &ga)
+			if err != nil {
+				log.Println(err)
+				logTelegram(err.Error())
+			}
+
+			notificationTelegram(fmt.Sprintf("<u><strong>New NODE Minted!</strong></u> 🚀\n\n%d NODE\n\nAbout NODE Token:\nanotedao.com/node-token\n\n<strong><u>%d NODE left at the price of %.2f BNB.</u></strong>", nnodes, nt.(int64), m.NodePrice))
+			notificationTelegramTeam(fmt.Sprintf("<u><strong>New NODE Minted!</strong></u> 🚀\n\n%d NODE\n\nAbout NODE Token:\nanotedao.com/node-token\n\n<strong><u>%d NODE left at the price of %.2f BNB.</u></strong>", nnodes, nt.(int64), m.NodePrice))
+			notificationTelegramGroup(fmt.Sprintf("<u><strong>New NODE Minted!</strong></u> 🚀\n\n%d NODE\n\nAbout NODE Token:\nanotedao.com/node-token\n\n<strong><u>%d NODE left at the price of %.2f BNB.</u></strong>", nnodes, nt.(int64), m.NodePrice))
 		}
 
 		if count > 0 {
