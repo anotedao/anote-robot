@@ -109,7 +109,7 @@ func (m *Monitor) monitorNodeMints() {
 	}
 
 	for {
-		nnodes := uint64(0)
+		nnodes := int64(0)
 		cl, err := client.NewClient(client.Options{BaseUrl: AnoteNodeURL, Client: &http.Client{}})
 		if err != nil {
 			log.Println(err)
@@ -126,7 +126,7 @@ func (m *Monitor) monitorNodeMints() {
 			logTelegram(err.Error())
 		} else {
 			if m.NodeBalance != nodes.Balance {
-				nnodes = m.NodeBalance - nodes.Balance
+				nnodes = int64(m.NodeBalance) - int64(nodes.Balance)
 			}
 			m.NodeBalance = nodes.Balance
 		}
