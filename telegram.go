@@ -66,7 +66,7 @@ func notificationTelegramTeam(message string) {
 	rec := &telebot.Chat{
 		ID: int64(TelGroup),
 	}
-	bot2.Send(rec, message)
+	bot2.Send(rec, message, telebot.NoPreview)
 }
 
 func notificationTelegramTeamPin(message string) {
@@ -81,7 +81,7 @@ func notificationTelegramGroup(message string) {
 	rec := &telebot.Chat{
 		ID: int64(TelAnon),
 	}
-	bot2.Send(rec, message)
+	bot2.Send(rec, message, telebot.NoPreview)
 }
 
 func notificationTelegramGroupPin(message string) {
