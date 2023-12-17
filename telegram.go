@@ -51,7 +51,7 @@ func notificationTelegram(message string) {
 	rec := &telebot.Chat{
 		ID: int64(TelAnonOps),
 	}
-	bot2.Send(rec, message)
+	bot2.Send(rec, message, telebot.NoPreview)
 }
 
 func notificationTelegramPin(message string) {
