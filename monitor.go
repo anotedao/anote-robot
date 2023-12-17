@@ -103,7 +103,7 @@ func (m *Monitor) monitorNodeMints() {
 
 	ga := GATEWAY_ADDR
 	nodePrice, _ := getData("%s__nodePrice", &ga)
-	logTelegram(nodePrice.(string))
+	logTelegram(prettyPrint(nodePrice))
 
 	asset, err := crypto.NewDigestFromBase58(NodeAnoteId)
 	if err != nil {
