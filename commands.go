@@ -582,6 +582,7 @@ Address: %s`,
 
 		if strings.Contains(txt, "withdraw") ||
 			strings.Contains(txt, "swap") ||
+			strings.Contains(txt, "exchange") ||
 			strings.Contains(txt, "buy") ||
 			strings.Contains(txt, "sell") {
 			withdrawCommandHelp(c)
