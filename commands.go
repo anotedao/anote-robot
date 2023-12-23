@@ -306,7 +306,8 @@ This is Anote token ID / address in BSC chain:
 
 This information is for crypto experts. If this is not enough for you, please wait for active development to be finished and more tutorials to be made. Until then, mine it, mint AINT with it and stake it.`
 
-	_, err := bot2.Send(m.Chat, help, telebot.NoPreview)
+	_, err := bot2.Reply(m, help, telebot.NoPreview)
+	// _, err := bot2.Send(m.Chat, help, telebot.NoPreview)
 
 	return err
 }
