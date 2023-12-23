@@ -4,6 +4,7 @@ ref - Get your referral link.
 help - Learn how to mine Anote.
 
 stats - Get Basic Anote statistics.
+withdraw - Short tutorial for cashing out
 code - Short help for finding daily code.
 check - Reply to check if user is mining.
 bsc - Get BSC Anote address.
