@@ -573,7 +573,6 @@ Address: %s`,
 		_, err = bot2.Send(c.Chat(), message, telebot.NoPreview)
 	} else if !m.Private() {
 		txt := m.Text
-		log.Println(txt)
 		if len(txt) == 3 {
 			code, err := strconv.Atoi(txt)
 			if err == nil && code < 1000 {
@@ -582,7 +581,9 @@ Address: %s`,
 		}
 
 		if strings.Contains(txt, "withdraw") ||
-			strings.Contains(txt, "swap") {
+			strings.Contains(txt, "swap") ||
+			strings.Contains(txt, "buy") ||
+			strings.Contains(txt, "sell") {
 			withdrawCommandHelp(c)
 		}
 	}
