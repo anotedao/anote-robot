@@ -580,11 +580,11 @@ Address: %s`,
 			}
 		}
 
-		if strings.Contains(txt, "withdraw") ||
-			strings.Contains(txt, "swap") ||
-			strings.Contains(txt, "exchange") ||
-			strings.Contains(txt, "buy") ||
-			strings.Contains(txt, "sell") {
+		if strings.Contains(strings.ToLower(txt), strings.ToLower("withdraw")) ||
+			strings.Contains(strings.ToLower(txt), strings.ToLower("swap")) ||
+			strings.Contains(strings.ToLower(txt), strings.ToLower("exchange")) ||
+			strings.Contains(strings.ToLower(txt), strings.ToLower("buy")) ||
+			strings.Contains(strings.ToLower(txt), strings.ToLower("sell")) {
 			withdrawCommandHelp(c)
 		}
 	}
