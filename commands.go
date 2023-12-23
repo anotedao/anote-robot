@@ -24,6 +24,7 @@ func initCommands() {
 	bot2.Handle("/bsc", addressBscCommand)
 	bot2.Handle("/seed", seedCommand)
 	bot2.Handle("/check", checkCommand)
+	bot2.Handle("/withdraw", withdrawCommandHelp)
 	bot2.Handle(telebot.OnUserJoined, userJoined)
 	bot2.Handle(telebot.OnText, checkUserCommand)
 
@@ -283,6 +284,27 @@ func seedCommand(c telebot.Context) error {
 	m := c.Message()
 
 	help := "You can find your seed in the wallet settings when you click on the gear icon in the upper right corner of your wallet (app.anotedao.com)."
+
+	_, err := bot2.Send(m.Chat, help, telebot.NoPreview)
+
+	return err
+}
+
+func withdrawCommandHelp(c telebot.Context) error {
+	saveUser(c)
+	m := c.Message()
+
+	help := `<strong><u>Can Anote be swapped to other cryptocurrencies?</u></strong>
+	
+Yes, absolutely, Anote can be swapped to any other cryptocurrency by using PancakeSwap, Trust or MetaMask wallet and BSC chain. This is tutorial for using BSC gateway:
+
+anotedao.com/gateway
+
+This is Anote token ID / address in BSC chain:
+
+0xe7f0f1585bdbd06b18dbb87099b87bd79bbd315b
+
+This information is for crypto experts. If this is not enough for you, please wait for active development to be finished and more tutorials to be made. Until then, mine it, mint aint with it and stake it.`
 
 	_, err := bot2.Send(m.Chat, help, telebot.NoPreview)
 
