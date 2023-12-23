@@ -313,7 +313,7 @@ func addressBscCommand(c telebot.Context) error {
 	// 	DisableWebPagePreview: true,
 	// }
 
-	_, err := bot2.Send(m.Chat, help, telebot.ModeMarkdownV2)
+	_, err := bot2.Send(m.Chat, help, telebot.ModeMarkdownV2, telebot.NoPreview)
 
 	return err
 }
