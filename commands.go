@@ -296,7 +296,7 @@ func withdrawCommandHelp(c telebot.Context) error {
 
 	help := "*Can Anote be swapped to other cryptocurrencies?*\n\nYes, absolutely, Anote can be swapped to any other cryptocurrency by using PancakeSwap, Trust or MetaMask wallet and BSC chain. This is tutorial for using BSC gateway:\n\nanotedao.com/gateway\n\nThis is Anote token ID / address in BSC chain:\n\n`0xe7f0f1585bdbd06b18dbb87099b87bd79bbd315b`\n\nThis information is for crypto experts. If this is not enough for you, please wait for active development to be finished and more tutorials to be made. Until then, mine it, mint AINT with it and stake it."
 
-	_, err := bot2.Reply(m, help, telebot.ModeMarkdownV2, telebot.NoPreview)
+	_, err := bot2.Reply(m, help, telebot.ModeMarkdown, telebot.NoPreview)
 	// _, err := bot2.Send(m.Chat, help, telebot.NoPreview)
 
 	return err
