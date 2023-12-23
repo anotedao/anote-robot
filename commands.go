@@ -578,6 +578,9 @@ Address: %s`,
 			if err == nil && code < 1000 {
 				bot2.Reply(m, "Please send the code to @AnoteRobot!", telebot.NoPreview)
 			}
+		} else if strings.Contains(txt, "withdraw") ||
+			strings.Contains(txt, "swap") {
+			withdrawCommand(c)
 		}
 	}
 
