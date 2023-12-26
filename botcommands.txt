@@ -1,5 +1,4 @@
 miner - Your personal Anote statistics.
-withdraw - Withdraw mined anotes to your wallet.
 ref - Get your referral link.
 help - Learn how to mine Anote.
 

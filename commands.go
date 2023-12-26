@@ -30,7 +30,6 @@ func initCommands() {
 
 	bot.Handle("/start", startCommand)
 	bot.Handle("/miner", myStatsCommand)
-	bot.Handle("/withdraw", withdrawCommand)
 	bot.Handle("/ref", refCommand)
 	bot.Handle("/help", helpCommand)
 	bot.Handle(telebot.OnText, mineCommand)
@@ -323,7 +322,6 @@ func mineCommand(c telebot.Context) error {
 	log.Println(prettyPrint(m))
 	if c.Message().Private() {
 		message := ""
-		w := false
 		if strings.HasPrefix(c.Message().Text, "3A") {
 			if saveTelegram(c.Message().Text, strconv.Itoa(int(c.Chat().ID))) != 0 {
 				message = "This address is already used."
@@ -334,17 +332,8 @@ func mineCommand(c telebot.Context) error {
 			message = "Forwarded."
 		} else {
 			message = telegramMine(c.Message().Text, c.Chat().ID)
-			w = true
 		}
 		_, err = bot.Send(c.Chat(), message, telebot.NoPreview)
-
-		if w {
-			miner := getMiner(c.Message().Sender.ID)
-
-			if miner.MinedTelegram > Fee {
-				withdrawCommand(c)
-			}
-		}
 	}
 
 	return err
@@ -429,36 +418,6 @@ func refCommand(c telebot.Context) error {
 	_, err = bot.Send(c.Chat(), message, telebot.NoPreview)
 
 	message = fmt.Sprintf("https://anotedao.com/mine?r=%d", miner.ID)
-	_, err = bot.Send(c.Chat(), message, telebot.NoPreview)
-
-	return err
-}
-
-func withdrawCommand(c telebot.Context) error {
-	msg := c.Message()
-	var err error
-	message := ""
-
-	if !msg.Private() {
-		message := "Please send this command as a direct message to @AnoteRobot."
-		_, err = bot.Send(c.Chat(), message, telebot.NoPreview)
-		return err
-	}
-
-	miner := getMiner(c.Message().Sender.ID)
-
-	if miner.MinedMobile+miner.MinedTelegram > Fee {
-		if strconv.Itoa(int(miner.TelegramId)) == miner.Address {
-			message = "To withdraw your funds, please open account on app.anotedao.com wallet and connect it to the bot!"
-		} else {
-			withdraw(miner.TelegramId)
-			message = "Your funds have been sent to your address. 🚀"
-		}
-	} else {
-		message = "You don't have enough funds to withdraw. The amount has to be bigger than 0.001 anotes. Please try later!"
-	}
-
-	// message := "This command has a bug and it has been temporarily disabled. Please try later!"
 	_, err = bot.Send(c.Chat(), message, telebot.NoPreview)
 
 	return err
