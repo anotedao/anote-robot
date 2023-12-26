@@ -84,7 +84,7 @@ func (c *Cache) loadStatsCache() {
 
 	addrT := proto.MustAddressFromString(TelegramAddress)
 
-	totalT, _, err := cl.Addresses.Balance(ctx, addr)
+	totalT, _, err := cl.Addresses.Balance(ctx, addrT)
 	if err != nil {
 		log.Println(err)
 		logTelegram(err.Error())
