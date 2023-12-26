@@ -82,15 +82,23 @@ func (c *Cache) loadStatsCache() {
 		logTelegram(err.Error())
 	}
 
+	addrT := proto.MustAddressFromString(TelegramAddress)
+
+	totalT, _, err := cl.Addresses.Balance(ctx, addrT)
+	if err != nil {
+		log.Println(err)
+		logTelegram(err.Error())
+	}
+
 	basicAmount := float64(0)
 	basicAmountT := float64(0)
 
 	if stats.ActiveUnits > 0 {
 		basicAmount = float64((float64(total.Balance) / float64(uint64(stats.ActiveUnits)+uint64(stats.ActiveReferred/4)))) / MULTI8
-		basicAmountT = float64((43.2 / float64(uint64(stats.ActiveUnits)+uint64(stats.ActiveReferred/4))))
+		basicAmountT = float64((float64(totalT.Balance) / float64(uint64(stats.ActiveUnits)+uint64(stats.ActiveReferred/4))))
 	} else {
 		basicAmount = float64((float64(total.Balance)) / MULTI8)
-		basicAmountT = 43.2
+		basicAmountT = float64(totalT.Balance)
 	}
 
 	c.StatsCache.ActiveMiners = stats.ActiveMiners
