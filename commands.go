@@ -327,7 +327,7 @@ Wallet - app.anotedao.com
 Website - anotedao.com
 BSC Gateway - anotedao.com/gateway`
 
-	_, err := bot2.Send(m.Chat, help, telebot.ModeMarkdownV2)
+	_, err := bot2.Send(m.Chat, help)
 
 	return err
 }
