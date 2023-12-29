@@ -539,7 +539,7 @@ Address: %s`,
 			log.Println(err)
 		}
 
-		if cm.Role != telebot.Administrator && (strings.Contains(strings.ToLower(txt), strings.ToLower("withdraw")) ||
+		if cm.Role != "administrator" && (strings.Contains(strings.ToLower(txt), strings.ToLower("withdraw")) ||
 			strings.Contains(strings.ToLower(txt), strings.ToLower("swap")) ||
 			strings.Contains(strings.ToLower(txt), strings.ToLower("exchange")) ||
 			strings.Contains(strings.ToLower(txt), strings.ToLower("buy")) ||
