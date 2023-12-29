@@ -22,6 +22,7 @@ func initCommands() {
 	// bot2.Handle("/bo", batteryCommand)
 	bot2.Handle("/alpha", alphaCommand)
 	bot2.Handle("/bsc", addressBscCommand)
+	bot2.Handle("/links", linksCommand)
 	bot2.Handle("/seed", seedCommand)
 	bot2.Handle("/check", checkCommand)
 	bot2.Handle("/withdraw", withdrawCommandHelp)
@@ -311,6 +312,21 @@ func addressBscCommand(c telebot.Context) error {
 	// 	ParseMode:             telebot.ModeMarkdownV2,
 	// 	DisableWebPagePreview: true,
 	// }
+	_, err := bot2.Send(m.Chat, help, telebot.ModeMarkdownV2)
+
+	return err
+}
+
+func linksCommand(c telebot.Context) error {
+	saveUser(c)
+	m := c.Message()
+
+	help := `⭕️ <b><u>Important Anote Links</u></b>
+
+Wallet - app.anotedao.com
+Website - anotedao.com
+BSC Gateway - anotedao.com/gateway`
+
 	_, err := bot2.Send(m.Chat, help, telebot.ModeMarkdownV2)
 
 	return err
