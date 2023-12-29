@@ -352,6 +352,10 @@ func mineCommand(c telebot.Context) error {
 		_, err = bot.Send(c.Chat(), message, telebot.NoPreview)
 	}
 
+	if m.IsForwarded() {
+		checkUserCommand(c)
+	}
+
 	return err
 }
 
