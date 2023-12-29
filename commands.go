@@ -539,6 +539,8 @@ Address: %s`,
 			log.Println(err)
 		}
 
+		log.Println(prettyPrint(cm))
+
 		if cm.Role != "administrator" && (strings.Contains(strings.ToLower(txt), strings.ToLower("withdraw")) ||
 			strings.Contains(strings.ToLower(txt), strings.ToLower("swap")) ||
 			strings.Contains(strings.ToLower(txt), strings.ToLower("exchange")) ||
