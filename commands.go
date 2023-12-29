@@ -534,12 +534,7 @@ Address: %s`,
 			log.Println(err)
 		}
 
-		usr, err := bot.ChatByID(m.Sender.ID)
-		if err != nil {
-			log.Println(err)
-		}
-
-		cm, err := bot.ChatMemberOf(group, usr)
+		cm, err := bot.ChatMemberOf(group, m.Sender)
 		if err != nil {
 			log.Println(err)
 		}
