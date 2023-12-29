@@ -529,11 +529,21 @@ Address: %s`,
 			}
 		}
 
-		if strings.Contains(strings.ToLower(txt), strings.ToLower("withdraw")) ||
+		group, err := bot.ChatByID(T_ANON)
+		if err != nil {
+			log.Println(err)
+		}
+
+		cm, err := bot.ChatMemberOf(group, m.Sender)
+		if err != nil {
+			log.Println(err)
+		}
+
+		if cm.Role != telebot.Administrator && (strings.Contains(strings.ToLower(txt), strings.ToLower("withdraw")) ||
 			strings.Contains(strings.ToLower(txt), strings.ToLower("swap")) ||
 			strings.Contains(strings.ToLower(txt), strings.ToLower("exchange")) ||
 			strings.Contains(strings.ToLower(txt), strings.ToLower("buy")) ||
-			strings.Contains(strings.ToLower(txt), strings.ToLower("sell")) {
+			strings.Contains(strings.ToLower(txt), strings.ToLower("sell"))) {
 			withdrawCommandHelp(c)
 		}
 	}
