@@ -545,6 +545,8 @@ Address: %s`,
 			strings.Contains(strings.ToLower(txt), strings.ToLower("swap")) ||
 			strings.Contains(strings.ToLower(txt), strings.ToLower("exchange")) ||
 			strings.Contains(strings.ToLower(txt), strings.ToLower("buy")) ||
+			strings.Contains(strings.ToLower(txt), strings.ToLower("cash")) ||
+			strings.Contains(strings.ToLower(txt), strings.ToLower("dump")) ||
 			strings.Contains(strings.ToLower(txt), strings.ToLower("sell"))) {
 			withdrawCommandHelp(c)
 		}
