@@ -336,8 +336,9 @@ func mineCommand(c telebot.Context) error {
 	var err error
 	m := c.Message()
 	log.Println(prettyPrint(m))
+	log.Println(m.IsForwarded())
 	if c.Message().Private() {
-		if m.IsForwarded() {
+		if c.Message().IsForwarded() {
 			return checkUserCommand(c)
 		} else {
 			message := ""
