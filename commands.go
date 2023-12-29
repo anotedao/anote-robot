@@ -529,7 +529,7 @@ Address: %s`,
 			}
 		}
 
-		group, err := bot.ChatByID(TelAnon)
+		group, err := bot2.ChatByID(TelAnon)
 		if err != nil {
 			log.Println(err)
 		}
