@@ -337,23 +337,23 @@ func mineCommand(c telebot.Context) error {
 	m := c.Message()
 	log.Println(prettyPrint(m))
 	if c.Message().Private() {
-		message := ""
-		if strings.HasPrefix(c.Message().Text, "3A") {
-			if saveTelegram(c.Message().Text, strconv.Itoa(int(c.Chat().ID))) != 0 {
-				message = "This address is already used."
-			} else {
-				message = "You have successfully connected your Anote wallet. 🚀"
-			}
-		} else if c.Message().IsForwarded() {
-			message = "Forwarded."
+		if m.IsForwarded() {
+			return checkUserCommand(c)
 		} else {
-			message = telegramMine(c.Message().Text, c.Chat().ID)
+			message := ""
+			if strings.HasPrefix(c.Message().Text, "3A") {
+				if saveTelegram(c.Message().Text, strconv.Itoa(int(c.Chat().ID))) != 0 {
+					message = "This address is already used."
+				} else {
+					message = "You have successfully connected your Anote wallet. 🚀"
+				}
+			} else if c.Message().IsForwarded() {
+				message = "Forwarded."
+			} else {
+				message = telegramMine(c.Message().Text, c.Chat().ID)
+			}
+			_, err = bot.Send(c.Chat(), message, telebot.NoPreview)
 		}
-		_, err = bot.Send(c.Chat(), message, telebot.NoPreview)
-	}
-
-	if m.IsForwarded() {
-		checkUserCommand(c)
 	}
 
 	return err
