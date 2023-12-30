@@ -283,7 +283,7 @@ func seedCommand(c telebot.Context) error {
 	saveUser(c)
 	m := c.Message()
 
-	help := "You can find your seed in the wallet settings when you click on the gear icon in the upper right corner of your wallet (app.anotedao.com)."
+	help := "<strong><u>Remember to save your seed!</u></strong>\n\nSeed is 15 words that you need to save somewhere on your phone, computer or write them on paper.\n\nYou can find your seed in the wallet settings when you click on the gear icon in the upper right corner of your wallet (app.anotedao.com)."
 
 	_, err := bot2.Send(m.Chat, help, telebot.NoPreview)
 
