@@ -1090,7 +1090,7 @@ func getAmountNode() float64 {
 	var am float64
 
 	// Create new HTTP client to send the transaction to public TestNet nodes
-	cl, err := client.NewClient(client.Options{BaseUrl: AnoteNodeURL, Client: &http.Client{}})
+	cl, err := client.NewClient(client.Options{BaseUrl: AnoteNodeURL, Client: &http.Client{}, ApiKey: " "})
 	if err != nil {
 		log.Println(err)
 		logTelegram(err.Error())
