@@ -137,6 +137,7 @@ func statsCommand(c telebot.Context) error {
 	<b>Active Miners:</b> %d
 	<b>Holders:</b> %d
 	<b>Price:</b> $%.2f
+	
 	<b>Telegram Amount:</b> %.8f
 	<b>sAINT Amount:</b> %.8f
 	<b>Node Amount:</b> %.8f
