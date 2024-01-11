@@ -1103,6 +1103,9 @@ func getAmountNode() float64 {
 
 	pc, _, err := cl.Peers.Connected(ctx)
 
+	log.Println(pc)
+	log.Println(len(pc))
+
 	am = (1440 * 0.005) / float64(len(pc))
 
 	return am
