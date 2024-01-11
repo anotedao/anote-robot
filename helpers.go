@@ -1087,5 +1087,8 @@ func isFollower(uid int64) bool {
 }
 
 func getAmountNode() float64 {
-	return 0.39
+	var am float64
+	am = (1440 * 0.005) / 22
+
+	return am
 }
