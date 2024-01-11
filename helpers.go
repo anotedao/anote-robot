@@ -1102,6 +1102,11 @@ func getAmountNode() float64 {
 	defer cancel()
 
 	pc, _, err := cl.Peers.Connected(ctx)
+	if err != nil {
+		log.Println(err)
+		logTelegram(err.Error())
+		return 0
+	}
 
 	log.Println(pc)
 	log.Println(len(pc))
