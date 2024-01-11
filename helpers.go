@@ -1088,7 +1088,22 @@ func isFollower(uid int64) bool {
 
 func getAmountNode() float64 {
 	var am float64
-	am = (1440 * 0.005) / 22
+
+	// Create new HTTP client to send the transaction to public TestNet nodes
+	cl, err := client.NewClient(client.Options{BaseUrl: AnoteNodeURL, Client: &http.Client{}})
+	if err != nil {
+		log.Println(err)
+		logTelegram(err.Error())
+		return 0
+	}
+
+	// Context to cancel the request execution on timeout
+	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
+	defer cancel()
+
+	pc, _, err := cl.Peers.Connected(ctx)
+
+	am = (1440 * 0.005) / float64(len(pc))
 
 	return am
 }
