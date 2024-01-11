@@ -1108,9 +1108,6 @@ func getAmountNode() float64 {
 		return 0
 	}
 
-	log.Println(pc)
-	log.Println(len(pc))
-
 	am = (1440 * 0.005) / float64(len(pc))
 
 	return am
