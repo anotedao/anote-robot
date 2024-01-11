@@ -139,6 +139,7 @@ func statsCommand(c telebot.Context) error {
 	<b>Price:</b> $%.2f
 	<b>Telegram Amount:</b> %.8f
 	<b>sAINT Amount:</b> %.8f
+	<b>Node Amount:</b> %.8f
 	
 	<b>Mined:</b> %s ANOTE
 	<b>Community:</b> %s ANOTE
@@ -148,6 +149,7 @@ func statsCommand(c telebot.Context) error {
 		cch.StatsCache.Price,
 		cch.StatsCache.AmountTlg,
 		cch.StatsCache.AmountMobile,
+		cch.StatsCache.AmountNode,
 		cch.StatsCache.Mined,
 		cch.StatsCache.Community,
 		cch.StatsCache.Circulation)

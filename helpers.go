@@ -1085,3 +1085,7 @@ func isFollower(uid int64) bool {
 
 	return false
 }
+
+func getAmountNode() float64 {
+	return 0.39
+}

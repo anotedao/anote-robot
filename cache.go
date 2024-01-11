@@ -106,6 +106,7 @@ func (c *Cache) loadStatsCache() {
 	c.StatsCache.Price = pc.AnotePrice
 	c.StatsCache.AmountTlg = basicAmountT
 	c.StatsCache.AmountMobile = basicAmount
+	c.StatsCache.AmountNode = getAmountNode()
 	c.StatsCache.Mined = humanize.Comma(mined)
 	c.StatsCache.Community = humanize.Comma(int64(balance))
 	c.StatsCache.Circulation = humanize.Comma(circulation)
@@ -159,6 +160,7 @@ type StatsCache struct {
 	Price        float64
 	AmountTlg    float64
 	AmountMobile float64
+	AmountNode   float64
 	Mined        string
 	Community    string
 	Circulation  string
