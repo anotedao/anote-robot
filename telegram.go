@@ -84,6 +84,13 @@ func notificationTelegramGroup(message string) {
 	bot2.Send(rec, message, telebot.NoPreview)
 }
 
+func notificationTelegramGroupBalkan(message string) {
+	rec := &telebot.Chat{
+		ID: int64(TelBalkan),
+	}
+	bot2.Send(rec, message, telebot.NoPreview)
+}
+
 func notificationTelegramGroupPin(message string) {
 	rec := &telebot.Chat{
 		ID: int64(TelAnon),

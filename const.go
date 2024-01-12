@@ -5,9 +5,10 @@ const (
 	SATINBTC = uint64(100000000)
 
 	// Telegram groups
-	T_ANON_BALKAN = -1001161265502
-	T_ANON        = -1001361489843
-	TelAnon       = -1001602695454
+	// T_ANON_BALKAN = -1001161265502
+	TelBalkan = -1001679005943
+	T_ANON    = -1001361489843
+	TelAnon   = -1001602695454
 
 	// Telegram poller timeout in seconds
 	T_POLLER_TIMEOUT = 30
