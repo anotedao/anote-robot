@@ -454,7 +454,7 @@ func alphaCommand(c telebot.Context) error {
 	miner := getMiner(c.Message().Sender.ID)
 	height := getHeight()
 
-	if height <= 550000 {
+	if height <= 560000 {
 		if strings.HasPrefix(miner.Address, "3A") {
 			alp := &Alpha{}
 			db.First(alp, &Alpha{Address: miner.Address})
@@ -481,7 +481,7 @@ func alphaCommand(c telebot.Context) error {
 			message = fmt.Sprintf("The address is not valid:/n/n%s", miner.Address)
 		}
 	} else {
-		message = "Exchange period ended with block 314000. You can check current block here:\n\nexplorer.anotedao.com"
+		message = "Exchange period ended with block 560000. You can check current block here:\n\nexplorer.anotedao.com"
 	}
 
 	_, err = bot2.Send(c.Chat(), message, telebot.NoPreview)
