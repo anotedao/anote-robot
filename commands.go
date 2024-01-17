@@ -565,13 +565,15 @@ Address: %s`,
 
 		log.Println(prettyPrint(cm))
 
-		if (cm.Role != telebot.Administrator && cm.Role != telebot.Creator) && (strings.Contains(strings.ToLower(txt), strings.ToLower("withdraw")) ||
-			strings.Contains(strings.ToLower(txt), strings.ToLower("swap")) ||
-			strings.Contains(strings.ToLower(txt), strings.ToLower("exchange")) ||
-			strings.Contains(strings.ToLower(txt), strings.ToLower("buy")) ||
-			strings.Contains(strings.ToLower(txt), strings.ToLower("cash")) ||
-			strings.Contains(strings.ToLower(txt), strings.ToLower("dump")) ||
-			strings.Contains(strings.ToLower(txt), strings.ToLower("sell"))) {
+		if (cm.Role != telebot.Administrator && cm.Role != telebot.Creator) &&
+			m.Chat.ID != TelGroup &&
+			(strings.Contains(strings.ToLower(txt), strings.ToLower("withdraw")) ||
+				strings.Contains(strings.ToLower(txt), strings.ToLower("swap")) ||
+				strings.Contains(strings.ToLower(txt), strings.ToLower("exchange")) ||
+				strings.Contains(strings.ToLower(txt), strings.ToLower("buy")) ||
+				strings.Contains(strings.ToLower(txt), strings.ToLower("cash")) ||
+				strings.Contains(strings.ToLower(txt), strings.ToLower("dump")) ||
+				strings.Contains(strings.ToLower(txt), strings.ToLower("sell"))) {
 			withdrawCommandHelp(c)
 		}
 	}
