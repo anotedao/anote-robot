@@ -206,7 +206,7 @@ func (m *Monitor) forwardCompetition() {
 		msg.Chat = ch
 
 		bot2.Forward(group, msg, telebot.NoPreview)
-		time.Sleep(time.Minute * 15)
+		time.Sleep(time.Minute * 20)
 	}
 }
 
