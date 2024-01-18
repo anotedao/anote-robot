@@ -10,7 +10,6 @@ import (
 	"github.com/wavesplatform/gowaves/pkg/client"
 	"github.com/wavesplatform/gowaves/pkg/crypto"
 	"github.com/wavesplatform/gowaves/pkg/proto"
-	"gopkg.in/telebot.v3"
 )
 
 type Monitor struct {
@@ -186,26 +185,26 @@ func (m *Monitor) monitorDiskSpace() {
 
 func (m *Monitor) forwardCompetition() {
 	for {
-		group, err := bot2.ChatByID(TelAnon)
-		if err != nil {
-			log.Println(err)
-		}
-
-		// ch, err := bot2.ChatByID(TelAnoteNews)
+		// group, err := bot2.ChatByID(TelAnon)
 		// if err != nil {
 		// 	log.Println(err)
 		// }
 
-		// bot2.
-		// 	msg := telebot.Message{}
+		// // ch, err := bot2.ChatByID(TelAnoteNews)
+		// // if err != nil {
+		// // 	log.Println(err)
+		// // }
+
+		// // bot2.
+		// // 	msg := telebot.Message{}
+		// // msg.Chat.ID = TelAnoteNews
+		// // msg.ID = 1125216
+
+		// msg := &telebot.Message{}
+		// msg.ID = 56
 		// msg.Chat.ID = TelAnoteNews
-		// msg.ID = 1125216
 
-		msg := &telebot.Message{}
-		msg.ID = 56
-		msg.Chat.ID = TelAnoteNews
-
-		bot2.Forward(group, msg, telebot.NoPreview)
+		// bot2.Forward(group, msg, telebot.NoPreview)
 		time.Sleep(time.Minute * 20)
 	}
 }
