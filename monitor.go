@@ -186,7 +186,7 @@ func (m *Monitor) monitorDiskSpace() {
 
 func (m *Monitor) forwardCompetition() {
 	for {
-		group, err := bot2.ChatByID(TelAnon)
+		group, err := bot2.ChatByID(TelAnonOps)
 		if err != nil {
 			log.Println(err)
 		}
@@ -207,6 +207,8 @@ func (m *Monitor) forwardCompetition() {
 
 		log.Println(prettyPrint(msg))
 		log.Println(prettyPrint(m1))
+		log.Println(prettyPrint(m2))
+		log.Println(prettyPrint(m3))
 
 		if m1 != nil &&
 			m2 != nil &&
