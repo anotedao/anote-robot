@@ -186,10 +186,10 @@ func (m *Monitor) monitorDiskSpace() {
 
 func (m *Monitor) forwardCompetition() {
 	for {
-		group, err := bot2.ChatByID(TelAnon)
-		if err != nil {
-			log.Println(err)
-		}
+		// group, err := bot2.ChatByID(TelAnon)
+		// if err != nil {
+		// 	log.Println(err)
+		// }
 
 		ch, err := bot2.ChatByID(TelAnoteNews)
 		if err != nil {
