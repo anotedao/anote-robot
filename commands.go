@@ -338,7 +338,6 @@ BSC Gateway - anotedao.com/gateway`
 func mineCommand(c telebot.Context) error {
 	var err error
 	m := c.Message()
-	newMessage(m)
 	log.Println(prettyPrint(m))
 	log.Println(m.IsForwarded())
 	if c.Message().Private() {
@@ -546,6 +545,9 @@ Address: %s`,
 
 		_, err = bot2.Send(c.Chat(), message, telebot.NoPreview)
 	} else if !m.Private() {
+		if m.Chat.ID == TelAnon {
+			newMessage(m)
+		}
 		txt := m.Text
 		if len(txt) == 3 {
 			code, err := strconv.Atoi(txt)
