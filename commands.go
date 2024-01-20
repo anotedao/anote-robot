@@ -29,7 +29,7 @@ func initCommands() {
 	bot2.Handle(telebot.OnUserJoined, userJoined)
 	bot2.Handle(telebot.OnText, checkUserCommand)
 	bot2.Handle(telebot.OnPhoto, addNewMessage)
-	bot2.Handle(telebot.OnMedia, addNewMessage)
+	// bot2.Handle(telebot.OnMedia, addNewMessage)
 
 	bot.Handle("/start", startCommand)
 	bot.Handle("/miner", myStatsCommand)
@@ -593,7 +593,7 @@ func addNewMessage(c telebot.Context) error {
 
 	log.Println(prettyPrint(m))
 
-	if m.Chat.ID == TelAnonOps {
+	if m.Chat.ID == TelAnoteNews {
 		newMessage(m)
 	}
 
