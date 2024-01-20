@@ -590,7 +590,7 @@ Address: %s`,
 func addNewMessage(c telebot.Context) error {
 	m := c.Message()
 
-	log.Println(prettyPrint(m))
+	log.Println(prettyPrint(m.OriginalMessageID))
 
 	return nil
 }
