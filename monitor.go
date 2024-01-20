@@ -212,9 +212,9 @@ func (m *Monitor) forwardCompetition() {
 			log.Println(prettyPrint(m1.Text))
 			log.Println(prettyPrint(m2.Text))
 			log.Println(prettyPrint(m3.Text))
-			log.Println(prettyPrint(m1.OriginalMessageID))
-			log.Println(prettyPrint(m2.OriginalMessageID))
-			log.Println(prettyPrint(m3.OriginalMessageID))
+			log.Println(prettyPrint(m1.IsForwarded()))
+			log.Println(prettyPrint(m2.IsForwarded()))
+			log.Println(prettyPrint(m3.IsForwarded()))
 		}
 
 		if m1 != nil &&
