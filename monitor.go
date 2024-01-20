@@ -206,9 +206,12 @@ func (m *Monitor) forwardCompetition() {
 		msg.Chat = ch
 
 		log.Println(prettyPrint(msg))
-		log.Println(prettyPrint(m1))
-		log.Println(prettyPrint(m2))
-		log.Println(prettyPrint(m3))
+		log.Println(prettyPrint(m1.Text))
+		log.Println(prettyPrint(m2.Text))
+		log.Println(prettyPrint(m3.Text))
+		log.Println(prettyPrint(m1.OriginalMessageID))
+		log.Println(prettyPrint(m2.OriginalMessageID))
+		log.Println(prettyPrint(m3.OriginalMessageID))
 
 		if m1 != nil &&
 			m2 != nil &&
