@@ -215,6 +215,12 @@ func (m *Monitor) forwardCompetition() {
 			log.Println(prettyPrint(m1.IsForwarded()))
 			log.Println(prettyPrint(m2.IsForwarded()))
 			log.Println(prettyPrint(m3.IsForwarded()))
+			log.Println(prettyPrint(m1.OriginalMessageID))
+			log.Println(prettyPrint(m2.OriginalMessageID))
+			log.Println(prettyPrint(m3.OriginalMessageID))
+			log.Println(prettyPrint(m1.ID))
+			log.Println(prettyPrint(m2.ID))
+			log.Println(prettyPrint(m3.ID))
 		}
 
 		if m1 != nil &&
@@ -227,7 +233,7 @@ func (m *Monitor) forwardCompetition() {
 			bot2.Forward(group, msg, telebot.NoPreview)
 			newMessage(msg)
 		}
-		time.Sleep(time.Minute * 1)
+		time.Sleep(time.Second * 15)
 	}
 }
 
