@@ -205,6 +205,9 @@ func (m *Monitor) forwardCompetition() {
 		msg.ID = 56
 		msg.Chat = ch
 
+		log.Println(prettyPrint(msg))
+		log.Println(prettyPrint(m1))
+
 		if m1 != nil &&
 			m2 != nil &&
 			m3 != nil &&
@@ -212,9 +215,9 @@ func (m *Monitor) forwardCompetition() {
 			msg.ID != m2.OriginalMessageID &&
 			msg.ID != m3.OriginalMessageID {
 
-			bot2.Forward(group, msg, telebot.NoPreview)
+			// bot2.Forward(group, msg, telebot.NoPreview)
 		}
-		time.Sleep(time.Minute * 20)
+		time.Sleep(time.Minute * 1)
 	}
 }
 
