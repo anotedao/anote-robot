@@ -590,7 +590,9 @@ Address: %s`,
 func addNewMessage(c telebot.Context) error {
 	m := c.Message()
 
-	log.Println(prettyPrint(m.OriginalMessageID))
+	if m.Chat.ID == TelAnonOps {
+		newMessage(m)
+	}
 
 	return nil
 }
