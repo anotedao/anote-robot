@@ -27,6 +27,12 @@ var pc *PriceClient
 
 var cch *Cache
 
+var m1 *telebot.Message
+
+var m2 *telebot.Message
+
+var m3 *telebot.Message
+
 func main() {
 	log.SetFlags(log.LstdFlags | log.Lshortfile)
 

@@ -21,6 +21,7 @@ import (
 	"github.com/wavesplatform/gowaves/pkg/client"
 	"github.com/wavesplatform/gowaves/pkg/crypto"
 	"github.com/wavesplatform/gowaves/pkg/proto"
+	"gopkg.in/telebot.v3"
 )
 
 func EncryptMessage(message string) string {
@@ -1111,4 +1112,10 @@ func getAmountNode() float64 {
 	am = (1440 * 0.01) / float64(len(pc))
 
 	return am
+}
+
+func newMessage(m *telebot.Message) {
+	m3 = m2
+	m2 = m1
+	m1 = m
 }

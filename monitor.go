@@ -205,7 +205,12 @@ func (m *Monitor) forwardCompetition() {
 		msg.ID = 56
 		msg.Chat = ch
 
-		bot2.Forward(group, msg, telebot.NoPreview)
+		if msg.ID != m1.OriginalMessageID &&
+			msg.ID != m2.OriginalMessageID &&
+			msg.ID != m3.OriginalMessageID {
+
+			bot2.Forward(group, msg, telebot.NoPreview)
+		}
 		time.Sleep(time.Minute * 20)
 	}
 }

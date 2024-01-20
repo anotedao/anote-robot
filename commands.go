@@ -338,6 +338,7 @@ BSC Gateway - anotedao.com/gateway`
 func mineCommand(c telebot.Context) error {
 	var err error
 	m := c.Message()
+	newMessage(m)
 	log.Println(prettyPrint(m))
 	log.Println(m.IsForwarded())
 	if c.Message().Private() {
