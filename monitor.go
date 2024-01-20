@@ -205,7 +205,10 @@ func (m *Monitor) forwardCompetition() {
 		msg.ID = 56
 		msg.Chat = ch
 
-		if msg.ID != m1.OriginalMessageID &&
+		if m1 != nil &&
+			m2 != nil &&
+			m3 != nil &&
+			msg.ID != m1.OriginalMessageID &&
 			msg.ID != m2.OriginalMessageID &&
 			msg.ID != m3.OriginalMessageID {
 
