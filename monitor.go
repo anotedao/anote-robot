@@ -225,6 +225,7 @@ func (m *Monitor) forwardCompetition() {
 			msg.ID != m3.OriginalMessageID {
 
 			bot2.Forward(group, msg, telebot.NoPreview)
+			newMessage(msg)
 		}
 		time.Sleep(time.Minute * 1)
 	}
