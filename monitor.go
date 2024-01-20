@@ -196,11 +196,6 @@ func (m *Monitor) forwardCompetition() {
 			log.Println(err)
 		}
 
-		// // bot2.
-		// // 	msg := telebot.Message{}
-		// // msg.Chat.ID = TelAnoteNews
-		// // msg.ID = 1125216
-
 		msg := &telebot.Message{}
 		msg.ID = 56
 		msg.Chat = ch
