@@ -226,9 +226,9 @@ func (m *Monitor) forwardCompetition() {
 		if m1 != nil &&
 			m2 != nil &&
 			m3 != nil &&
-			msg.ID != m1.OriginalMessageID &&
-			msg.ID != m2.OriginalMessageID &&
-			msg.ID != m3.OriginalMessageID {
+			msg.ID != m1.ID &&
+			msg.ID != m2.ID &&
+			msg.ID != m3.ID {
 
 			bot2.Forward(group, msg, telebot.NoPreview)
 			newMessage(msg)
