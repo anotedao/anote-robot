@@ -549,7 +549,7 @@ Address: %s`,
 
 		_, err = bot2.Send(c.Chat(), message, telebot.NoPreview)
 	} else if !m.Private() {
-		if m.Chat.ID == TelAnonOps {
+		if m.Chat.ID == TelAnon {
 			newMessage(m)
 		}
 		txt := m.Text

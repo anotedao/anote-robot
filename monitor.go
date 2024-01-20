@@ -186,7 +186,7 @@ func (m *Monitor) monitorDiskSpace() {
 
 func (m *Monitor) forwardCompetition() {
 	for {
-		group, err := bot2.ChatByID(TelAnonOps)
+		group, err := bot2.ChatByID(TelAnon)
 		if err != nil {
 			log.Println(err)
 		}
@@ -205,24 +205,6 @@ func (m *Monitor) forwardCompetition() {
 		msg.ID = 56
 		msg.Chat = ch
 
-		log.Println(prettyPrint(msg))
-		if m1 != nil &&
-			m2 != nil &&
-			m3 != nil {
-			log.Println(prettyPrint(m1.Text))
-			log.Println(prettyPrint(m2.Text))
-			log.Println(prettyPrint(m3.Text))
-			log.Println(prettyPrint(m1.IsForwarded()))
-			log.Println(prettyPrint(m2.IsForwarded()))
-			log.Println(prettyPrint(m3.IsForwarded()))
-			log.Println(prettyPrint(m1.OriginalMessageID))
-			log.Println(prettyPrint(m2.OriginalMessageID))
-			log.Println(prettyPrint(m3.OriginalMessageID))
-			log.Println(prettyPrint(m1.ID))
-			log.Println(prettyPrint(m2.ID))
-			log.Println(prettyPrint(m3.ID))
-		}
-
 		if m1 != nil &&
 			m2 != nil &&
 			m3 != nil &&
@@ -233,7 +215,7 @@ func (m *Monitor) forwardCompetition() {
 			bot2.Forward(group, msg, telebot.NoPreview)
 			newMessage(msg)
 		}
-		time.Sleep(time.Second * 15)
+		time.Sleep(time.Minute * 1)
 	}
 }
 
