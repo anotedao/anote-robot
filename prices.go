@@ -6,7 +6,6 @@ import (
 	"io/ioutil"
 	"log"
 	"net/http"
-	"strconv"
 	"time"
 )
 
@@ -264,76 +263,79 @@ type CoinGeckoResponse struct {
 func getPriceCoinGecko() float64 {
 	price := float64(1.5)
 
-	cgr := &CoinGeckoResponse{}
-	cl := http.Client{}
+	// cgr := &CoinGeckoResponse{}
+	// cl := http.Client{}
 
-	var req *http.Request
-	var err error
+	// var req *http.Request
+	// var err error
 
-	req, err = http.NewRequest(http.MethodGet, CoinGeckoURL, nil)
+	// req, err = http.NewRequest(http.MethodGet, CoinGeckoURL, nil)
 
-	req.Header.Set("Content-Type", "application/json;version=20230302")
-	req.Header.Set("Accept", "application/json;version=20230302")
-	req.Header.Set("User-Agent", "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/115.0.0.0 Safari/537.36")
+	// req.Header.Set("Content-Type", "application/json;version=20230302")
+	// req.Header.Set("Accept", "application/json;version=20230302")
+	// req.Header.Set("User-Agent", "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/115.0.0.0 Safari/537.36")
 
-	log.Println(prettyPrint(req))
+	// log.Println(prettyPrint(req))
 
-	if err != nil {
-		log.Println(err)
-		logTelegram(err.Error())
-		return price
-	}
+	// if err != nil {
+	// 	log.Println(err)
+	// 	logTelegram(err.Error())
+	// 	return price
+	// }
 
-	res, err := cl.Do(req)
+	// res, err := cl.Do(req)
 
-	log.Println(prettyPrint(res))
+	// log.Println(prettyPrint(res))
 
-	if err == nil {
-		log.Println(prettyPrint(res.Body))
-		body, err := ioutil.ReadAll(res.Body)
-		if err != nil {
-			log.Println(err)
-			logTelegram(err.Error())
-			return price
-		}
-		if res.StatusCode != 200 && res.StatusCode != 304 {
-			err := errors.New(res.Status)
-			log.Println(err)
-			log.Println(res.Body)
-			logTelegram(err.Error())
-			return price
-		}
-		json.Unmarshal(body, cgr)
-	} else {
-		log.Println(err)
-		logTelegram(err.Error())
-		return price
-	}
+	// if err == nil {
+	// 	log.Println(prettyPrint(res.Body))
+	// 	body, err := ioutil.ReadAll(res.Body)
+	// 	if err != nil {
+	// 		log.Println(err)
+	// 		logTelegram(err.Error())
+	// 		return price
+	// 	}
+	// 	if res.StatusCode != 200 && res.StatusCode != 304 {
+	// 		err := errors.New(res.Status)
+	// 		log.Println(err)
+	// 		log.Println(res.Body)
+	// 		logTelegram(err.Error())
+	// 		return price
+	// 	}
+	// 	json.Unmarshal(body, cgr)
+	// } else {
+	// 	log.Println(err)
+	// 	logTelegram(err.Error())
+	// 	return price
+	// }
 
-	fdv, err := strconv.ParseFloat(cgr.Data.Attributes.FdvUsd, 32)
-	if err != nil {
-		log.Println(err)
-		logTelegram(err.Error())
-		return price
-	}
+	// fdv, err := strconv.ParseFloat(cgr.Data.Attributes.FdvUsd, 32)
+	// if err != nil {
+	// 	log.Println(err)
+	// 	logTelegram(err.Error())
+	// 	return price
+	// }
 
-	ts, err := strconv.ParseFloat(cgr.Data.Attributes.TotalSupply, 32)
-	if err != nil {
-		log.Println(err)
-		logTelegram(err.Error())
-		return price
-	}
+	// ts, err := strconv.ParseFloat(cgr.Data.Attributes.TotalSupply, 32)
+	// if err != nil {
+	// 	log.Println(err)
+	// 	logTelegram(err.Error())
+	// 	return price
+	// }
 
-	prc, err := strconv.ParseFloat(cgr.Data.Attributes.PriceUsd, 32)
-	if err != nil {
-		log.Println(err)
-		logTelegram(err.Error())
-		return price
-	}
+	// prc, err := strconv.ParseFloat(cgr.Data.Attributes.PriceUsd, 32)
+	// if err != nil {
+	// 	log.Println(err)
+	// 	logTelegram(err.Error())
+	// 	return price
+	// }
 
-	ts = ts / float64(MULTI8)
+	// ts = ts / float64(MULTI8)
 
-	price = fdv / ts
+	// price = fdv / ts
+
+	price = 50.47
+	prc := price
 
 	priceInt := int64(prc * MULTI8)
 
