@@ -159,6 +159,7 @@ func (m *Monitor) monitorNodeMints() {
 			if npf > m.NodePrice {
 				notificationTelegramTeamPin(fmt.Sprintf("<u><strong>NODE Price Increased!</strong></u> 🚀\n\nNew Price:\n$%.2f BNB", npf))
 				notificationTelegramGroupPin(fmt.Sprintf("<u><strong>NODE Price Increased!</strong></u> 🚀\n\nNew Price:\n$%.2f BNB", npf))
+				notificationTelegramGroupBalkanPin(fmt.Sprintf("<u><strong>NODE Price Increased!</strong></u> 🚀\n\nNew Price:\n$%.2f BNB", npf))
 			}
 		}
 
