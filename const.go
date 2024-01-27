@@ -65,6 +65,8 @@ const (
 
 	OrderbookStatusURL = "https://matcher.waves.exchange/matcher/orderbook/HqieNeUxTqzMufgF49QvK99h2ShsAuJAGYKvYZrvRejN/WAVES/status#getOrderBookStatus"
 
+	DexToolsURL = "https://open-api.dextools.io/free/v2/token/bsc/0xe7f0f1585bdbd06b18dbb87099b87bd79bbd315b/price"
+
 	MULTI8 = 100000000
 
 	AggregatorURL = "https://wavescup.world/aggregator/calc?token0=HqieNeUxTqzMufgF49QvK99h2ShsAuJAGYKvYZrvRejN&token1=9wc3LXNA4TEBsXyKtoLE9mrbDD7WMHXvXrCjZvabLAsi&amountIn=10000"

@@ -63,7 +63,7 @@ func (pc *PriceClient) doRequest() (*Prices, error) {
 }
 
 func (pc *PriceClient) loadPrice() {
-	pc.AnotePrice = getPriceCoinGecko()
+	pc.AnotePrice = getPriceDexTools()
 }
 
 func (pc *PriceClient) doRequestOrderbook() {
@@ -335,6 +335,90 @@ func getPriceCoinGecko() float64 {
 	// price = fdv / ts
 
 	price = 50.47
+	prc := price
+
+	priceInt := int64(prc * MULTI8)
+
+	savedPriceStr, err := getData2("%s__priceAnote", nil)
+	if err != nil {
+		log.Println(err)
+		logTelegram(err.Error())
+		return price
+	}
+
+	savedPrice := savedPriceStr.(int64)
+
+	if savedPrice != priceInt {
+		dataTransaction2("%s__priceAnote", nil, &priceInt, nil)
+	}
+
+	return price
+}
+
+type DexToolsResponse struct {
+	StatusCode int `json:"statusCode"`
+	Data       struct {
+		Price             float64 `json:"price"`
+		PriceChain        float64 `json:"priceChain"`
+		Variation5M       any     `json:"variation5m"`
+		VariationChain5M  any     `json:"variationChain5m"`
+		Variation1H       any     `json:"variation1h"`
+		VariationChain1H  any     `json:"variationChain1h"`
+		Variation6H       any     `json:"variation6h"`
+		VariationChain6H  any     `json:"variationChain6h"`
+		Variation24H      any     `json:"variation24h"`
+		VariationChain24H any     `json:"variationChain24h"`
+	} `json:"data"`
+}
+
+func getPriceDexTools() float64 {
+	price := float64(1.5)
+
+	dtr := &DexToolsResponse{}
+	cl := http.Client{}
+
+	var req *http.Request
+	var err error
+
+	req, err = http.NewRequest(http.MethodGet, DexToolsURL, nil)
+	if err != nil {
+		log.Println(err)
+		logTelegram(err.Error())
+		return price
+	}
+
+	req.Header.Set("Content-Type", "application/json;version=20230302")
+	req.Header.Set("Accept", "application/json;version=20230302")
+	req.Header.Set("User-Agent", "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/115.0.0.0 Safari/537.36")
+	req.Header.Set("X-BLOBR-KEY", "3Sd5U5Jp1YujRVRJHL1NNKiNgIOpx1PT")
+
+	res, err := cl.Do(req)
+
+	log.Println(prettyPrint(res))
+
+	if err == nil {
+		log.Println(prettyPrint(res.Body))
+		body, err := ioutil.ReadAll(res.Body)
+		if err != nil {
+			log.Println(err)
+			logTelegram(err.Error())
+			return price
+		}
+		if res.StatusCode != 200 && res.StatusCode != 304 {
+			err := errors.New(res.Status)
+			log.Println(err)
+			log.Println(res.Body)
+			logTelegram(err.Error())
+			return price
+		}
+		json.Unmarshal(body, dtr)
+	} else {
+		log.Println(err)
+		logTelegram(err.Error())
+		return price
+	}
+
+	price = dtr.Data.Price
 	prc := price
 
 	priceInt := int64(prc * MULTI8)
