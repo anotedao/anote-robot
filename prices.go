@@ -358,16 +358,8 @@ func getPriceCoinGecko() float64 {
 type DexToolsResponse struct {
 	StatusCode int `json:"statusCode"`
 	Data       struct {
-		Price             float64 `json:"price"`
-		PriceChain        float64 `json:"priceChain"`
-		Variation5M       any     `json:"variation5m"`
-		VariationChain5M  any     `json:"variationChain5m"`
-		Variation1H       any     `json:"variation1h"`
-		VariationChain1H  any     `json:"variationChain1h"`
-		Variation6H       any     `json:"variation6h"`
-		VariationChain6H  any     `json:"variationChain6h"`
-		Variation24H      any     `json:"variation24h"`
-		VariationChain24H any     `json:"variationChain24h"`
+		Price      float64 `json:"price"`
+		PriceChain float64 `json:"priceChain"`
 	} `json:"data"`
 }
 
