@@ -364,53 +364,53 @@ type DexToolsResponse struct {
 }
 
 func getPriceDexTools() float64 {
-	price := float64(1.5)
+	price := float64(52.92)
 
-	dtr := &DexToolsResponse{}
-	cl := http.Client{}
+	// dtr := &DexToolsResponse{}
+	// cl := http.Client{}
 
-	var req *http.Request
-	var err error
+	// var req *http.Request
+	// var err error
 
-	req, err = http.NewRequest(http.MethodGet, DexToolsURL, nil)
-	if err != nil {
-		log.Println(err)
-		logTelegram(err.Error())
-		return price
-	}
+	// req, err = http.NewRequest(http.MethodGet, DexToolsURL, nil)
+	// if err != nil {
+	// 	log.Println(err)
+	// 	logTelegram(err.Error())
+	// 	return price
+	// }
 
-	req.Header.Set("Content-Type", "application/json;version=20230302")
-	req.Header.Set("Accept", "application/json;version=20230302")
-	req.Header.Set("User-Agent", "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/115.0.0.0 Safari/537.36")
-	req.Header.Set("X-BLOBR-KEY", "3Sd5U5Jp1YujRVRJHL1NNKiNgIOpx1PT")
+	// req.Header.Set("Content-Type", "application/json;version=20230302")
+	// req.Header.Set("Accept", "application/json;version=20230302")
+	// req.Header.Set("User-Agent", "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/115.0.0.0 Safari/537.36")
+	// req.Header.Set("X-BLOBR-KEY", "3Sd5U5Jp1YujRVRJHL1NNKiNgIOpx1PT")
 
-	res, err := cl.Do(req)
+	// res, err := cl.Do(req)
 
-	log.Println(prettyPrint(res))
+	// log.Println(prettyPrint(res))
 
-	if err == nil {
-		log.Println(prettyPrint(res.Body))
-		body, err := ioutil.ReadAll(res.Body)
-		if err != nil {
-			log.Println(err)
-			logTelegram(err.Error())
-			return price
-		}
-		if res.StatusCode != 200 && res.StatusCode != 304 {
-			err := errors.New(res.Status)
-			log.Println(err)
-			log.Println(res.Body)
-			logTelegram(err.Error())
-			return price
-		}
-		json.Unmarshal(body, dtr)
-	} else {
-		log.Println(err)
-		logTelegram(err.Error())
-		return price
-	}
+	// if err == nil {
+	// 	log.Println(prettyPrint(res.Body))
+	// 	body, err := ioutil.ReadAll(res.Body)
+	// 	if err != nil {
+	// 		log.Println(err)
+	// 		logTelegram(err.Error())
+	// 		return price
+	// 	}
+	// 	if res.StatusCode != 200 && res.StatusCode != 304 {
+	// 		err := errors.New(res.Status)
+	// 		log.Println(err)
+	// 		log.Println(res.Body)
+	// 		logTelegram(err.Error())
+	// 		return price
+	// 	}
+	// 	json.Unmarshal(body, dtr)
+	// } else {
+	// 	log.Println(err)
+	// 	logTelegram(err.Error())
+	// 	return price
+	// }
 
-	price = dtr.Data.Price
+	// price = dtr.Data.Price
 	prc := price
 
 	priceInt := int64(prc * MULTI8)
