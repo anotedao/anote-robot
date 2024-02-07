@@ -711,24 +711,6 @@ type DistributionResponse []struct {
 }
 
 func saveTelegram(addr string, tids string) int {
-	// resp, err := http.Get("http://localhost:5001/save-telegram/" + addr + "/" + tid)
-	// if err != nil {
-	// 	log.Println(err)
-	// 	logTelegram(err.Error())
-	// 	return 5
-	// }
-	// defer resp.Body.Close()
-	// body, err := ioutil.ReadAll(resp.Body)
-
-	// var result SaveTelegramResponse
-	// if err := json.Unmarshal(body, &result); err != nil {
-	// 	log.Println(err)
-	// 	logTelegram(err.Error())
-	// 	return 6
-	// }
-
-	// return result.Error
-
 	tid, err := strconv.Atoi(tids)
 	if err != nil {
 		log.Println(err)
@@ -755,17 +737,23 @@ func saveTelegram(addr string, tids string) int {
 
 	err = db.Save(m).Error
 	if err != nil {
-		log.Println(err)
-		logTelegram(err.Error())
-		return 3
+		mnrold := getMinerOrCreate(addr)
+		if time.Since(mnrold.LastTgChange) < (time.Hour * 24 * 7) {
+			log.Println(err)
+			logTelegram(err.Error())
+			return 3
+		} else {
+			mnrold.TelegramId = int64(tid)
+			err = db.Save(mnrold).Error
+			if err != nil {
+				log.Println(err)
+				logTelegram(err.Error())
+				return 3
+			}
+		}
 	}
 
 	return 0
-}
-
-type SaveTelegramResponse struct {
-	Success bool `json:"success"`
-	Error   int  `json:"error"`
 }
 
 func telegramMine(code string, tid int64) string {

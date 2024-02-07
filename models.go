@@ -53,6 +53,7 @@ type Miner struct {
 	LastInvite             time.Time
 	BatteryNotification    bool `gorm:"default:false"`
 	Cycles                 uint64
+	LastTgChange           time.Time
 }
 
 type IpAddress struct {
@@ -67,6 +68,19 @@ func getMinerTel(tid int64) *Miner {
 	if db.First(mnr, &Miner{TelegramId: tid}).Error != nil {
 		db.FirstOrCreate(mnr, &Miner{TelegramId: tid, Address: strconv.Itoa(int(tid))})
 		log.Println(prettyPrint(mnr))
+	}
+
+	return mnr
+}
+
+func getMinerOrCreate(addr string) *Miner {
+	mnr := &Miner{}
+	result := db.FirstOrCreate(mnr, &Miner{Address: addr})
+	if result.Error != nil {
+		log.Println(result.Error)
+		logTelegram(result.Error.Error())
+		log.Println(addr)
+		return nil
 	}
 
 	return mnr
