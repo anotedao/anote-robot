@@ -497,6 +497,11 @@ func checkCommand(c telebot.Context) error {
 	message := ""
 	height := getHeight()
 
+	ks := &KeyValue{Key: "dailyCode"}
+	db.FirstOrCreate(ks, ks)
+
+	code := ks.ValueInt
+
 	if c.Message().IsReply() {
 		miner = getMiner(c.Message().ReplyTo.Sender.ID)
 		if miner.ID > 0 && miner.MiningHeight > 0 {
@@ -504,10 +509,10 @@ func checkCommand(c telebot.Context) error {
 			if diff <= 1410 {
 				message = "This user is currently mining. 🚀"
 			} else {
-				message = fmt.Sprintf("This user is not mining currently, but has mined %d blocks ago.", diff)
+				message = fmt.Sprintf("This user is not mining currently, but has mined %d blocks ago.\n\nTo continue mining, send %d as a message to @AnoteRobot.", diff, code)
 			}
 		} else {
-			message = "This user has never mined."
+			message = fmt.Sprintf("This user has never mined.\n\nTo start mining, send %d as a message to @AnoteRobot.", code)
 		}
 		log.Println(prettyPrint(miner))
 	} else {
@@ -517,10 +522,10 @@ func checkCommand(c telebot.Context) error {
 			if diff <= 1410 {
 				message = "You are currently mining. 🚀"
 			} else {
-				message = fmt.Sprintf("You are not mining currently, but you have mined %d blocks ago.", diff)
+				message = fmt.Sprintf("You are not mining currently, but you have mined %d blocks ago.\n\nTo continue mining, send %d as a message to @AnoteRobot.", diff, code)
 			}
 		} else {
-			message = "You haven't mined so far."
+			message = fmt.Sprintf("You haven't mined so far.\n\nTo start mining, send %d as a message to @AnoteRobot.", code)
 		}
 	}
 
