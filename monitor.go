@@ -234,7 +234,7 @@ func (m *Monitor) monitorNodes() {
 		}
 		resp.Body.Close()
 
-		log.Println(prettyPrint(data))
+		log.Println(len(data))
 
 		time.Sleep(time.Second * 30)
 
