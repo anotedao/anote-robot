@@ -215,6 +215,33 @@ func (m *Monitor) forwardCompetition() {
 	}
 }
 
+func (m *Monitor) monitorNodes() {
+	for {
+		cl, err := client.NewClient(client.Options{BaseUrl: AnoteNodeURL, Client: &http.Client{}})
+		if err != nil {
+			log.Println(err)
+			logTelegram(err.Error())
+		}
+
+		ctx, cancel := context.WithTimeout(context.Background(), 30*time.Second)
+
+		addr := proto.MustAddressFromString(COMMUNITY_ADDR)
+
+		data, resp, err := cl.Addresses.AddressesData(ctx, addr)
+		if err != nil {
+			log.Println(err)
+			logTelegram(err.Error())
+		}
+		resp.Body.Close()
+
+		log.Println(prettyPrint(data))
+
+		time.Sleep(time.Second * 30)
+
+		cancel()
+	}
+}
+
 func initMonitor() *Monitor {
 	m := &Monitor{}
 	// go m.start()
@@ -222,6 +249,7 @@ func initMonitor() *Monitor {
 	go m.monitorNodeMints()
 	go m.monitorDiskSpace()
 	go m.forwardCompetition()
+	go m.monitorNodes()
 	return m
 }
 

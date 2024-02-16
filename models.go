@@ -62,6 +62,13 @@ type IpAddress struct {
 	Miners  []*Miner `gorm:"many2many:miner_ip_addresses;"`
 }
 
+type Node struct {
+	gorm.Model
+	Address          string `gorm:"size:255;uniqueIndex"`
+	Owner            string `gorm:"size:255"`
+	LastNotification time.Time
+}
+
 func getMinerTel(tid int64) *Miner {
 	mnr := &Miner{}
 	log.Println(prettyPrint(mnr))
