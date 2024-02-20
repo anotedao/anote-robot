@@ -1133,7 +1133,7 @@ func isNodeActive(address string) bool {
 	ts := t[0].GetTimestamp() / 1000
 	tst := time.Unix(int64(ts), 0)
 
-	if time.Since(tst) < time.Hour {
+	if time.Since(tst) < (time.Hour * 2) {
 		active = true
 	}
 
