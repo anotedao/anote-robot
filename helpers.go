@@ -1107,3 +1107,35 @@ func newMessage(m *telebot.Message) {
 	m2 = m1
 	m1 = m
 }
+
+func isNodeActive(address string) bool {
+	active := false
+
+	cl, err := client.NewClient(client.Options{BaseUrl: AnoteNodeURL, Client: &http.Client{}})
+	if err != nil {
+		log.Println(err)
+		logTelegram(err.Error())
+	}
+
+	ctx, cancel := context.WithTimeout(context.Background(), 30*time.Second)
+
+	addr := proto.MustAddressFromString(address)
+
+	t, resp, err := cl.Transactions.Address(ctx, addr, 1)
+	if err != nil {
+		log.Println(err)
+		logTelegram(err.Error())
+	}
+	resp.Body.Close()
+
+	cancel()
+
+	ts := t[0].GetTimestamp()
+	tst := time.Unix(int64(ts), 0)
+
+	if time.Since(tst) < time.Hour {
+		active = true
+	}
+
+	return active
+}
