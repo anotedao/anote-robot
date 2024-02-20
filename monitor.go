@@ -235,7 +235,7 @@ func (m *Monitor) monitorNodes() {
 		resp.Body.Close()
 
 		for _, de := range data {
-			log.Println(de.GetKey())
+			isNodeActive(de.GetKey())
 		}
 
 		time.Sleep(time.Second * 30)
