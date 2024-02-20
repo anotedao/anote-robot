@@ -234,7 +234,9 @@ func (m *Monitor) monitorNodes() {
 		}
 		resp.Body.Close()
 
-		log.Println(len(data))
+		for _, de := range data {
+			log.Println(de.GetKey())
+		}
 
 		time.Sleep(time.Second * 30)
 
