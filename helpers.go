@@ -1130,7 +1130,7 @@ func isNodeActive(address string) bool {
 
 	cancel()
 
-	ts := t[0].GetTimestamp()
+	ts := t[0].GetTimestamp() / 1000
 	tst := time.Unix(int64(ts), 0)
 
 	log.Println(tst)
