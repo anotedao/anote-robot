@@ -1146,7 +1146,7 @@ func sentNodeNotification(key string, value string) {
 	nd := getNodeOrCreate(key)
 
 	if time.Since(nd.LastNotification) > (time.Hour * 24) {
-		message := fmt.Sprintf("<strong><u>Please notice!</u></strong>\n\nYour node with address %s hasn't been mining for last 2 hours", key)
+		message := fmt.Sprintf("<strong><u>Please notice!</u></strong>\n\nYour node hasn't been mining for at last last 2 hours. The address of the node is:\n\n%s", key)
 		rec := &telebot.Chat{
 			ID: mnr.TelegramId,
 		}
