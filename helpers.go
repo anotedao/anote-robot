@@ -1143,7 +1143,7 @@ func isNodeActive(address string) bool {
 func sentNodeNotification(key string, value string) {
 	log.Printf("%s: %s", key, value)
 
-	addr := parseItem(value, 1).(string)
+	addr := parseItem(value, 0).(string)
 	log.Println(addr)
 
 	// message := "node notification"
