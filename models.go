@@ -65,7 +65,6 @@ type IpAddress struct {
 type Node struct {
 	gorm.Model
 	Address          string `gorm:"size:255;uniqueIndex"`
-	Owner            string `gorm:"size:255"`
 	LastNotification time.Time
 }
 
@@ -91,4 +90,17 @@ func getMinerOrCreate(addr string) *Miner {
 	}
 
 	return mnr
+}
+
+func getNodeOrCreate(addr string) *Node {
+	nd := &Node{}
+	result := db.FirstOrCreate(nd, &Node{Address: addr})
+	if result.Error != nil {
+		log.Println(result.Error)
+		logTelegram(result.Error.Error())
+		log.Println(addr)
+		return nil
+	}
+
+	return nd
 }

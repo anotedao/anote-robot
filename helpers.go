@@ -1141,14 +1141,18 @@ func isNodeActive(address string) bool {
 }
 
 func sentNodeNotification(key string, value string) {
-	log.Printf("%s: %s", key, value)
-
 	addr := parseItem(value, 0).(string)
-	log.Println(addr)
+	mnr := getMinerOrCreate(addr)
+	nd := getNodeOrCreate(key)
 
-	// message := "node notification"
-	// rec := &telebot.Chat{
-	// 	ID: int64(TelAnonOps),
-	// }
-	// bot.Send(rec, message)
+	if time.Since(nd.LastNotification) > (time.Hour * 24) {
+		message := fmt.Sprintf("<strong><u>Please notice!</u></strong>\n\nYour node with address %s hasn't been mining for last 2 hours", key)
+		rec := &telebot.Chat{
+			ID: mnr.TelegramId,
+		}
+		bot.Send(rec, message)
+
+		nd.LastNotification = time.Now()
+		db.Save(nd)
+	}
 }
