@@ -543,16 +543,18 @@ func checkUserCommand(c telebot.Context) error {
 	log.Println(prettyPrint(m))
 
 	if m.IsForwarded() && m.Private() {
-		tid := m.OriginalSender.ID
-		m := getMiner(tid)
+		if m.OriginalSender != nil {
+			tid := m.OriginalSender.ID
+			m := getMiner(tid)
 
-		message := fmt.Sprintf(`<b><u>Anote User Info</u></b>
-		
-Address: %s`,
+			message := fmt.Sprintf(`<b><u>Anote User Info</u></b>
+			
+	Address: %s`,
 
-			m.Address)
+				m.Address)
 
-		_, err = bot2.Send(c.Chat(), message, telebot.NoPreview)
+			_, err = bot2.Send(c.Chat(), message, telebot.NoPreview)
+		}
 	} else if !m.Private() {
 		if m.Chat.ID == TelAnon {
 			newMessage(m)
