@@ -1139,3 +1139,12 @@ func isNodeActive(address string) bool {
 
 	return active
 }
+
+func sentNodeNotification(key string, value string) {
+	log.Printf("%s: %s", key, value)
+	// message := "node notification"
+	// rec := &telebot.Chat{
+	// 	ID: int64(TelAnonOps),
+	// }
+	// bot.Send(rec, message)
+}

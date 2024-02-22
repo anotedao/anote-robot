@@ -237,6 +237,7 @@ func (m *Monitor) monitorNodes() {
 		for _, de := range data {
 			if !isNodeActive(de.GetKey()) {
 				log.Println(de.GetKey())
+				sentNodeNotification(de.GetKey(), de.ToProtobuf().GetStringValue())
 			}
 		}
 
