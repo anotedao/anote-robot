@@ -144,9 +144,9 @@ func statsCommand(c telebot.Context) error {
 	<b>sAINT Amount:</b> %.8f
 	<b>Node Amount:</b> %.8f
 	
-	<b>Mined:</b> %s ANOTE
-	<b>Community:</b> %s ANOTE
-	<b>In Circulation:</b> %s ANOTE`,
+	<b>Mined:</b> %s AINT
+	<b>Community:</b> %s AINT
+	<b>In Circulation:</b> %s AINT`,
 		cch.StatsCache.ActiveMiners,
 		cch.StatsCache.Holders,
 		cch.StatsCache.Price,
@@ -400,7 +400,7 @@ func myStatsCommand(c telebot.Context) error {
 
 	message := fmt.Sprintf(`⭕️ <b><u>Your Anote Stats</u></b>
 
-	<b>Address Balance:</b> %.8f ANOTE
+	<b>Address Balance:</b> %.8f AINT
 
 	<b>Cycle Blocks Left:</b> %d
 	<b>Cycle Time Left:</b> %02d:%02d
