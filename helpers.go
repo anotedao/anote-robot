@@ -1133,7 +1133,7 @@ func isNodeActive(address string) bool {
 	ts := t[0].GetTimestamp() / 1000
 	tst := time.Unix(int64(ts), 0)
 
-	if time.Since(tst) < (time.Hour * 2) {
+	if time.Since(tst) < (time.Hour * 6) {
 		active = true
 	}
 
@@ -1146,7 +1146,7 @@ func sentNodeNotification(key string, value string) {
 	nd := getNodeOrCreate(key)
 
 	if time.Since(nd.LastNotification) > (time.Hour * 24) {
-		message := fmt.Sprintf("<strong><u>Please notice!</u></strong>\n\nYour node hasn't been mining for at last last 2 hours. The address of the node is:\n\n%s", key)
+		message := fmt.Sprintf("<strong><u>Please notice!</u></strong>\n\nYour node hasn't been mining for at last last 6 hours. The address of the node is:\n\n%s", key)
 		rec := &telebot.Chat{
 			ID: mnr.TelegramId,
 		}
