@@ -88,7 +88,7 @@ func notificationTelegramGroupBalkan(message string) {
 	rec := &telebot.Chat{
 		ID: int64(TelBalkan),
 	}
-	bot2.Send(rec, message, telebot.NoPreview)
+	bot2.Send(rec, message, telebot.NoPreview, telebot.Silent)
 }
 
 func notificationTelegramGroupBalkanPin(message string) {
@@ -96,7 +96,7 @@ func notificationTelegramGroupBalkanPin(message string) {
 		ID: int64(TelBalkan),
 	}
 	m, _ := bot2.Send(rec, message)
-	bot2.Pin(m)
+	bot2.Pin(m, telebot.Silent)
 }
 
 func notificationTelegramGroupPin(message string) {
