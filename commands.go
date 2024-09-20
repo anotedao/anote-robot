@@ -591,6 +591,7 @@ func checkUserCommand(c telebot.Context) error {
 			withdrawCommandHelp(c)
 		}
 	} else if !m.Private() {
+		log.Println("ban: works")
 		if strings.Contains(strings.ToLower(m.Text), " ton ") ||
 			strings.Contains(strings.ToLower(m.Text), " ton") ||
 			strings.Contains(strings.ToLower(m.Text), "ton ") {
