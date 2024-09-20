@@ -590,6 +590,12 @@ func checkUserCommand(c telebot.Context) error {
 				strings.Contains(strings.ToLower(txt), strings.ToLower("sell"))) {
 			withdrawCommandHelp(c)
 		}
+	} else if !m.Private() {
+		if strings.Contains(strings.ToLower(m.Text), " ton ") {
+			bot2.Delete(m)
+			cm := &telebot.ChatMember{User: m.Sender}
+			bot2.Ban(m.Chat, cm, true)
+		}
 	}
 
 	return err
