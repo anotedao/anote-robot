@@ -595,7 +595,8 @@ func checkUserCommand(c telebot.Context) error {
 			m.Chat.ID != TelGroup {
 			if strings.Contains(strings.ToLower(m.Text), " ton ") ||
 				strings.Contains(strings.ToLower(m.Text), " ton") ||
-				strings.Contains(strings.ToLower(m.Text), "ton ") {
+				strings.Contains(strings.ToLower(m.Text), "ton") ||
+				strings.Contains(strings.ToLower(m.Text), "@") {
 				log.Println("ban: works")
 				bot2.Delete(m)
 				cm := &telebot.ChatMember{User: m.Sender}
