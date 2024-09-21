@@ -591,8 +591,10 @@ func checkUserCommand(c telebot.Context) error {
 			withdrawCommandHelp(c)
 		}
 
-		if (cm.Role != telebot.Administrator && cm.Role != telebot.Creator) &&
-			m.Chat.ID != TelGroup && !m.Sender.IsBot {
+		if (cm.Role != telebot.Administrator &&
+			cm.Role != telebot.Creator) &&
+			m.Chat.ID != TelGroup &&
+			!m.Sender.IsBot {
 			if strings.Contains(strings.ToLower(m.Text), " ton ") ||
 				strings.Contains(strings.ToLower(m.Text), " ton") ||
 				strings.Contains(strings.ToLower(m.Text), "ton") ||
