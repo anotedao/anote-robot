@@ -591,6 +591,9 @@ func checkUserCommand(c telebot.Context) error {
 			withdrawCommandHelp(c)
 		}
 
+		log.Println(prettyPrint(m.Sender))
+		log.Println(m.Sender.IsBot)
+
 		if (cm.Role != telebot.Administrator &&
 			cm.Role != telebot.Creator) &&
 			m.Chat.ID != TelGroup &&
