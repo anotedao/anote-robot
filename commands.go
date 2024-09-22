@@ -604,7 +604,7 @@ func checkUserCommand(c telebot.Context) error {
 				cm := &telebot.ChatMember{User: m.Sender}
 				bot2.Ban(m.Chat, cm, true)
 
-				lg := fmt.Sprintf("Banned: \n\n%s", m.Text)
+				lg := fmt.Sprintf("Banned: %s\n\n%s", m.Sender.Username, m.Text)
 				logTelegram(lg)
 			}
 		}
