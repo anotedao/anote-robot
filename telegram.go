@@ -47,6 +47,14 @@ func logTelegram(message string) {
 	bot.Send(rec, message)
 }
 
+func logTelegramSilent(message string) {
+	message = "anote-robot:" + getCallerInfo() + message
+	rec := &telebot.Chat{
+		ID: int64(TelAnonOps),
+	}
+	bot.Send(rec, message, telebot.Silent)
+}
+
 func notificationTelegram(message string) {
 	rec := &telebot.Chat{
 		ID: int64(TelAnonOps),

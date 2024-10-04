@@ -612,7 +612,7 @@ func checkUserCommand(c telebot.Context) error {
 				}
 
 				lg := fmt.Sprintf("Banned: %s\n\n%s", m.Sender.Username, m.Text)
-				logTelegram(lg)
+				logTelegramSilent(lg)
 			}
 		}
 	}
