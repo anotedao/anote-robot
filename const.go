@@ -45,7 +45,7 @@ const (
 
 	TelAnoteToday = -1001453693349
 
-	TelAnoteNews = -1001717915246
+	TelAnoteNews = -1002331306261
 
 	TelDevAnoteToday = -1001631518083
 
