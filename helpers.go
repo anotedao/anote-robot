@@ -774,7 +774,7 @@ func telegramMine(code string, tid int64) string {
 	}
 
 	if !isFollower(tid) {
-		mSuccess += "\n\nSubscribe to both @AnoteAds and @AnoteNews1 channels to receive 10% bigger reward!"
+		mSuccess += "\n\nSubscribe to both @AnoteAds and @AnoteNews channels to receive 10% bigger reward!"
 	}
 
 	// bot.ChatMemberOf()
