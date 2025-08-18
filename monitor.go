@@ -142,12 +142,13 @@ func (m *Monitor) monitorNodeMints() {
 				logTelegram(err.Error())
 			}
 
+			notificationTelegram(fmt.Sprintf("<u><strong>New NODE Minted!</strong></u> 🚀\n\n%d NODE\n\nAbout NODE Token:\naintchain.com/node-token\n\n<strong><u>%d NODE left at the price of %.2f BNB.</u></strong>", nnodes, nt.(int64), m.NodePrice))
 			notificationTelegramTeam(fmt.Sprintf("<u><strong>New NODE Minted!</strong></u> 🚀\n\n%d NODE\n\nAbout NODE Token:\naintchain.com/node-token\n\n<strong><u>%d NODE left at the price of %.2f BNB.</u></strong>", nnodes, nt.(int64), m.NodePrice))
 			notificationTelegramGroup(fmt.Sprintf("<u><strong>New NODE Minted!</strong></u> 🚀\n\n%d NODE\n\nAbout NODE Token:\naintchain.com/node-token\n\n<strong><u>%d NODE left at the price of %.2f BNB.</u></strong>", nnodes, nt.(int64), m.NodePrice))
-			for i := 0; i < 200; i++ {
-				notificationTelegram(fmt.Sprintf("<u><strong>New NODE Minted!</strong></u> 🚀\n\n%d NODE\n\nAbout NODE Token:\naintchain.com/node-token\n\n<strong><u>%d NODE left at the price of %.2f BNB.</u></strong>", nnodes, nt.(int64), m.NodePrice))
-				time.Sleep(time.Second * 10)
-			}
+			// for i := 0; i < 200; i++ {
+			// 	notificationTelegram(fmt.Sprintf("<u><strong>New NODE Minted!</strong></u> 🚀\n\n%d NODE\n\nAbout NODE Token:\naintchain.com/node-token\n\n<strong><u>%d NODE left at the price of %.2f BNB.</u></strong>", nnodes, nt.(int64), m.NodePrice))
+			// 	time.Sleep(time.Second * 10)
+			// }
 			// notificationTelegramGroupBalkan(fmt.Sprintf("<u><strong>New NODE Minted!</strong></u> 🚀\n\n%d NODE\n\nAbout NODE Token:\naintchain.com/node-token\n\n<strong><u>%d NODE left at the price of %.2f BNB.</u></strong>", nnodes, nt.(int64), m.NodePrice))
 		}
 
