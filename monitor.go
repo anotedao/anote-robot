@@ -142,10 +142,10 @@ func (m *Monitor) monitorNodeMints() {
 				logTelegram(err.Error())
 			}
 
-			notificationTelegram(fmt.Sprintf("<u><strong>New NODE Minted!</strong></u> 🚀\n\n%d NODE\n\nAbout NODE Token:\nanotedao.com/node-token\n\n<strong><u>%d NODE left at the price of %.2f BNB.</u></strong>", nnodes, nt.(int64), m.NodePrice))
-			// notificationTelegramTeam(fmt.Sprintf("<u><strong>New NODE Minted!</strong></u> 🚀\n\n%d NODE\n\nAbout NODE Token:\nanotedao.com/node-token\n\n<strong><u>%d NODE left at the price of %.2f BNB.</u></strong>", nnodes, nt.(int64), m.NodePrice))
-			// notificationTelegramGroup(fmt.Sprintf("<u><strong>New NODE Minted!</strong></u> 🚀\n\n%d NODE\n\nAbout NODE Token:\nanotedao.com/node-token\n\n<strong><u>%d NODE left at the price of %.2f BNB.</u></strong>", nnodes, nt.(int64), m.NodePrice))
-			// notificationTelegramGroupBalkan(fmt.Sprintf("<u><strong>New NODE Minted!</strong></u> 🚀\n\n%d NODE\n\nAbout NODE Token:\nanotedao.com/node-token\n\n<strong><u>%d NODE left at the price of %.2f BNB.</u></strong>", nnodes, nt.(int64), m.NodePrice))
+			notificationTelegram(fmt.Sprintf("<u><strong>New NODE Minted!</strong></u> 🚀\n\n%d NODE\n\nAbout NODE Token:\naintchain.com/node-token\n\n<strong><u>%d NODE left at the price of %.2f BNB.</u></strong>", nnodes, nt.(int64), m.NodePrice))
+			notificationTelegramTeam(fmt.Sprintf("<u><strong>New NODE Minted!</strong></u> 🚀\n\n%d NODE\n\nAbout NODE Token:\naintchain.com/node-token\n\n<strong><u>%d NODE left at the price of %.2f BNB.</u></strong>", nnodes, nt.(int64), m.NodePrice))
+			notificationTelegramGroup(fmt.Sprintf("<u><strong>New NODE Minted!</strong></u> 🚀\n\n%d NODE\n\nAbout NODE Token:\naintchain.com/node-token\n\n<strong><u>%d NODE left at the price of %.2f BNB.</u></strong>", nnodes, nt.(int64), m.NodePrice))
+			// notificationTelegramGroupBalkan(fmt.Sprintf("<u><strong>New NODE Minted!</strong></u> 🚀\n\n%d NODE\n\nAbout NODE Token:\naintchain.com/node-token\n\n<strong><u>%d NODE left at the price of %.2f BNB.</u></strong>", nnodes, nt.(int64), m.NodePrice))
 		}
 
 		if count > 0 {
