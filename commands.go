@@ -177,7 +177,7 @@ func userJoined(c telebot.Context) error {
 	saveUser(c)
 	m := c.Message()
 
-	msg := fmt.Sprintf("Hello, %s! Welcome to Anote community! 🚀\n\nHere are some resources to get you started:\n\nAnote Wallet: app.anotedao.com\nBlockchain Explorer: explorer.anotedao.com\nWebsite: anotedao.com\nMining Tutorial: anotedao.com/mine\nRun a Node: anotedao.com/node", m.Sender.FirstName)
+	msg := fmt.Sprintf("Hello, %s! Welcome to Aint community! 🚀\n\nHere are some resources to get you started:\n\nAint Wallet: app.aintchain.com\nBlockchain Explorer: explorer.aintchain.com\nWebsite: aintchain.com\nMining Tutorial: aintchain.com/mine\nRun a Node: aintchain.com/node", m.Sender.FirstName)
 
 	m, err := bot2.Send(m.Chat, msg, telebot.NoPreview)
 
@@ -299,7 +299,7 @@ func withdrawCommandHelp(c telebot.Context) error {
 	saveUser(c)
 	m := c.Message()
 
-	help := "*Can Anote be swapped to other cryptocurrencies?*\n\nYes, absolutely, Anote can be swapped to any other cryptocurrency by using PancakeSwap, Trust or MetaMask wallet and BSC chain. This is tutorial for using BSC gateway:\n\nanotedao.com/gateway\n\nThis is Anote token ID / address in BSC chain:\n\n`0xe7f0f1585bdbd06b18dbb87099b87bd79bbd315b`\n\nThis information is for crypto experts. If this is not enough for you, please wait for active development to be finished and more tutorials to be made. Until then, mine AINT, mint ANOTE with it and stake it."
+	help := "*Can Anote be swapped to other cryptocurrencies?*\n\nYes, absolutely, Anote can be swapped to any other cryptocurrency by using PancakeSwap, Trust or MetaMask wallet and BSC chain. This is tutorial for using BSC gateway:\n\naintchain.com/gateway\n\nThis is Anote token ID / address in BSC chain:\n\n`0xe7f0f1585bdbd06b18dbb87099b87bd79bbd315b`\n\nThis information is for crypto experts. If this is not enough for you, please wait for active development to be finished and more tutorials to be made. Until then, mine AINT, mint ANOTE with it and stake it."
 
 	_, err := bot2.Reply(m, help, telebot.ModeMarkdown, telebot.NoPreview)
 	// _, err := bot2.Send(m.Chat, help, telebot.NoPreview)
