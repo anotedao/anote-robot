@@ -526,7 +526,7 @@ func getCallerInfo() (info string) {
 // 		Timeout: 30 * time.Second,
 // 	}
 
-// 	resp, err := client.Get("http://localhost:5001/stats")
+// 	resp, err := client.Get("http://anote-mobile:5001/stats")
 // 	if err != nil {
 // 		log.Println(err)
 // 		logTelegram(err.Error())
@@ -788,7 +788,7 @@ func telegramMine(code string, tid int64) string {
 		return mNotCode
 	}
 
-	resp, err := http.Get("http://localhost:5001/telegram-mine/" + strconv.Itoa(int(tid)) + "/" + code)
+	resp, err := http.Get("http://anote-mobile:5001/telegram-mine/" + strconv.Itoa(int(tid)) + "/" + code)
 	if err != nil {
 		log.Println(err)
 		logTelegram(err.Error())
@@ -797,7 +797,7 @@ func telegramMine(code string, tid int64) string {
 
 	for err != nil {
 		time.Sleep(time.Millisecond * 500)
-		resp, err := http.Get("http://localhost:5001/telegram-mine/" + strconv.Itoa(int(tid)) + "/" + code)
+		resp, err := http.Get("http://anote-mobile:5001/telegram-mine/" + strconv.Itoa(int(tid)) + "/" + code)
 		if err != nil {
 			log.Println(err)
 			logTelegram(err.Error())
@@ -824,7 +824,7 @@ func telegramMine(code string, tid int64) string {
 		if result.Error == 4 {
 			return mAlreadyMining
 		}
-		return "test"
+		// return "test"
 	}
 
 	return mSuccess
@@ -854,7 +854,7 @@ func getMiner(tid int64) *MinerResponse {
 	var miners []*Miner
 	height := getHeight()
 
-	// resp, err := http.Get("http://localhost:5001/tminer/" + strconv.Itoa(int(tid)))
+	// resp, err := http.Get("http://anote-mobile:5001/tminer/" + strconv.Itoa(int(tid)))
 	// if err != nil {
 	// 	log.Println(err)
 	// 	logTelegram(err.Error())
@@ -898,7 +898,7 @@ func getMiner(tid int64) *MinerResponse {
 func withdraw(tid int64) *MineResponse {
 	mr := &MineResponse{}
 
-	resp, err := http.Get("http://localhost:5001/withdraw/" + strconv.Itoa(int(tid)))
+	resp, err := http.Get("http://anote-mobile:5001/withdraw/" + strconv.Itoa(int(tid)))
 	if err != nil {
 		log.Println(err)
 		logTelegram(err.Error())

@@ -204,7 +204,7 @@ func (m *Monitor) forwardCompetition() {
 		}
 
 		msg := &telebot.Message{}
-		msg.ID = 17
+		msg.ID = 18
 		msg.Chat = ch
 
 		if m1 != nil &&

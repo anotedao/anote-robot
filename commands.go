@@ -326,11 +326,11 @@ func linksCommand(c telebot.Context) error {
 	saveUser(c)
 	m := c.Message()
 
-	help := `⭕️ <b><u>Important Anote Links</u></b>
+	help := `⭕️ <b><u>Important Aint Links</u></b>
 
-Wallet - app.anotedao.com
-Website - anotedao.com
-BSC Gateway - anotedao.com/gateway`
+Wallet - app.aintchain.com
+Website - aintchain.com
+BSC Gateway - aintchain.com/gateway`
 
 	_, err := bot2.Send(m.Chat, help, telebot.NoPreview)
 

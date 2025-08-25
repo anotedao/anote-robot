@@ -22,7 +22,7 @@ func initMacaron() *macaron.Macaron {
 	m.Get("/is-follower/:telegramid", viewIsFollower)
 	m.Get("/alpha-sent/:addr", viewAlphaSent)
 
-	go m.Run("127.0.0.1", Port)
+	go m.Run("0.0.0.0", Port)
 
 	return m
 }

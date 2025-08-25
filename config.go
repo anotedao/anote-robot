@@ -28,6 +28,11 @@ func (c *Config) load(configFile string) {
 
 	if err != nil {
 		log.Printf("[Config.load] Got error while opening config file: %v", err)
+
+		file, err = os.Open("/persistent/anote-robot.config.json")
+		if err != nil {
+			log.Println(err.Error())
+		}
 	}
 
 	decoder := json.NewDecoder(file)

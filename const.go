@@ -24,7 +24,7 @@ const (
 	ANOTE_STAKE_ADDR = "3AR11vcAeEfWFMTKbcxTo79LcbH7uSmhftZ"
 
 	// AnoteNodeURL is an URL for Anote Node
-	AnoteNodeURL = "http://localhost:6869"
+	AnoteNodeURL = "http://node-master:6869"
 
 	// WavesNodeURL is an URL for Waves Node
 	WavesNodeURL = "https://nodes.wavesplatform.com"

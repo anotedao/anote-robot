@@ -119,7 +119,7 @@ func (c *Cache) loadStatsCache() {
 		Timeout: 30 * time.Second,
 	}
 
-	resp, err := client.Get("http://localhost:5005/distribution")
+	resp, err := client.Get("http://anote-report:5005/distribution")
 	if err != nil {
 		log.Println(err)
 		logTelegram(err.Error())
