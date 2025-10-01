@@ -148,11 +148,11 @@ func (m *Monitor) monitorNodeMints() {
 				logTelegram(err.Error())
 			}
 
-			npf := float64(np.(int64)) / 100
+			npf := float64(np.(int64)) / 1000
 
-			notificationTelegram(fmt.Sprintf("<u><strong>New NODE Minted!</strong></u> 🚀\n\n%d NODE\n\nAbout NODE Token:\naintchain.com/node-token\n\n<strong><u>%d NODE left at the price of %.2f BNB.</u></strong>", nnodes, nt.(int64), npf))
-			notificationTelegramTeam(fmt.Sprintf("<u><strong>New NODE Minted!</strong></u> 🚀\n\n%d NODE\n\nAbout NODE Token:\naintchain.com/node-token\n\n<strong><u>%d NODE left at the price of %.2f BNB.</u></strong>", nnodes, nt.(int64), npf))
-			notificationTelegramGroup(fmt.Sprintf("<u><strong>New NODE Minted!</strong></u> 🚀\n\n%d NODE\n\nAbout NODE Token:\naintchain.com/node-token\n\n<strong><u>%d NODE left at the price of %.2f BNB.</u></strong>", nnodes, nt.(int64), npf))
+			notificationTelegram(fmt.Sprintf("<u><strong>New NODE Minted!</strong></u> 🚀\n\n%d NODE\n\nAbout NODE Token:\naintchain.com/node-token\n\n<strong><u>%d NODE left at the price of %.3f BNB.</u></strong>", nnodes, nt.(int64), npf))
+			notificationTelegramTeam(fmt.Sprintf("<u><strong>New NODE Minted!</strong></u> 🚀\n\n%d NODE\n\nAbout NODE Token:\naintchain.com/node-token\n\n<strong><u>%d NODE left at the price of %.3f BNB.</u></strong>", nnodes, nt.(int64), npf))
+			notificationTelegramGroup(fmt.Sprintf("<u><strong>New NODE Minted!</strong></u> 🚀\n\n%d NODE\n\nAbout NODE Token:\naintchain.com/node-token\n\n<strong><u>%d NODE left at the price of %.3f BNB.</u></strong>", nnodes, nt.(int64), npf))
 			// for i := 0; i < 200; i++ {
 			// 	notificationTelegram(fmt.Sprintf("<u><strong>New NODE Minted!</strong></u> 🚀\n\n%d NODE\n\nAbout NODE Token:\naintchain.com/node-token\n\n<strong><u>%d NODE left at the price of %.2f BNB.</u></strong>", nnodes, nt.(int64), npf))
 			// 	time.Sleep(time.Second * 10)
@@ -168,11 +168,11 @@ func (m *Monitor) monitorNodeMints() {
 				logTelegram(err.Error())
 			}
 
-			npf := float64(np.(int64)) / 100
+			npf := float64(np.(int64)) / 1000
 
 			if npf > m.NodePrice {
-				notificationTelegramTeamPin(fmt.Sprintf("<u><strong>NODE Price Increased!</strong></u> 🚀\n\nNew Price:\n%.2f BNB", npf))
-				notificationTelegramGroupPin(fmt.Sprintf("<u><strong>NODE Price Increased!</strong></u> 🚀\n\nNew Price:\n%.2f BNB", npf))
+				notificationTelegramTeamPin(fmt.Sprintf("<u><strong>NODE Price Increased!</strong></u> 🚀\n\nNew Price:\n%.3f BNB", npf))
+				notificationTelegramGroupPin(fmt.Sprintf("<u><strong>NODE Price Increased!</strong></u> 🚀\n\nNew Price:\n%.3f BNB", npf))
 				// notificationTelegramGroupBalkanPin(fmt.Sprintf("<u><strong>NODE Price Increased!</strong></u> 🚀\n\nNew Price:\n$%.2f BNB", npf))
 			}
 		}
